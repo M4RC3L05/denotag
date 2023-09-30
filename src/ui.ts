@@ -1,4 +1,5 @@
-import { Row, Table } from "./deps.ts";
+import { Row, Select, Table } from "./deps.ts";
+import { log } from "./logger.ts";
 import { ItunesMusicSearch } from "./types.ts";
 
 export const getRemoteMetdataTable = (metadata: ItunesMusicSearch[]) => {
@@ -21,7 +22,9 @@ export const getRemoteMetdataTable = (metadata: ItunesMusicSearch[]) => {
         {
           artistName,
           trackName,
+          trackCensoredName,
           collectionName,
+          collectionCensoredName,
           collectionArtistName,
           imgData,
           releaseDate,
@@ -34,8 +37,8 @@ export const getRemoteMetdataTable = (metadata: ItunesMusicSearch[]) => {
         Row.from([
           i,
           artistName,
-          trackName,
-          collectionName,
+          `${trackName}\n${trackCensoredName}`,
+          `${collectionName}\n${collectionCensoredName}`,
           collectionArtistName ?? artistName,
           imgData ?? "",
           releaseDate,
@@ -44,4 +47,46 @@ export const getRemoteMetdataTable = (metadata: ItunesMusicSearch[]) => {
         ]).border()
       ),
     );
+};
+
+export const chooseTitle = async (metadata: ItunesMusicSearch) => {
+  if (metadata.trackName === metadata.trackCensoredName) {
+    return;
+  }
+
+  log.info("Censored and uncensored track names differ");
+
+  const selectedTitle = await Select.prompt({
+    message: "Pick a track tile",
+    options: [
+      { name: metadata.trackName, value: metadata.trackName },
+      {
+        name: metadata.trackCensoredName,
+        value: metadata.trackCensoredName,
+      },
+    ],
+  });
+
+  return selectedTitle;
+};
+
+export const chooseAlbumName = async (metadata: ItunesMusicSearch) => {
+  if (metadata.collectionName === metadata.collectionCensoredName) {
+    return;
+  }
+
+  log.info("Censored and uncensored track album names differ");
+
+  const selectedTitle = await Select.prompt({
+    message: "Pick a track album tile",
+    options: [
+      { name: metadata.collectionName, value: metadata.collectionName },
+      {
+        name: metadata.collectionCensoredName,
+        value: metadata.collectionCensoredName,
+      },
+    ],
+  });
+
+  return selectedTitle;
 };

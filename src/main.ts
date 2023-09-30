@@ -3,7 +3,7 @@ import { log } from "./logger.ts";
 import { isFileOgg } from "./utils.ts";
 import { getFileMetadata, setMetadata } from "./cmds.ts";
 import { downloadCover, searchMusicInfo } from "./requests.ts";
-import { getRemoteMetdataTable } from "./ui.ts";
+import { chooseAlbumName, chooseTitle, getRemoteMetdataTable } from "./ui.ts";
 
 await new Command()
   .name("denotag")
@@ -83,7 +83,7 @@ await new Command()
       res.results.map(async (r) => ({
         ...r,
         imgData: (await getImageStrings({
-          path: r.artworkUrl100.replace("100x100", "1200x1200"),
+          path: r.artworkUrl100.replace("100x100bb", "1200x1200bb"),
           width: 35,
         }))[0],
       })),
@@ -97,6 +97,20 @@ await new Command()
       max: Math.max(0, res.results.length - 1),
     });
     const selected = res.results[selectedId]!;
+
+    const choosedTrackTitle = await chooseTitle(selected);
+
+    if (choosedTrackTitle) {
+      selected.trackName = choosedTrackTitle;
+      selected.trackCensoredName = choosedTrackTitle;
+    }
+
+    const choosedAlbumName = await chooseAlbumName(selected);
+
+    if (choosedAlbumName) {
+      selected.collectionName = choosedAlbumName;
+      selected.collectionCensoredName = choosedAlbumName;
+    }
 
     const cover = await downloadCover(
       selected.artworkUrl100.replace("100x100bb", "1200x1200bb"),
