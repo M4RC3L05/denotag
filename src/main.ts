@@ -1,4 +1,11 @@
-import { Command, File, getImageStrings, Number } from "./deps.ts";
+import {
+  Command,
+  CompletionsCommand,
+  File,
+  getImageStrings,
+  HelpCommand,
+  Number,
+} from "./deps.ts";
 import { log } from "./logger.ts";
 import { setMetadata } from "./cmds.ts";
 import { downloadCover, searchMusicInfo } from "./requests.ts";
@@ -10,10 +17,8 @@ import {
   getRemoteMetdataTable,
 } from "./ui.ts";
 
-await new Command()
-  .name("denotag")
-  .description("Music tagger")
-  .version("0.4.0")
+const tag = new Command()
+  .description("Tag a audio file")
   .option(
     "-f, --file <filePath:string>",
     "The audio file",
@@ -135,5 +140,14 @@ await new Command()
     }
 
     log.info(`Successfully updated tags on "${file}"`);
-  })
-  .parse();
+  });
+
+await new Command()
+  .name("denotag")
+  .description("Tag audio files")
+  .version("0.4.0")
+  .default("help")
+  .command("tag", tag).alias("t")
+  .command("completions", new CompletionsCommand())
+  .command("help", new HelpCommand())
+  .parse(Deno.args);
