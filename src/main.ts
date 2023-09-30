@@ -8,7 +8,7 @@ import { getRemoteMetdataTable } from "./ui.ts";
 await new Command()
   .name("denotag")
   .description("OGG Opus music tagger")
-  .version("0.0.0")
+  .version("0.1.0")
   .option(
     "-f, --file <filePath:string>",
     "The ogg file",
