@@ -1,0 +1,6 @@
+bin/*
+!bin/.gitkeep
+share
+lib
+include
+data

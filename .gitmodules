@@ -1,0 +1,3 @@
+[submodule "libs/opustags"]
+	path = libs/opustags
+	url = https://github.com/fmang/opustags
