@@ -18,7 +18,7 @@ export const getFileMetadata = async (pluginDir: string, path: string) => {
   }
 
   const tags = Object.fromEntries(
-    decodedStdout.split("\n").map((line) =>
+    decodedStdout.trim().split("\n").map((line) =>
       line.split("=").map((v, i) => i === 0 ? v.toUpperCase() : v)
     ),
   ) as Record<string, string>;

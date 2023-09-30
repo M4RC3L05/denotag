@@ -1,4 +1,5 @@
 export { Command } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/mod.ts";
+export * as base64 from "https://deno.land/std@0.203.0/encoding/base64.ts";
 export { Select } from "https://deno.land/x/cliffy@v1.0.0-rc.3/prompt/select.ts";
 export {
   Input,
@@ -26,3 +27,4 @@ export {
   yellow,
 } from "https://deno.land/std@0.196.0/fmt/colors.ts";
 export { dirname } from "https://deno.land/std@0.196.0/path/mod.ts";
+export { Buffer } from "https://deno.land/std@0.110.0/node/buffer.ts";

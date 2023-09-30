@@ -1,6 +1,29 @@
-import { Row, Select, Table } from "./deps.ts";
+import { getImageStrings, Row, Select, Table } from "./deps.ts";
 import { log } from "./logger.ts";
+import { resolveCoverFromMetadata } from "./resolvers.ts";
 import { ItunesMusicSearch } from "./types.ts";
+
+export const getFileMetatdataTable = async (
+  metadata: Record<string, string>,
+) => {
+  const toShow = { ...metadata };
+
+  const cover = resolveCoverFromMetadata(metadata);
+
+  if (cover) {
+    toShow.cover = (await getImageStrings({
+      rawFile: cover,
+      width: 35,
+    }))?.[0];
+  }
+
+  delete toShow["METADATA_BLOCK_PICTURE"];
+  delete toShow["metadata_block_picture"];
+
+  return new Table().header(Row.from(Object.keys(toShow)).border()).body([
+    Row.from(Object.values(toShow)).border(),
+  ]);
+};
 
 export const getRemoteMetdataTable = (metadata: ItunesMusicSearch[]) => {
   return new Table()

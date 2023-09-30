@@ -3,7 +3,12 @@ import { log } from "./logger.ts";
 import { isFileOgg } from "./utils.ts";
 import { getFileMetadata, setMetadata } from "./cmds.ts";
 import { downloadCover, searchMusicInfo } from "./requests.ts";
-import { chooseAlbumName, chooseTitle, getRemoteMetdataTable } from "./ui.ts";
+import {
+  chooseAlbumName,
+  chooseTitle,
+  getFileMetatdataTable,
+  getRemoteMetdataTable,
+} from "./ui.ts";
 
 await new Command()
   .name("denotag")
@@ -49,6 +54,10 @@ await new Command()
         log.error("Something went wrong while getting file metadata", error);
         Deno.exit(1);
       });
+
+    log.info("Displaying current file tags");
+
+    (await getFileMetatdataTable(tags)).render();
 
     if (!tags["ARTIST"] || !tags["TITLE"]) {
       log.warning("No artist and/or title found on file.");
@@ -143,6 +152,26 @@ await new Command()
 
         Deno.exit(1);
       });
+
+    const finalTags = await getFileMetadata(pluginDir, file)
+      .catch(async (error) => {
+        log.error("Something went wrong while getting file metadata", error);
+
+        if (cover) {
+          await cover.cleanup().catch((error) => {
+            log.warning(
+              `Could not remove tmp cover image at "${cover.destPath}"`,
+              error,
+            );
+          });
+        }
+
+        Deno.exit(1);
+      });
+
+    log.info("Displaying final file tags");
+
+    (await getFileMetatdataTable(finalTags)).render();
 
     if (cover) {
       await cover.cleanup().catch((error) => {
