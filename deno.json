@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "compile": "deno compile -A -o ./bin/ ./main.ts"
+  }
+}
