@@ -13,7 +13,7 @@ import {
 await new Command()
   .name("denotag")
   .description("OGG Opus music tagger")
-  .version("0.2.0")
+  .version("0.3.0")
   .option(
     "-f, --file <filePath:string>",
     "The ogg file",
