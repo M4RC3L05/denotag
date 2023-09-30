@@ -1,27 +1,59 @@
-import { getImageStrings, Row, Select, Table } from "./deps.ts";
+import {
+  File,
+  getImageStrings,
+  Input,
+  OggTag,
+  Row,
+  Select,
+  Table,
+} from "./deps.ts";
 import { log } from "./logger.ts";
-import { resolveCoverFromMetadata } from "./resolvers.ts";
 import { ItunesMusicSearch } from "./types.ts";
 
 export const getFileMetatdataTable = async (
-  metadata: Record<string, string>,
+  file: File,
 ) => {
-  const toShow = { ...metadata };
+  let cover = "";
 
-  const cover = resolveCoverFromMetadata(metadata);
-
-  if (cover) {
-    toShow.cover = (await getImageStrings({
-      rawFile: cover,
+  if (file.tag.pictures.length > 0) {
+    cover = (await getImageStrings({
+      rawFile: file.tag.pictures[0]?.data.toByteArray(),
       width: 35,
     }))?.[0];
   }
 
-  delete toShow["METADATA_BLOCK_PICTURE"];
-  delete toShow["metadata_block_picture"];
-
-  return new Table().header(Row.from(Object.keys(toShow)).border()).body([
-    Row.from(Object.values(toShow)).border(),
+  return new Table().header(
+    Row.from([
+      "Album artists",
+      "Album",
+      "Title",
+      "Year",
+      "Date",
+      "Artist",
+      "Genre",
+      "Cover",
+      "Track number",
+      "Track count",
+      "Disc number",
+      "Disc count",
+    ]).border(),
+  ).body([
+    Row.from([
+      file.tag.firstAlbumArtist,
+      file.tag.album,
+      file.tag.title,
+      file.tag.year,
+      file.tag instanceof OggTag
+        ? file.tag.comments[0]?.getField?.("DATE")?.[0]
+        : "",
+      file.tag.firstPerformer,
+      file.tag.firstGenre,
+      cover,
+      file.tag.track,
+      file.tag.trackCount,
+      file.tag.disc,
+      file.tag.discCount,
+    ]).border(),
   ]);
 };
 
@@ -112,4 +144,27 @@ export const chooseAlbumName = async (metadata: ItunesMusicSearch) => {
   });
 
   return selectedTitle;
+};
+
+export const fillRequiredMetadata = async (file: File) => {
+  if (file.tag.firstPerformer && file.tag.title) {
+    return;
+  }
+
+  log.warning("No artist and/or title found on file.");
+
+  const artist = await Input.prompt({
+    message: "Artist",
+    transform: (s) => s.trim(),
+    default: file.tag.firstPerformer ?? undefined,
+  });
+  const title = await Input.prompt({
+    message: "Title",
+    transform: (s) => s.trim(),
+    validate: (s) => s.trim().length > 0,
+    default: file.tag.title ?? undefined,
+  });
+
+  if (artist) file.tag.performers = [artist];
+  file.tag.title = title;
 };

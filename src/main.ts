@@ -1,30 +1,25 @@
-import { Command, dirname, getImageStrings, Input, Number } from "./deps.ts";
+import { Command, File, getImageStrings, Number } from "./deps.ts";
 import { log } from "./logger.ts";
-import { isFileOgg } from "./utils.ts";
-import { getFileMetadata, setMetadata } from "./cmds.ts";
+import { setMetadata } from "./cmds.ts";
 import { downloadCover, searchMusicInfo } from "./requests.ts";
 import {
   chooseAlbumName,
   chooseTitle,
+  fillRequiredMetadata,
   getFileMetatdataTable,
   getRemoteMetdataTable,
 } from "./ui.ts";
 
 await new Command()
   .name("denotag")
-  .description("OGG Opus music tagger")
+  .description("Music tagger")
   .version("0.3.0")
   .option(
     "-f, --file <filePath:string>",
-    "The ogg file",
+    "The audio file",
     { required: true },
   )
-  .option(
-    "-p, --plugin-dir <pluginDir:string>",
-    "The directory with metdata editor binaries",
-    { default: dirname(Deno.execPath()) },
-  )
-  .action(async ({ file, pluginDir }) => {
+  .action(async ({ file }) => {
     const result = await Deno.stat(file)
       .catch((error) => {
         log.error(`Could not stat "${file}"`, error);
@@ -36,48 +31,19 @@ await new Command()
       Deno.exit(1);
     }
 
-    const isOgg = await isFileOgg(file)
-      .catch((error) => {
-        log.error(`Could not check if file is ogg "${file}"`, error);
-        Deno.exit(1);
-      });
-
-    if (!isOgg) {
-      log.error("File is not a valid ogg file");
-      Deno.exit(1);
-    }
-
     log.info(`Getting tags from file "${file}"`);
 
-    const tags = await getFileMetadata(pluginDir, file)
-      .catch((error) => {
-        log.error("Something went wrong while getting file metadata", error);
-        Deno.exit(1);
-      });
+    const audioFile = File.createFromPath(file);
 
     log.info("Displaying current file tags");
 
-    (await getFileMetatdataTable(tags)).render();
+    (await getFileMetatdataTable(audioFile)).render();
 
-    if (!tags["ARTIST"] || !tags["TITLE"]) {
-      log.warning("No artist and/or title found on file.");
-
-      tags["ARTIST"] = await Input.prompt({
-        message: "Artist",
-        transform: (s) => s.trim(),
-        default: tags["ARTIST"] ?? undefined,
-      });
-      tags["TITLE"] = await Input.prompt({
-        message: "Title",
-        transform: (s) => s.trim(),
-        validate: (s) => s.trim().length > 0,
-        default: tags["TITLE"] ?? undefined,
-      });
-    }
+    await fillRequiredMetadata(audioFile);
 
     log.info(`Getting remote tags for file "${file}"`);
 
-    const res = await searchMusicInfo(tags)
+    const res = await searchMusicInfo(audioFile)
       .catch((error) => {
         log.error("Something went wrong while fetching music metadata", error);
         Deno.exit(1);
@@ -89,10 +55,10 @@ await new Command()
     }
 
     res.results = await Promise.all(
-      res.results.map(async (r) => ({
-        ...r,
+      res.results.map(async (result) => ({
+        ...result,
         imgData: (await getImageStrings({
-          path: r.artworkUrl100.replace("100x100bb", "1200x1200bb"),
+          path: result.artworkUrl100.replace("100x100bb", "1200x1200bb"),
           width: 35,
         }))[0],
       })),
@@ -137,7 +103,7 @@ await new Command()
 
     log.info(`Setting metadata on file "${file}"`);
 
-    await setMetadata(pluginDir, file, selected, cover?.destPath)
+    await setMetadata(audioFile, selected, cover?.destPath)
       .catch(async (error) => {
         log.error("Could not set file metadata", error);
 
@@ -153,25 +119,11 @@ await new Command()
         Deno.exit(1);
       });
 
-    const finalTags = await getFileMetadata(pluginDir, file)
-      .catch(async (error) => {
-        log.error("Something went wrong while getting file metadata", error);
-
-        if (cover) {
-          await cover.cleanup().catch((error) => {
-            log.warning(
-              `Could not remove tmp cover image at "${cover.destPath}"`,
-              error,
-            );
-          });
-        }
-
-        Deno.exit(1);
-      });
-
     log.info("Displaying final file tags");
 
-    (await getFileMetatdataTable(finalTags)).render();
+    const finalAudioFile = File.createFromPath(file);
+
+    (await getFileMetatdataTable(finalAudioFile)).render();
 
     if (cover) {
       await cover.cleanup().catch((error) => {
