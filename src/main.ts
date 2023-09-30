@@ -13,7 +13,7 @@ import {
 await new Command()
   .name("denotag")
   .description("Music tagger")
-  .version("0.3.0")
+  .version("0.4.0")
   .option(
     "-f, --file <filePath:string>",
     "The audio file",
