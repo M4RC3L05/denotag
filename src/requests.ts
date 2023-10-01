@@ -2,9 +2,9 @@ import { File } from "./deps.ts";
 import { resolveItunesSearchUrl } from "./resolvers.ts";
 import { ItunesMusicSearch, ItunesSearchResponse } from "./types.ts";
 
-export const searchMusicInfo = async (file: File) => {
+export const searchMusicInfo = async (file: File, limit: number) => {
   return await fetch(
-    resolveItunesSearchUrl(file.tag.firstPerformer, file.tag.title),
+    resolveItunesSearchUrl(file.tag.firstPerformer, file.tag.title, limit),
   )
     .then(
       (r) => {

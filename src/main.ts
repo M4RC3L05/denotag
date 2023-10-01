@@ -24,7 +24,12 @@ const tag = new Command()
     "The audio file",
     { required: true },
   )
-  .action(async ({ file }) => {
+  .option(
+    "-c, --remote-count <remoteCount:number>",
+    "THe number of results to show",
+    { default: 5 },
+  )
+  .action(async ({ file, remoteCount }) => {
     const result = await Deno.stat(file)
       .catch((error) => {
         log.error(`Could not stat "${file}"`, error);
@@ -48,7 +53,7 @@ const tag = new Command()
 
     log.info(`Getting remote tags for file "${file}"`);
 
-    const res = await searchMusicInfo(audioFile)
+    const res = await searchMusicInfo(audioFile, remoteCount)
       .catch((error) => {
         log.error("Something went wrong while fetching music metadata", error);
         Deno.exit(1);
