@@ -1,6 +1,8 @@
 bin/*
 !bin/.gitkeep
+!bin/public-to-json.ts
 share
 lib
 include
 data
+src/public.json

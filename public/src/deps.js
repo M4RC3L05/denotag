@@ -1,0 +1,12 @@
+export { default as htm } from "https://esm.sh/htm@3.1.1";
+export * as React from "https://esm.sh/react@18.2.0";
+export { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
+export { default as Button } from "https://esm.sh/react-bootstrap@2.9.0/Button";
+export { default as Table } from "https://esm.sh/react-bootstrap@2.9.0/Table";
+export { default as Modal } from "https://esm.sh/react-bootstrap@2.9.0/Modal";
+export { default as Image } from "https://esm.sh/react-bootstrap@2.9.0/Image";
+export { default as Container } from "https://esm.sh/react-bootstrap@2.9.0/Container";
+export { default as Row } from "https://esm.sh/react-bootstrap@2.9.0/Row";
+export { default as Col } from "https://esm.sh/react-bootstrap@2.9.0/Col";
+export { default as Form } from "https://esm.sh/react-bootstrap@2.9.0/Form";
+export { default as Card } from "https://esm.sh/react-bootstrap@2.9.0/Card";
