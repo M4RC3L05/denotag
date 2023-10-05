@@ -19,7 +19,7 @@ const tag = new Command()
     { default: 8000 },
   )
   .option(
-    "-g --gui <notGui:boolean>",
+    "-g --gui <gui:boolean>",
     "Should show/hide the gui",
     { default: true },
   )
