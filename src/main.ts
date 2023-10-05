@@ -18,7 +18,12 @@ const tag = new Command()
     "The port the server will listen on",
     { default: 8000 },
   )
-  .action(async ({ dir, httpPort }) => {
+  .option(
+    "-g --gui <notGui:boolean>",
+    "Should show/hide the gui",
+    { default: true },
+  )
+  .action(async ({ dir, httpPort, gui }) => {
     if (!(await Deno.stat(dir)).isDirectory) {
       throw new Error(`Dir "${dir}" it not a directory`);
     }
@@ -40,13 +45,29 @@ const tag = new Command()
       };
     });
 
-    const webview = new Webview(true);
+    if (gui) {
+      const webview = new Webview(true);
 
-    webview.navigate(`http://127.0.0.1:${httpPort}`);
-    webview.run();
+      webview.navigate(`http://127.0.0.1:${httpPort}`);
+      webview.run();
 
-    webview.destroy();
-    worker.terminate();
+      webview.destroy();
+      worker.terminate();
+    } else {
+      Deno.addSignalListener("SIGTERM", () => {
+        worker.terminate();
+      });
+
+      Deno.addSignalListener("SIGINT", () => {
+        worker.terminate();
+      });
+
+      if (Deno.build.os === "windows") {
+        Deno.addSignalListener("SIGBREAK", () => {
+          worker.terminate();
+        });
+      }
+    }
   });
 
 await new Command()
