@@ -1,4 +1,5 @@
 import * as actions from "./actions.ts";
+import { path } from "./deps.ts";
 import embed from "./public.json" assert { type: "json" };
 
 type InitData = {
@@ -64,7 +65,9 @@ const handleStatic = (req: Request) => {
 
   if (url.pathname === "/") {
     return new Response(
-      Uint8Array.from(embed["public/index.html"]),
+      Uint8Array.from(
+        embed[`public${path.SEP}index.html` as keyof typeof embed],
+      ),
       {
         status: 200,
         headers: { "content-type": "text/html; charset=utf-8" },
@@ -72,7 +75,7 @@ const handleStatic = (req: Request) => {
     );
   }
 
-  const key = `public${url.pathname}`;
+  const key = `public${url.pathname.replaceAll("/", path.SEP)}`;
 
   if (isKey(key)) {
     return new Response(
