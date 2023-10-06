@@ -2,7 +2,7 @@ import {
   Command,
   CompletionsCommand,
   HelpCommand,
-  path,
+  SEP,
   Webview,
 } from "./deps.ts";
 
@@ -28,7 +28,7 @@ const tag = new Command()
       throw new Error(`Dir "${dir}" it not a directory`);
     }
 
-    dir = dir.endsWith(path.SEP) ? dir.slice(0, dir.length - 1) : dir;
+    dir = dir.endsWith(SEP) ? dir.slice(0, dir.length - 1) : dir;
 
     const worker = new Worker(new URL("./worker.ts", import.meta.url).href, {
       type: "module",

@@ -1,5 +1,5 @@
 import * as actions from "./actions.ts";
-import { path } from "./deps.ts";
+import { SEP } from "./deps.ts";
 import embed from "./public.json" assert { type: "json" };
 
 type InitData = {
@@ -8,10 +8,6 @@ type InitData = {
 };
 
 let server = undefined;
-
-const isKey = (seg: string): seg is keyof typeof embed => {
-  return seg in embed;
-};
 
 const handleActions = async (initData: Pick<InitData, "dir">, req: Request) => {
   try {
@@ -60,13 +56,13 @@ const handleActions = async (initData: Pick<InitData, "dir">, req: Request) => {
   }
 };
 
-const handleStatic = (req: Request) => {
+const handleDeps = (req: Request) => {
   const url = new URL(req.url);
 
   if (url.pathname === "/") {
     return new Response(
       Uint8Array.from(
-        embed[`public${path.SEP}index.html` as keyof typeof embed],
+        embed[`public${SEP}index.html` as keyof typeof embed],
       ),
       {
         status: 200,
@@ -75,20 +71,24 @@ const handleStatic = (req: Request) => {
     );
   }
 
-  const key = `public${url.pathname.replaceAll("/", path.SEP)}`;
+  for (const k in embed) {
+    const ku = new URL(k, import.meta.url);
 
-  if (isKey(key)) {
-    return new Response(
-      Uint8Array.from(embed[key]),
-      {
-        status: 200,
-        headers: {
-          "content-type": url.pathname.endsWith(".html")
-            ? "text/html; charset=utf-8"
-            : "text/javascript",
+    if (ku.pathname.endsWith(url.pathname)) {
+      return new Response(
+        Uint8Array.from((embed as Record<string, number[]>)[k]),
+        {
+          status: 200,
+          headers: {
+            "content-type": url.pathname.endsWith(".html")
+              ? "text/html; charset=utf-8"
+              : url.pathname.endsWith(".css")
+              ? "text/css"
+              : "text/javascript",
+          },
         },
-      },
-    );
+      );
+    }
   }
 
   return new Response("Not found", {
@@ -104,7 +104,7 @@ const handle = (initData: Pick<InitData, "dir">) => async (req: Request) => {
     return await handleActions(initData, req);
   }
 
-  return handleStatic(req);
+  return handleDeps(req);
 };
 
 const boot = (initData: InitData) => {

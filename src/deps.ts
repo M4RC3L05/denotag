@@ -13,5 +13,6 @@ export { fileTypeFromBuffer } from "npm:file-type@18.5.0";
 export { Webview } from "https://deno.land/x/webview@0.7.6/mod.ts";
 export { decodeBase64 } from "https://deno.land/std@0.203.0/encoding/base64.ts";
 export { serveDir } from "https://deno.land/std@0.203.0/http/file_server.ts";
-export * as path from "https://deno.land/std@0.203.0/path/mod.ts";
+export { extname, SEP } from "https://deno.land/std@0.203.0/path/mod.ts";
 export { walk } from "https://deno.land/std@0.203.0/fs/mod.ts";
+export { transpile } from "https://deno.land/x/emit@0.29.0/mod.ts";
