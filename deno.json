@@ -6,6 +6,20 @@
     "deps": "deno cache --reload --lock=deno.lock src/deps.ts"
   },
   "compilerOptions": {
-    "lib": ["deno.worker"]
+    "lib": ["deno.worker", "DOM"]
+  },
+  "imports": {
+    "htm": "https://esm.sh/v132/htm@3.1.1?target=es2022",
+    "react": "https://esm.sh/v132/react@18.2.0?target=es2022",
+    "react-dom/client": "https://esm.sh/v132/react-dom@18.2.0/client?target=es2022",
+    "react-bootstrap/Button": "https://esm.sh/v132/react-bootstrap@2.9.0/Button?target=es2022",
+    "react-bootstrap/Table": "https://esm.sh/v132/react-bootstrap@2.9.0/Table?target=es2022",
+    "react-bootstrap/Modal": "https://esm.sh/v132/react-bootstrap@2.9.0/Modal?target=es2022",
+    "react-bootstrap/Image": "https://esm.sh/v132/react-bootstrap@2.9.0/Image?target=es2022",
+    "react-bootstrap/Container": "https://esm.sh/v132/react-bootstrap@2.9.0/Container?target=es2022",
+    "react-bootstrap/Row": "https://esm.sh/v132/react-bootstrap@2.9.0/Row?target=es2022",
+    "react-bootstrap/Col": "https://esm.sh/v132/react-bootstrap@2.9.0/Col?target=es2022",
+    "react-bootstrap/Form": "https://esm.sh/v132/react-bootstrap@2.9.0/Form?target=es2022",
+    "react-bootstrap/Card": "https://esm.sh/v132/react-bootstrap@2.9.0/Card?target=es2022"
   }
 }
