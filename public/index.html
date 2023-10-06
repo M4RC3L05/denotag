@@ -4,10 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="https://esm.sh/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
   <div id="app"></div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "htm": "/v132/htm@3.1.1",
+        "react": "/v132/react@18.2.0",
+        "react-dom/client": "/v132/react-dom@18.2.0/client",
+        "react-bootstrap/": "/v132/react-bootstrap@2.9.0/"
+      }
+    }
+  </script>
 
   <script type="module">
     const getPreferredTheme = () => {
@@ -24,6 +35,6 @@
       setTheme(getPreferredTheme());
     });
   </script>
-  <script type="module" src="./src/main.js"></script>
+  <script type="module" src="./src/main.tsx"></script>
 </body>
 </html>

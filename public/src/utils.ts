@@ -1,14 +1,10 @@
-import { htm, React } from "./deps.js";
-
-export const html = htm.bind(React.createElement);
-
 export class RequestError extends Error {
-  constructor(error) {
+  constructor(error: unknown) {
     super("Request error", { cause: error });
   }
 }
 
-export const makeRequester = async (input, options = {}) => {
+export const makeRequester = async (input: RequestInfo | URL, options = {}) => {
   return await fetch(input, options).then((response) => {
     if (response.status === 204) {
       return undefined;
@@ -26,7 +22,7 @@ export const makeRequester = async (input, options = {}) => {
   });
 };
 
-export const alertError = (error, msg) => {
+export const alertError = (error: unknown, msg?: string) => {
   error = error instanceof Error
     ? {
       message: error.message,
