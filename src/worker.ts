@@ -7,7 +7,7 @@ type InitData = {
   httpPort: number;
 };
 
-let server = undefined;
+let _server = undefined;
 
 const handleActions = async (initData: Pick<InitData, "dir">, req: Request) => {
   try {
@@ -108,7 +108,7 @@ const handle = (initData: Pick<InitData, "dir">) => async (req: Request) => {
 };
 
 const boot = (initData: InitData) => {
-  server = Deno.serve({ port: initData.httpPort }, handle(initData));
+  _server = Deno.serve({ port: initData.httpPort }, handle(initData));
 };
 
 self.postMessage("init");
