@@ -12,10 +12,10 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import MusicFiles from "./components/music-files.tsx";
 import { useHotkeys } from "react-hotkeys-hook";
-import { alertError, debounce, makeRequester } from "./utils.ts";
+import { alertError, debounce, jsonRpcClientCall } from "./utils.ts";
 
 const App = () => {
-  const [files, setFiles] = useState(undefined);
+  const [files, setFiles] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const searchRef = useRef<HTMLInputElement>();
 
@@ -28,8 +28,8 @@ const App = () => {
   }, []);
 
   const fetchFiles = () => {
-    makeRequester("/api/actions/getFiles").then((files) => {
-      setFiles(files);
+    jsonRpcClientCall("getFiles").then(({ result }) => {
+      setFiles(result as string[]);
     }).catch((error) =>
       alertError(error, "Unable to get files from directory")
     );
@@ -65,9 +65,7 @@ const App = () => {
       <Row>
         <Col>
           <MusicFiles
-            files={(files ?? []).filter((f) =>
-              (f as string).toLowerCase().includes(search)
-            )}
+            files={files.filter((f) => f.toLowerCase().includes(search))}
           />
         </Col>
       </Row>

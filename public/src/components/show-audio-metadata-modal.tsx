@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
-import { alertError, makeRequester } from "../utils.ts";
+import { alertError, jsonRpcClientCall } from "../utils.ts";
 
 type ShowAudioFileMetadataModalProps = {
   file: string;
@@ -19,15 +19,11 @@ const ShowAudioFileMetadataModal: React.FC<ShowAudioFileMetadataModalProps> = (
   useEffect(() => {
     if (!show || !file || typeof metadata === "object") return;
 
-    makeRequester("/api/actions/getMusicFileMetadata", {
-      body: JSON.stringify({ path: file }),
-      method: "POST",
-      headers: { "content-type": "application/json" },
-    })
-      .then((x) => {
+    jsonRpcClientCall("getMusicFileMetadata", { path: file })
+      .then(({ result }) => {
         if (metadata) return;
 
-        setMetadata(x);
+        setMetadata(result as Record<string, unknown>);
       })
       .catch((error) => {
         alertError(error, "Could not get metadata");

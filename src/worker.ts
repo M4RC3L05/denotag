@@ -1,80 +1,30 @@
 import * as actions from "./actions.ts";
+import {
+  httpAdapter,
+  JsonRpcMethod,
+  JsonRpcServer,
+} from "./core/json-rpc/mod.ts";
 import { SEP } from "./deps.ts";
 import embed from "./public.json" assert { type: "json" };
 
-type InitData = {
-  dir: string;
-  httpPort: number;
-};
+type InitData = { dir: string; httpPort: number };
 
 let _server = undefined;
-
-const handleActions = async (initData: Pick<InitData, "dir">, req: Request) => {
-  try {
-    const url = new URL(req.url);
-    const action = url.pathname.replace("/api/actions/", "")
-      .trim() as keyof typeof actions;
-
-    if (!(action in actions)) {
-      return Response.json(
-        { error: { message: "Not found", type: "not_found" } },
-        { status: 404 },
-      );
-    }
-
-    const input = action === "getFiles"
-      ? initData.dir
-      : await req.json().catch(() => ({}));
-    const data = await actions[action](input);
-
-    return Response.json({ data });
-  } catch (error) {
-    return Response.json(
-      {
-        error: {
-          message: "Something went wrong",
-          type: "internal_server_error",
-          original: error instanceof Error
-            ? {
-              message: error.message,
-              stack: error.stack,
-              name: error.name,
-              cause: error.cause instanceof Error
-                ? {
-                  message: error.message,
-                  stack: error.stack,
-                  name: error.name,
-                  cause: error.cause,
-                }
-                : error.cause,
-            }
-            : error,
-        },
-      },
-      { status: 500 },
-    );
-  }
-};
 
 const handleDeps = (req: Request) => {
   const url = new URL(req.url);
 
   if (url.pathname === "/") {
     return new Response(
-      Uint8Array.from(
-        embed[`public${SEP}index.html` as keyof typeof embed],
-      ),
-      {
-        status: 200,
-        headers: { "content-type": "text/html; charset=utf-8" },
-      },
+      Uint8Array.from(embed[`public${SEP}index.html` as keyof typeof embed]),
+      { status: 200, headers: { "content-type": "text/html; charset=utf-8" } },
     );
   }
 
   for (const k in embed) {
     const ku = new URL(k, import.meta.url);
 
-    if (ku.pathname.endsWith(url.pathname)) {
+    if (ku.pathname.endsWith(url.pathname.replaceAll("/", SEP))) {
       return new Response(
         Uint8Array.from((embed as Record<string, number[]>)[k]),
         {
@@ -97,14 +47,42 @@ const handleDeps = (req: Request) => {
   });
 };
 
-const handle = (initData: Pick<InitData, "dir">) => async (req: Request) => {
-  const url = new URL(req.url);
+type Methods = {
+  getFiles: JsonRpcMethod<[], Promise<string[]>>;
+  getMusicFileMetadata: JsonRpcMethod<
+    [{ path: string }],
+    Record<string, unknown>
+  >;
+  setMusicFileMetadata: JsonRpcMethod<
+    [{ path: string; metadata: Record<string, unknown> }],
+    void
+  >;
+};
 
-  if (url.pathname.startsWith("/api/actions/")) {
-    return await handleActions(initData, req);
-  }
+const handle = (initData: Pick<InitData, "dir">) => {
+  const jsonRpcServer = new JsonRpcServer<Methods>();
 
-  return handleDeps(req);
+  jsonRpcServer.method("getFiles", () => actions.getFiles(initData.dir));
+  jsonRpcServer.method(
+    "getMusicFileMetadata",
+    (args) => actions.getMusicFileMetadata(args),
+  );
+  jsonRpcServer.method(
+    "setMusicFileMetadata",
+    (args) => actions.setMusicFileMetadata(args),
+  );
+
+  const handler = httpAdapter(jsonRpcServer);
+
+  return async (req: Request) => {
+    const url = new URL(req.url);
+
+    if (url.pathname === "/api/actions" && req.method === "POST") {
+      return await handler(req);
+    }
+
+    return handleDeps(req);
+  };
 };
 
 const boot = (initData: InitData) => {
@@ -115,6 +93,5 @@ self.postMessage("init");
 
 self.onmessage = (e) => {
   boot(e.data);
-
   self.postMessage("ok");
 };

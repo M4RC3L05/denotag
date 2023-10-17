@@ -16,3 +16,4 @@ export { serveDir } from "https://deno.land/std@0.203.0/http/file_server.ts";
 export { extname, SEP } from "https://deno.land/std@0.203.0/path/mod.ts";
 export { walk } from "https://deno.land/std@0.203.0/fs/mod.ts";
 export { transpile } from "https://deno.land/x/emit@0.29.0/mod.ts";
+export { z as zod } from "https://deno.land/x/zod@v3.22.4/mod.ts";

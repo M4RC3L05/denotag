@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { alertError, makeRequester } from "../utils.ts";
+import { alertError, jsonRpcClientCall } from "../utils.ts";
 import EditAudioMetadataForm from "./edit-audio-metdata-form.tsx";
 import RemoteAudioInfo from "./remote-audio-info.tsx";
 
@@ -23,13 +23,9 @@ const EditAudioFileMetadataModal: React.FC<EditAudioFileMetadataModalPorps> = (
   );
 
   const fetchMetadata = () => {
-    makeRequester("/api/actions/getMusicFileMetadata", {
-      body: JSON.stringify({ path: file }),
-      method: "POST",
-      headers: { "content-type": "application/json" },
-    })
-      .then((x) => {
-        setMetadata(x);
+    jsonRpcClientCall("getMusicFileMetadata", { path: file })
+      .then(({ result }) => {
+        setMetadata(result as Record<string, string | number>);
       }).catch((error) => {
         alertError(error, "Could not get metadata");
 

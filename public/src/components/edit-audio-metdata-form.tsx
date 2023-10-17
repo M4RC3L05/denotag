@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { alertError, makeRequester } from "../utils.ts";
+import { alertError, jsonRpcClientCall } from "../utils.ts";
 
 type EditAudioMetadataFormProps = {
   metadata: Record<string, string | number>;
@@ -30,11 +30,7 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
       ),
     );
 
-    makeRequester("/api/actions/setMusicFileMetadata", {
-      body: JSON.stringify({ path: file, metadata: data }),
-      method: "POST",
-      headers: { "content-type": "application/json" },
-    })
+    jsonRpcClientCall("setMusicFileMetadata", { path: file, metadata: data })
       .then(() => {
         alert("Successfully tagged!");
         onTagged();
