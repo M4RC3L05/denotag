@@ -49,3 +49,17 @@ export const alertError = (error: unknown, msg?: string) => {
     }`,
   );
 };
+
+export const debounce = <T extends unknown[], R extends unknown>(
+  fn: (...args: T) => R,
+  time: number,
+) => {
+  let timeout: number;
+
+  return (...args: T) => {
+    if (timeout) clearTimeout(timeout);
+
+    // deno-lint-ignore no-explicit-any
+    timeout = setTimeout((fn as any).bind(null, ...args), time);
+  };
+};

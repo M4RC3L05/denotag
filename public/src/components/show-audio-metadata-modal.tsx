@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
 import { alertError, makeRequester } from "../utils.ts";
@@ -12,7 +12,7 @@ type ShowAudioFileMetadataModalProps = {
 const ShowAudioFileMetadataModal: React.FC<ShowAudioFileMetadataModalProps> = (
   { file, show, handleClose },
 ) => {
-  const [metadata, setMetadata] = React.useState<
+  const [metadata, setMetadata] = useState<
     Record<string, unknown> | undefined
   >(undefined);
 
@@ -38,7 +38,7 @@ const ShowAudioFileMetadataModal: React.FC<ShowAudioFileMetadataModalProps> = (
       });
   }, [show, metadata, file]);
 
-  const info = React.useMemo(
+  const info = useMemo(
     () =>
       Object.entries(metadata ?? {}).filter(([k]) => k !== "cover").map((
         [key, value],

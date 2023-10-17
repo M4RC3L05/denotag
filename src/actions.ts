@@ -7,7 +7,7 @@ export const getFiles = async (dir: string) => {
     result.push(`${dir}/${file.name}`);
   }
 
-  return result;
+  return result.sort((a, b) => a.localeCompare(b));
 };
 
 export const getMusicFileMetadata = ({ path }: { path: string }) => {

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import EditAudioFileMetadataModal from "./edit-audio-metadata-modal.tsx";
@@ -37,9 +37,9 @@ type MusicFilesProps = {
 };
 
 const MusicFiles: React.FC<MusicFilesProps> = ({ files }) => {
-  const [file, setFile] = React.useState<string | undefined>(undefined);
-  const [showInfoModal, setShowInfoModal] = React.useState(false);
-  const [showEditModal, setShowEditModal] = React.useState(false);
+  const [file, setFile] = useState<string | undefined>(undefined);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const onInfo = useCallback((f: string) => {
     setFile(f);
@@ -67,7 +67,7 @@ const MusicFiles: React.FC<MusicFilesProps> = ({ files }) => {
         handleClose={() => setShowEditModal(false)}
       />
 
-      <Table>
+      <Table striped>
         <thead>
           <tr>
             <th>#</th>

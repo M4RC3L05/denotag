@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -39,7 +39,7 @@ const EditAudioFileMetadataModal: React.FC<EditAudioFileMetadataModalPorps> = (
       });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!show || !file) return;
 
     fetchMetadata();
