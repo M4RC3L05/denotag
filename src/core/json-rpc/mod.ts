@@ -28,6 +28,7 @@ export type JsonRpcMethod<A extends unknown[], R extends unknown> = {
 };
 
 export class JsonRpcServer<
+  // deno-lint-ignore no-explicit-any
   M extends Record<string, JsonRpcMethod<any[], any>> = any,
 > {
   #methods = new Map<keyof M, M[keyof M]>();
