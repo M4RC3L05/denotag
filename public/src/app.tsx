@@ -12,12 +12,20 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import MusicFiles from "./components/music-files.tsx";
 import { useHotkeys } from "react-hotkeys-hook";
-import { alertError, debounce, jsonRpcClientCall } from "./utils.ts";
+import { debounce, jsonRpcClientCall } from "./utils.ts";
+import Alert, { AlertProps } from "./components/alert.tsx";
 
 const App = () => {
   const [files, setFiles] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const searchRef = useRef<HTMLInputElement>();
+  const [alertInfo, setAlertInfo] = useState<AlertProps>({
+    show: false,
+    title: "",
+    handleClose: useCallback(() => {
+      setAlertInfo((ps) => ({ ...ps, show: false }));
+    }, []),
+  });
 
   useHotkeys("ctrl+f", () => {
     searchRef.current?.focus();
@@ -30,9 +38,15 @@ const App = () => {
   const fetchFiles = () => {
     jsonRpcClientCall("getFiles").then(({ result }) => {
       setFiles(result as string[]);
-    }).catch((error) =>
-      alertError(error, "Unable to get files from directory")
-    );
+    }).catch((error) => {
+      setAlertInfo((ps) => ({
+        ...ps,
+        show: true,
+        title: "Error",
+        error,
+        message: "Unable to get files",
+      }));
+    });
   };
 
   const onSearch = useCallback(
@@ -44,6 +58,7 @@ const App = () => {
 
   return (
     <Container>
+      <Alert {...alertInfo} />
       <Row
         className="pt-4 pb-4 sticky-top"
         style={{ backgroundColor: "var(--bs-body-bg)" }}

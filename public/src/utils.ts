@@ -42,34 +42,6 @@ export const makeRequester = async (input: RequestInfo | URL, options = {}) => {
   });
 };
 
-export const alertError = (error: unknown, msg?: string) => {
-  error = error instanceof Error
-    ? {
-      message: error.message,
-      stack: error.stack,
-      name: error.name,
-      cause: error.cause instanceof Error
-        ? {
-          message: error.message,
-          stack: error.stack,
-          name: error.name,
-          cause: error.cause,
-        }
-        : error.cause,
-    }
-    : error;
-
-  alert(
-    `${msg ?? "Something went wrong"}\n\n${
-      JSON.stringify(
-        error,
-        null,
-        2,
-      )
-    }`,
-  );
-};
-
 export const debounce = <T extends unknown[], R extends unknown>(
   fn: (...args: T) => R,
   time: number,

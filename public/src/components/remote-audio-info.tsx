@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { alertError, makeRequester } from "../utils.ts";
+import { makeRequester } from "../utils.ts";
+import Alert, { AlertProps } from "./alert.tsx";
 
 type DisplayMetadataProps = {
   metadata: Record<string, string | number>;
@@ -65,6 +66,13 @@ type RemoteAudioInfoProps = {
 const RemoteAudioInfo: React.FC<RemoteAudioInfoProps> = ({ onSelect }) => {
   const [formData, setFormData] = useState({ q: "", nResults: 5 });
   const [results, setResults] = useState([]);
+  const [alertInfo, setAlertInfo] = useState<AlertProps>({
+    show: false,
+    title: "",
+    handleClose: useCallback(() => {
+      setAlertInfo((ps) => ({ ...ps, show: false }));
+    }, []),
+  });
 
   const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -80,10 +88,13 @@ const RemoteAudioInfo: React.FC<RemoteAudioInfoProps> = ({ onSelect }) => {
     makeRequester(url.toString())
       .then((data) => setResults(data.results ?? []))
       .catch((error) => {
-        alertError(
+        setAlertInfo((ps) => ({
+          ...ps,
+          show: true,
+          title: "Error",
           error,
-          "Could not get remote metadata",
-        );
+          message: "Unable to get remote metadata",
+        }));
       });
   };
 
@@ -133,6 +144,7 @@ const RemoteAudioInfo: React.FC<RemoteAudioInfoProps> = ({ onSelect }) => {
 
   return (
     <>
+      <Alert {...alertInfo} />
       <Row className="mb-4">
         <Col>
           <Form onSubmit={onSearch}>
