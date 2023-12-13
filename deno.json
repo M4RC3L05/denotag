@@ -2,6 +2,7 @@
   "tasks": {
     "run": "./bin/public-to-json.ts && deno run -A --unstable src/main.ts",
     "compile": "./bin/public-to-json.ts && deno compile -A --unstable --include ./src/worker.ts --include ./src/public.json --lock=deno.lock -o ./bin/denotag ./src/main.ts",
+    "compile:windows": "./bin/public-to-json.ts && deno compile -A --unstable --target x86_64-pc-windows-msvc --include ./src/worker.ts --include ./src/public.json --lock=deno.lock -o ./bin/denotag ./src/main.ts",
     "lock-deps": "deno cache --lock=deno.lock --lock-write src/deps.ts",
     "deps": "deno cache --reload --lock=deno.lock src/deps.ts"
   },

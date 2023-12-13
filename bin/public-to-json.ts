@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run -A --unstable
 
-import { extname, transpile, walk } from "../src/deps.ts";
+import { extname, resolve, toFileUrl, transpile, walk } from "../src/deps.ts";
 import json from "../deno.json" assert { type: "json" };
 
 const data: Record<string, number[]> = {};
@@ -23,7 +23,9 @@ for await (const file of dirWalker) {
     continue;
   }
 
-  data[file.path] = Array.from(await Deno.readFile(file.path));
+  data[toFileUrl(resolve(file.path)).href] = Array.from(
+    await Deno.readFile(file.path),
+  );
 }
 
 await Deno.writeTextFile("./src/public.json", JSON.stringify(data));

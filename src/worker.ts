@@ -4,7 +4,6 @@ import {
   JsonRpcMethod,
   JsonRpcServer,
 } from "./core/json-rpc/mod.ts";
-import { SEP } from "./deps.ts";
 import embed from "./public.json" assert { type: "json" };
 
 type InitData = { dir: string; httpPort: number };
@@ -14,17 +13,20 @@ let _server = undefined;
 const handleDeps = (req: Request) => {
   const url = new URL(req.url);
 
-  if (url.pathname === "/") {
-    return new Response(
-      Uint8Array.from(embed[`public${SEP}index.html` as keyof typeof embed]),
-      { status: 200, headers: { "content-type": "text/html; charset=utf-8" } },
-    );
-  }
-
   for (const k in embed) {
-    const ku = new URL(k, import.meta.url);
+    const ku = new URL(k);
 
-    if (ku.pathname.endsWith(url.pathname.replaceAll("/", SEP))) {
+    if (url.pathname === "/" && ku.pathname.endsWith("public/index.html")) {
+      return new Response(
+        Uint8Array.from((embed as Record<string, number[]>)[k]),
+        {
+          status: 200,
+          headers: { "content-type": "text/html; charset=utf-8" },
+        },
+      );
+    }
+
+    if (ku.pathname.endsWith(url.pathname)) {
       return new Response(
         Uint8Array.from((embed as Record<string, number[]>)[k]),
         {
