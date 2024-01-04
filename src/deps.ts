@@ -15,6 +15,7 @@ export { decodeBase64 } from "https://deno.land/std@0.207.0/encoding/base64.ts";
 export { serveDir } from "https://deno.land/std@0.207.0/http/file_server.ts";
 export {
   extname,
+  join,
   resolve,
   SEP,
   toFileUrl,

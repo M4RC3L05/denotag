@@ -1,10 +1,17 @@
-import { ByteVector, decodeBase64, File, OggTag, PictureType } from "./deps.ts";
+import {
+  ByteVector,
+  decodeBase64,
+  File,
+  join,
+  OggTag,
+  PictureType,
+} from "./deps.ts";
 
 export const getFiles = async (dir: string) => {
   const result = [];
 
   for await (const file of Deno.readDir(dir)) {
-    result.push(`${dir}/${file.name}`);
+    result.push(join(dir, file.name));
   }
 
   return result.sort((a, b) => a.localeCompare(b));
