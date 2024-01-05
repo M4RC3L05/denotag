@@ -3,6 +3,7 @@ import {
   CompletionsCommand,
   HelpCommand,
   join,
+  SizeHint,
   Webview,
 } from "./deps.ts";
 import * as actions from "./actions.ts";
@@ -33,6 +34,13 @@ const tag = new Command()
         )
       }`,
     );
+
+    webview.title = "DenoTag";
+    webview.size = {
+      width: 1280,
+      height: 920,
+      hint: SizeHint.NONE,
+    };
 
     webview.run();
     webview.destroy();

@@ -1,31 +1,76 @@
 #!/usr/bin/env -S deno run -A --unstable
 
-import { bundle, walkSync } from "../src/deps.ts";
+import { build, esbuildPluginCache, Plugin } from "../src/deps.ts";
 import json from "../deno.json" assert { type: "json" };
 
 let htmlFile = Deno.readTextFileSync(
   new URL("../public/index.html", import.meta.url),
 );
 
-const { code: js } = await bundle(
-  new URL("../public/src/main.tsx", import.meta.url),
-  { importMap: { imports: json.imports }, minify: false },
+const code = await build({
+  bundle: true,
+  entryPoints: [
+    "./public/src/main.tsx",
+    "./public/css/main.css",
+  ],
+  tsconfigRaw: { compilerOptions: { jsx: "react-jsx" } },
+  plugins: [
+    {
+      name: "css-http-import",
+      setup(build) {
+        build.onResolve(
+          { filter: /^https?:\/\/.*\.css$/ },
+          (args) => ({ path: args.path, namespace: "css-http-url" }),
+        );
+
+        build.onLoad(
+          { filter: /.*/, namespace: "css-http-url" },
+          async (args) => ({
+            contents: await fetch(args.path + "?target=es2022").then((x) =>
+              x.text()
+            ),
+            loader: "css",
+          }),
+        );
+      },
+    } as Plugin,
+    esbuildPluginCache({
+      importmap: {
+        imports: Object.fromEntries(
+          Object.entries(json.imports).map((
+            [key, value],
+          ) => [key, value + "?target=es2022"]),
+        ),
+      },
+      directory: "./.cache",
+    }),
+  ],
+  minify: true,
+  minifyIdentifiers: true,
+  minifySyntax: true,
+  minifyWhitespace: true,
+  keepNames: true,
+  treeShaking: true,
+  format: "esm",
+  target: ["es2022"],
+  write: false,
+  outdir: "foo",
+});
+
+htmlFile = htmlFile.replace(
+  "{{ CssItems }}",
+  code.outputFiles.filter(({ path }) => path.endsWith(".css")).map((
+    { contents },
+  ) => `<style>\n${new TextDecoder().decode(contents)}\n</style>`).join("\n"),
 );
 
-const css = [];
-
-for (
-  const x of walkSync(new URL("../public/css", import.meta.url), {
-    exts: [".css"],
-    includeDirs: false,
-    includeSymlinks: false,
-  })
-) css.push(`<style>\n${Deno.readTextFileSync(x.path)}\n</style>`);
-
-htmlFile = htmlFile.replace("{{ CssItems }}", css.join("\n"));
 htmlFile = htmlFile.replace(
   "{{ JsItems }}",
-  `<script type="module">\n${js}\n</script>`,
+  code.outputFiles.filter(({ path }) => path.endsWith(".js")).map((
+    { contents },
+  ) =>
+    `<script type="module">\n${new TextDecoder().decode(contents)}\n</script>`
+  ).join("\n"),
 );
 
 try {
@@ -40,3 +85,5 @@ Deno.writeTextFileSync(
     "index.html": Array.from(new TextEncoder().encode(htmlFile)),
   }),
 );
+
+Deno.exit(0);

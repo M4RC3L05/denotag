@@ -1,4 +1,4 @@
-import React from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./app.tsx";
 
@@ -24,7 +24,7 @@ import App from "./app.tsx";
 })();
 
 createRoot(document.querySelector("#app")!).render(
-  <React.StrictMode>
+  <StrictMode>
     <App />
-  </React.StrictMode>,
+  </StrictMode>,
 );

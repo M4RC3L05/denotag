@@ -7,11 +7,13 @@
     "deps": "deno cache --reload --lock=deno.lock src/deps.ts"
   },
   "compilerOptions": {
-    "lib": ["DOM"]
+    "lib": ["DOM"],
+    "jsx": "react-jsx"
   },
   "imports": {
     "react": "https://esm.sh/v132/react@18.2.0",
     "react-dom/client": "https://esm.sh/v132/react-dom@18.2.0/client",
+    "react/jsx-runtime": "https://esm.sh/v132/react@18.2.0/jsx-runtime",
     "react-bootstrap/Button": "https://esm.sh/v132/react-bootstrap@2.9.2/Button",
     "react-bootstrap/Table": "https://esm.sh/v132/react-bootstrap@2.9.2/Table",
     "react-bootstrap/Modal": "https://esm.sh/v132/react-bootstrap@2.9.2/Modal",
