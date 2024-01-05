@@ -4,8 +4,8 @@ import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import { jsonRpcClientCall } from "../utils.ts";
 import Alert, { AlertProps } from "./alert.tsx";
+import { setMusicFileMetadata } from "../actions.ts";
 
 type EditAudioMetadataFormProps = {
   metadata: Record<string, string | number>;
@@ -38,7 +38,7 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
       ),
     );
 
-    jsonRpcClientCall("setMusicFileMetadata", { path: file, metadata: data })
+    setMusicFileMetadata({ path: file, metadata: data })
       .then(() => {
         setAlertInfo((ps) => ({
           ...ps,

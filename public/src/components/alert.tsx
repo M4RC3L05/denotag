@@ -14,7 +14,13 @@ const Alert: React.FC<AlertProps> = (
   { error, message, title, show, handleClose },
 ) => {
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal
+      show={show}
+      size="lg"
+      centered
+      fullscreen="lg-down"
+      onHide={handleClose}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
@@ -23,25 +29,7 @@ const Alert: React.FC<AlertProps> = (
         {message && <p>{message}</p>}
         {error && (
           <pre>
-          {JSON.stringify(
-            error = error instanceof Error
-              ? {
-                message: error.message,
-                stack: error.stack,
-                name: error.name,
-                cause: error.cause instanceof Error
-                  ? {
-                    message: error.message,
-                    stack: error.stack,
-                    name: error.name,
-                    cause: error.cause,
-                  }
-                  : error.cause,
-              }
-              : error,
-            undefined,
-            2,
-          )}
+          {JSON.stringify(error, undefined, 2)}
           </pre>
         )}
       </Modal.Body>

@@ -2,9 +2,11 @@ import {
   Command,
   CompletionsCommand,
   HelpCommand,
-  SEP,
+  join,
   Webview,
 } from "./deps.ts";
+import * as actions from "./actions.ts";
+import embed from "./public.json" assert { type: "json" };
 
 const tag = new Command()
   .description("Tag a audio file")
@@ -13,61 +15,27 @@ const tag = new Command()
     "The directory with audio files",
     { required: true },
   )
-  .option(
-    "-p, --httpPort <httpPort:number>",
-    "The port the server will listen on",
-    { default: 8000 },
-  )
-  .option(
-    "-g --gui <gui:boolean>",
-    "Should show/hide the gui",
-    { default: true },
-  )
-  .action(async ({ dir, httpPort, gui }) => {
+  .action(async ({ dir }) => {
     if (!(await Deno.stat(dir)).isDirectory) {
       throw new Error(`Dir "${dir}" it not a directory`);
     }
 
-    dir = dir.endsWith(SEP) ? dir.slice(0, dir.length - 1) : dir;
+    const webview = new Webview(true);
 
-    const worker = new Worker(new URL("./worker.ts", import.meta.url).href, {
-      type: "module",
-    });
+    webview.bind("getFiles", actions.getFiles.bind(null, join(dir)));
+    webview.bind("getMusicFileMetadata", actions.getMusicFileMetadata);
+    webview.bind("setMusicFileMetadata", actions.setMusicFileMetadata);
 
-    await new Promise<void>((resolve) => {
-      worker.onmessage = (e) => {
-        if (e.data === "init") {
-          worker.postMessage({ dir, httpPort });
-        }
-        if (e.data === "ok") {
-          resolve();
-        }
-      };
-    });
+    webview.navigate(
+      `data:text/html,${
+        encodeURIComponent(
+          new TextDecoder().decode(Uint8Array.from(embed["index.html"])),
+        )
+      }`,
+    );
 
-    if (gui) {
-      const webview = new Webview(true);
-
-      webview.navigate(`http://127.0.0.1:${httpPort}`);
-      webview.run();
-
-      webview.destroy();
-      worker.terminate();
-    } else {
-      Deno.addSignalListener("SIGTERM", () => {
-        worker.terminate();
-      });
-
-      Deno.addSignalListener("SIGINT", () => {
-        worker.terminate();
-      });
-
-      if (Deno.build.os === "windows") {
-        Deno.addSignalListener("SIGBREAK", () => {
-          worker.terminate();
-        });
-      }
-    }
+    webview.run();
+    webview.destroy();
   });
 
 await new Command()

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
-import { jsonRpcClientCall } from "../utils.ts";
 import Alert, { AlertProps } from "./alert.tsx";
+import { getMusicFileMetadata } from "../actions.ts";
 
 type ShowAudioFileMetadataModalProps = {
   file: string;
@@ -14,7 +14,7 @@ const ShowAudioFileMetadataModal: React.FC<ShowAudioFileMetadataModalProps> = (
   { file, show, handleClose },
 ) => {
   const [metadata, setMetadata] = useState<
-    Record<string, unknown> | undefined
+    Awaited<ReturnType<typeof getMusicFileMetadata>> | undefined
   >(undefined);
   const [alertInfo, setAlertInfo] = useState<AlertProps>({
     show: false,
@@ -27,11 +27,11 @@ const ShowAudioFileMetadataModal: React.FC<ShowAudioFileMetadataModalProps> = (
   useEffect(() => {
     if (!show || !file || typeof metadata === "object") return;
 
-    jsonRpcClientCall("getMusicFileMetadata", { path: file })
-      .then(({ result }) => {
+    getMusicFileMetadata({ path: file })
+      .then((result) => {
         if (metadata) return;
 
-        setMetadata(result as Record<string, unknown>);
+        setMetadata(result);
       })
       .catch((error) => {
         setAlertInfo((ps) => ({

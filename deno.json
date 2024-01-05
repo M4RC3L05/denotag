@@ -1,26 +1,26 @@
 {
   "tasks": {
-    "run": "./bin/public-to-json.ts && deno run -A --unstable src/main.ts",
-    "compile": "./bin/public-to-json.ts && deno compile -A --unstable --include ./src/worker.ts --include ./src/public.json --lock=deno.lock -o ./bin/denotag ./src/main.ts",
-    "compile:windows": "./bin/public-to-json.ts && deno compile -A --unstable --target x86_64-pc-windows-msvc --include ./src/worker.ts --include ./src/public.json --lock=deno.lock -o ./bin/denotag ./src/main.ts",
+    "run": "deno run -A --unstable ./bin/public-to-json.ts && deno run -A --unstable src/main.ts",
+    "compile": "deno run -A --unstable ./bin/public-to-json.ts && deno compile -A --unstable --include ./src/public.json --lock=deno.lock -o ./bin/denotag ./src/main.ts",
+    "compile:windows": "./bin/public-to-json.ts && deno compile -A --unstable --target x86_64-pc-windows-msvc --include ./src/public.json --lock=deno.lock -o ./bin/denotag ./src/main.ts",
     "lock-deps": "deno cache --lock=deno.lock --lock-write src/deps.ts",
     "deps": "deno cache --reload --lock=deno.lock src/deps.ts"
   },
   "compilerOptions": {
-    "lib": ["deno.worker", "DOM"]
+    "lib": ["DOM"]
   },
   "imports": {
-    "react": "https://esm.sh/v132/react@18.2.0?target=es2022",
-    "react-dom/client": "https://esm.sh/v132/react-dom@18.2.0/client?target=es2022",
-    "react-bootstrap/Button": "https://esm.sh/v132/react-bootstrap@2.9.0/Button?target=es2022",
-    "react-bootstrap/Table": "https://esm.sh/v132/react-bootstrap@2.9.0/Table?target=es2022",
-    "react-bootstrap/Modal": "https://esm.sh/v132/react-bootstrap@2.9.0/Modal?target=es2022",
-    "react-bootstrap/Image": "https://esm.sh/v132/react-bootstrap@2.9.0/Image?target=es2022",
-    "react-bootstrap/Container": "https://esm.sh/v132/react-bootstrap@2.9.0/Container?target=es2022",
-    "react-bootstrap/Row": "https://esm.sh/v132/react-bootstrap@2.9.0/Row?target=es2022",
-    "react-bootstrap/Col": "https://esm.sh/v132/react-bootstrap@2.9.0/Col?target=es2022",
-    "react-bootstrap/Form": "https://esm.sh/v132/react-bootstrap@2.9.0/Form?target=es2022",
-    "react-bootstrap/Card": "https://esm.sh/v132/react-bootstrap@2.9.0/Card?target=es2022",
-    "react-hotkeys-hook": "https://esm.sh/v132/react-hotkeys-hook@4.4.1?target=es2022"
+    "react": "https://esm.sh/v132/react@18.2.0",
+    "react-dom/client": "https://esm.sh/v132/react-dom@18.2.0/client",
+    "react-bootstrap/Button": "https://esm.sh/v132/react-bootstrap@2.9.2/Button",
+    "react-bootstrap/Table": "https://esm.sh/v132/react-bootstrap@2.9.2/Table",
+    "react-bootstrap/Modal": "https://esm.sh/v132/react-bootstrap@2.9.2/Modal",
+    "react-bootstrap/Image": "https://esm.sh/v132/react-bootstrap@2.9.2/Image",
+    "react-bootstrap/Container": "https://esm.sh/v132/react-bootstrap@2.9.2/Container",
+    "react-bootstrap/Row": "https://esm.sh/v132/react-bootstrap@2.9.2/Row",
+    "react-bootstrap/Col": "https://esm.sh/v132/react-bootstrap@2.9.2/Col",
+    "react-bootstrap/Form": "https://esm.sh/v132/react-bootstrap@2.9.2/Form",
+    "react-bootstrap/Card": "https://esm.sh/v132/react-bootstrap@2.9.2/Card",
+    "react-hotkeys-hook": "https://esm.sh/v132/react-hotkeys-hook@4.4.3"
   }
 }

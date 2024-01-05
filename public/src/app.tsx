@@ -12,8 +12,9 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import MusicFiles from "./components/music-files.tsx";
 import { useHotkeys } from "react-hotkeys-hook";
-import { debounce, jsonRpcClientCall } from "./utils.ts";
+import { debounce } from "./utils.ts";
 import Alert, { AlertProps } from "./components/alert.tsx";
+import { getFiles } from "./actions.ts";
 
 const App = () => {
   const [files, setFiles] = useState<string[]>([]);
@@ -36,7 +37,7 @@ const App = () => {
   }, []);
 
   const fetchFiles = () => {
-    jsonRpcClientCall("getFiles").then(({ result }) => {
+    getFiles().then((result) => {
       setFiles(result as string[]);
     }).catch((error) => {
       setAlertInfo((ps) => ({
@@ -80,7 +81,9 @@ const App = () => {
       <Row>
         <Col>
           <MusicFiles
-            files={files.filter((f) => f.toLowerCase().includes(search))}
+            files={(files ?? []).filter((f) =>
+              f.toLowerCase().includes(search)
+            )}
           />
         </Col>
       </Row>

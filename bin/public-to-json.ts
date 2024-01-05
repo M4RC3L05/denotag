@@ -1,31 +1,42 @@
 #!/usr/bin/env -S deno run -A --unstable
 
-import { extname, resolve, toFileUrl, transpile, walk } from "../src/deps.ts";
+import { bundle, walkSync } from "../src/deps.ts";
 import json from "../deno.json" assert { type: "json" };
 
-const data: Record<string, number[]> = {};
-const dirWalker = walk("./public", {
-  exts: ["ts", "tsx", ".css", "html"],
-  includeDirs: false,
-  includeSymlinks: false,
-});
+let htmlFile = Deno.readTextFileSync(
+  new URL("../public/index.html", import.meta.url),
+);
 
-for await (const file of dirWalker) {
-  if ([".ts", ".tsx"].includes(extname(file.path))) {
-    const compiled = await transpile(file.path, {
-      importMap: { imports: json.imports },
-    });
+const { code: js } = await bundle(
+  new URL("../public/src/main.tsx", import.meta.url),
+  { importMap: { imports: json.imports }, minify: false },
+);
 
-    for (const [k, v] of compiled.entries()) {
-      if (!(k in data)) data[k] = Array.from(new TextEncoder().encode(v));
-    }
+const css = [];
 
-    continue;
-  }
+for (
+  const x of walkSync(new URL("../public/css", import.meta.url), {
+    exts: [".css"],
+    includeDirs: false,
+    includeSymlinks: false,
+  })
+) css.push(`<style>\n${Deno.readTextFileSync(x.path)}\n</style>`);
 
-  data[toFileUrl(resolve(file.path)).href] = Array.from(
-    await Deno.readFile(file.path),
-  );
-}
+htmlFile = htmlFile.replace("{{ CssItems }}", css.join("\n"));
+htmlFile = htmlFile.replace(
+  "{{ JsItems }}",
+  `<script type="module">\n${js}\n</script>`,
+);
 
-await Deno.writeTextFile("./src/public.json", JSON.stringify(data));
+try {
+  Deno.statSync("./src/public.json");
+  Deno.removeSync("./src/public.json");
+  // deno-lint-ignore no-empty
+} catch {}
+
+Deno.writeTextFileSync(
+  "./src/public.json",
+  JSON.stringify({
+    "index.html": Array.from(new TextEncoder().encode(htmlFile)),
+  }),
+);

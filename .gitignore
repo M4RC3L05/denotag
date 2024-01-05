@@ -6,3 +6,4 @@ lib
 include
 data
 src/public.json
+*.dll

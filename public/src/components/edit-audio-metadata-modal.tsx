@@ -3,10 +3,10 @@ import Modal from "react-bootstrap/Modal";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { jsonRpcClientCall } from "../utils.ts";
 import EditAudioMetadataForm from "./edit-audio-metdata-form.tsx";
 import RemoteAudioInfo from "./remote-audio-info.tsx";
 import Alert, { AlertProps } from "./alert.tsx";
+import { getMusicFileMetadata } from "../actions.ts";
 
 type EditAudioFileMetadataModalPorps = {
   file: string;
@@ -18,7 +18,7 @@ const EditAudioFileMetadataModal: React.FC<EditAudioFileMetadataModalPorps> = (
   { file, show, handleClose },
 ) => {
   const [metadata, setMetadata] = useState<
-    Record<string, string | number> | undefined
+    Awaited<ReturnType<typeof getMusicFileMetadata>> | undefined
   >(
     undefined,
   );
@@ -31,9 +31,9 @@ const EditAudioFileMetadataModal: React.FC<EditAudioFileMetadataModalPorps> = (
   });
 
   const fetchMetadata = () => {
-    jsonRpcClientCall("getMusicFileMetadata", { path: file })
-      .then(({ result }) => {
-        setMetadata(result as Record<string, string | number>);
+    getMusicFileMetadata({ path: file })
+      .then((result) => {
+        setMetadata(result);
       }).catch((error) => {
         setAlertInfo((ps) => ({
           ...ps,
