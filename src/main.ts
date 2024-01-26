@@ -7,7 +7,7 @@ import {
   Webview,
 } from "./deps.ts";
 import * as actions from "./actions.ts";
-import embed from "./public.json" assert { type: "json" };
+import embed from "./public.json" with { type: "json" };
 
 const tag = new Command()
   .description("Tag a audio file")
@@ -23,9 +23,18 @@ const tag = new Command()
 
     const webview = new Webview(true);
 
-    webview.bind("getFiles", actions.getFiles.bind(null, join(dir)));
-    webview.bind("getMusicFileMetadata", actions.getMusicFileMetadata);
-    webview.bind("setMusicFileMetadata", actions.setMusicFileMetadata);
+    webview.bind(
+      "getFiles",
+      actions.actionErrorMapper(actions.getFiles.bind(null, join(dir))),
+    );
+    webview.bind(
+      "getMusicFileMetadata",
+      actions.actionErrorMapper(actions.getMusicFileMetadata),
+    );
+    webview.bind(
+      "setMusicFileMetadata",
+      actions.actionErrorMapper(actions.setMusicFileMetadata),
+    );
 
     webview.navigate(
       `data:text/html,${
