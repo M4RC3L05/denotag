@@ -10,10 +10,7 @@ export {
   PictureType,
 } from "npm:node-taglib-sharp@5.2.3";
 export { SizeHint, Webview } from "https://deno.land/x/webview@0.7.6/mod.ts";
-export { decodeBase64 } from "https://deno.land/std@0.213.0/encoding/base64.ts";
-export { join } from "https://deno.land/std@0.213.0/path/mod.ts";
-export {
-  build,
-  type Plugin,
-} from "https://deno.land/x/esbuild@v0.19.12/mod.js";
+export { decodeBase64 } from "https://deno.land/std@0.214.0/encoding/base64.ts";
+export { join } from "https://deno.land/std@0.214.0/path/mod.ts";
+export { build, type Plugin } from "https://deno.land/x/esbuild@v0.20.0/mod.js";
 export { cache as esbuildPluginCache } from "npm:esbuild-plugin-cache@0.2.10";
