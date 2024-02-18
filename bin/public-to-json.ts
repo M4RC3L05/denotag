@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run -A --unstable
 
 import { build, esbuildPluginCache, Plugin } from "../src/deps.ts";
-import json from "../deno.json" assert { type: "json" };
+import json from "../deno.json" with { type: "json" };
 
 let htmlFile = Deno.readTextFileSync(
   new URL("../public/index.html", import.meta.url),
