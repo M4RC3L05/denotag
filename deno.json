@@ -1,8 +1,8 @@
 {
   "tasks": {
-    "run": "deno run -A --unstable-ffi ./bin/public-to-json.ts && deno run -A --unstable-ffi src/main.ts",
-    "compile": "deno run -A --unstable-ffi ./bin/public-to-json.ts && deno compile -A --unstable-ffi --include ./src/public.json --lock=deno.lock -o ./bin/denotag ./src/main.ts",
-    "compile:windows": "./bin/public-to-json.ts && deno compile -A --unstable-ffi --target x86_64-pc-windows-msvc --include ./src/public.json --lock=deno.lock -o ./bin/denotag ./src/main.ts",
+    "run": "deno run -A --unstable-ffi --cached-only --lock=deno.lock ./bin/public-to-json.ts && deno run -A --unstable-ffi --cached-only --lock=deno.lock src/main.ts",
+    "compile": "deno run -A --unstable-ffi --cached-only --lock=deno.lock ./bin/public-to-json.ts && deno compile -A --unstable-ffi --include ./src/public.json --cached-only --lock=deno.lock -o ./bin/denotag ./src/main.ts",
+    "compile:windows": "deno run -A --unstable-ffi --cached-only --lock=deno.lock ./bin/public-to-json.ts && deno compile -A --unstable-ffi --target x86_64-pc-windows-msvc --include ./src/public.json --cached-only --lock=deno.lock -o ./bin/denotag ./src/main.ts",
     "lock-deps": "deno cache --lock=deno.lock --lock-write src/deps.ts",
     "deps": "deno cache --reload --lock=deno.lock src/deps.ts"
   },
