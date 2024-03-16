@@ -7,22 +7,22 @@
     "deps": "deno cache --reload --lock=deno.lock src/deps.ts"
   },
   "compilerOptions": {
-    "lib": ["DOM"],
+    "lib": ["DOM", "deno.ns"],
     "jsx": "react-jsx"
   },
   "imports": {
     "react": "https://esm.sh/v132/react@18.2.0",
-    "react-dom/client": "https://esm.sh/v132/react-dom@18.2.0/client",
-    "react/jsx-runtime": "https://esm.sh/v132/react@18.2.0/jsx-runtime",
     "react-bootstrap/Button": "https://esm.sh/v132/react-bootstrap@2.9.2/Button",
-    "react-bootstrap/Table": "https://esm.sh/v132/react-bootstrap@2.9.2/Table",
-    "react-bootstrap/Modal": "https://esm.sh/v132/react-bootstrap@2.9.2/Modal",
-    "react-bootstrap/Image": "https://esm.sh/v132/react-bootstrap@2.9.2/Image",
-    "react-bootstrap/Container": "https://esm.sh/v132/react-bootstrap@2.9.2/Container",
-    "react-bootstrap/Row": "https://esm.sh/v132/react-bootstrap@2.9.2/Row",
-    "react-bootstrap/Col": "https://esm.sh/v132/react-bootstrap@2.9.2/Col",
-    "react-bootstrap/Form": "https://esm.sh/v132/react-bootstrap@2.9.2/Form",
     "react-bootstrap/Card": "https://esm.sh/v132/react-bootstrap@2.9.2/Card",
-    "react-hotkeys-hook": "https://esm.sh/v132/react-hotkeys-hook@4.4.3"
+    "react-bootstrap/Col": "https://esm.sh/v132/react-bootstrap@2.9.2/Col",
+    "react-bootstrap/Container": "https://esm.sh/v132/react-bootstrap@2.9.2/Container",
+    "react-bootstrap/Form": "https://esm.sh/v132/react-bootstrap@2.9.2/Form",
+    "react-bootstrap/Image": "https://esm.sh/v132/react-bootstrap@2.9.2/Image",
+    "react-bootstrap/Modal": "https://esm.sh/v132/react-bootstrap@2.9.2/Modal",
+    "react-bootstrap/Row": "https://esm.sh/v132/react-bootstrap@2.9.2/Row",
+    "react-bootstrap/Table": "https://esm.sh/v132/react-bootstrap@2.9.2/Table",
+    "react-dom/client": "https://esm.sh/v132/react-dom@18.2.0/client",
+    "react-hotkeys-hook": "https://esm.sh/v132/react-hotkeys-hook@4.4.3",
+    "react/jsx-runtime": "https://esm.sh/v132/react@18.2.0/jsx-runtime"
   }
 }
