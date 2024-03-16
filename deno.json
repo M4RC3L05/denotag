@@ -3,14 +3,20 @@
     "run": "deno run -A --unstable-ffi --cached-only --lock=deno.lock ./bin/public-to-json.ts && deno run -A --unstable-ffi --cached-only --lock=deno.lock src/main.ts",
     "compile": "deno run -A --unstable-ffi --cached-only --lock=deno.lock ./bin/public-to-json.ts && deno compile -A --unstable-ffi --include ./src/public.json --cached-only --lock=deno.lock -o ./bin/denotag ./src/main.ts",
     "compile:windows": "deno run -A --unstable-ffi --cached-only --lock=deno.lock ./bin/public-to-json.ts && deno compile -A --unstable-ffi --target x86_64-pc-windows-msvc --include ./src/public.json --cached-only --lock=deno.lock -o ./bin/denotag ./src/main.ts",
-    "lock-deps": "deno cache --lock=deno.lock --lock-write src/deps.ts",
-    "deps": "deno cache --reload --lock=deno.lock src/deps.ts"
+    "lock-deps": "deno cache --lock=deno.lock --lock-write src/*.ts src/**/*.ts src/**/*.tsx",
+    "deps": "deno cache --reload --lock=deno.lock src/*.ts src/**/*.ts src/**/*.tsx"
   },
   "compilerOptions": {
     "lib": ["DOM", "deno.ns"],
     "jsx": "react-jsx"
   },
   "imports": {
+    "@deno/std/": "https://deno.land/std@0.220.1/",
+    "@webview/webview": "jsr:@webview/webview@^0.8.0",
+    "cliffy": "https://deno.land/x/cliffy@v1.0.0-rc.3/command/mod.ts",
+    "esbuild": "https://deno.land/x/esbuild@v0.20.2/mod.js",
+    "esbuild-plugin-cache": "npm:esbuild-plugin-cache@0.2.10",
+    "node-taglib-sharp": "npm:node-taglib-sharp@5.2.3",
     "react": "https://esm.sh/v132/react@18.2.0",
     "react-bootstrap/Button": "https://esm.sh/v132/react-bootstrap@2.9.2/Button",
     "react-bootstrap/Card": "https://esm.sh/v132/react-bootstrap@2.9.2/Card",

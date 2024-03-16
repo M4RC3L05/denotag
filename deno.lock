@@ -10,7 +10,6 @@
       "jsr:@std/path@0.214": "jsr:@std/path@0.214.0",
       "jsr:@std/path@^0.214.0": "jsr:@std/path@0.214.0",
       "jsr:@webview/webview@^0.8.0": "jsr:@webview/webview@0.8.0",
-      "npm:esbuild-plugin-cache@0.2.10": "npm:esbuild-plugin-cache@0.2.10",
       "npm:node-taglib-sharp@5.2.3": "npm:node-taglib-sharp@5.2.3"
     },
     "jsr": {
@@ -53,31 +52,6 @@
       }
     },
     "npm": {
-      "@types/node-fetch@2.6.11": {
-        "integrity": "sha512-24xFj9R5+rfQJLRyM56qh+wnVSYhyXC2tkoBndtY0U+vubqNsYXGjufB2nn8Q6gt0LrARwL6UBtMCSVCwl4B1g==",
-        "dependencies": {
-          "@types/node": "@types/node@18.16.19",
-          "form-data": "form-data@4.0.0"
-        }
-      },
-      "@types/node@14.18.63": {
-        "integrity": "sha512-fAtCfv4jJg+ExtXhvCkCqUKZ+4ok/JQk01qDKhL5BDDoS3AxKXhV5/MAVUZyQnSEd2GT92fkgZl0pz0Q0AzcIQ==",
-        "dependencies": {}
-      },
-      "@types/node@18.16.19": {
-        "integrity": "sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==",
-        "dependencies": {}
-      },
-      "asynckit@0.4.0": {
-        "integrity": "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==",
-        "dependencies": {}
-      },
-      "combined-stream@1.0.8": {
-        "integrity": "sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==",
-        "dependencies": {
-          "delayed-stream": "delayed-stream@1.0.0"
-        }
-      },
       "cross-spawn@6.0.5": {
         "integrity": "sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==",
         "dependencies": {
@@ -92,35 +66,10 @@
         "integrity": "sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==",
         "dependencies": {}
       },
-      "delayed-stream@1.0.0": {
-        "integrity": "sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==",
-        "dependencies": {}
-      },
-      "deno-cache@0.2.12": {
-        "integrity": "sha512-Jv8utRPQhsm+kx9ky0OdUnTWBLKGlFcBoLjQqrpuDd9zhuciCLPmklbz1YYfdaeM0dgp1nwRoqlHu5sH3vmJGQ==",
-        "dependencies": {
-          "@types/node": "@types/node@14.18.63",
-          "@types/node-fetch": "@types/node-fetch@2.6.11",
-          "node-fetch": "node-fetch@2.7.0"
-        }
-      },
-      "deno-importmap@0.1.6": {
-        "integrity": "sha512-nZ5ZA8qW5F0Yzq1VhRp1wARpWSfD0FQvI1IUHXbE3oROO6tcYomTIWSAZGzO4LGQl1hTG6UmhPNTP3d4uMXzMg==",
-        "dependencies": {
-          "@types/node": "@types/node@14.18.63"
-        }
-      },
       "end-of-stream@1.4.4": {
         "integrity": "sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==",
         "dependencies": {
           "once": "once@1.4.0"
-        }
-      },
-      "esbuild-plugin-cache@0.2.10": {
-        "integrity": "sha512-e2Z8TgorvVKuj2A8/VP+sC04rt47JTpaew+9uP4CN7106W/cQxY1cqC1KWm+szwpfzJbBqXOpAqN4JPRySbW+A==",
-        "dependencies": {
-          "deno-cache": "deno-cache@0.2.12",
-          "deno-importmap": "deno-importmap@0.1.6"
         }
       },
       "execa@1.0.0": {
@@ -133,14 +82,6 @@
           "p-finally": "p-finally@1.0.0",
           "signal-exit": "signal-exit@3.0.7",
           "strip-eof": "strip-eof@1.0.0"
-        }
-      },
-      "form-data@4.0.0": {
-        "integrity": "sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==",
-        "dependencies": {
-          "asynckit": "asynckit@0.4.0",
-          "combined-stream": "combined-stream@1.0.8",
-          "mime-types": "mime-types@2.1.35"
         }
       },
       "get-stream@4.1.0": {
@@ -191,16 +132,6 @@
           "p-is-promise": "p-is-promise@2.1.0"
         }
       },
-      "mime-db@1.52.0": {
-        "integrity": "sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==",
-        "dependencies": {}
-      },
-      "mime-types@2.1.35": {
-        "integrity": "sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==",
-        "dependencies": {
-          "mime-db": "mime-db@1.52.0"
-        }
-      },
       "mimic-fn@2.1.0": {
         "integrity": "sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==",
         "dependencies": {}
@@ -208,12 +139,6 @@
       "nice-try@1.0.5": {
         "integrity": "sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==",
         "dependencies": {}
-      },
-      "node-fetch@2.7.0": {
-        "integrity": "sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==",
-        "dependencies": {
-          "whatwg-url": "whatwg-url@5.0.0"
-        }
       },
       "node-taglib-sharp@5.2.3": {
         "integrity": "sha512-cqomQ+pD/4HPYpVS5UpDkyN3YQwX67YHSXFk9udSI0VgFKdHSG9/PJFKLehsuwWUr5HKVqRVgSJjBIeOvyLajA==",
@@ -294,24 +219,9 @@
         "integrity": "sha512-7FCwGGmx8mD5xQd3RPUvnSpUXHM3BWuzjtpD4TXsfcZ9EL4azvVVUscFYwD9nx8Kh+uCBC00XBtAykoMHwTh8Q==",
         "dependencies": {}
       },
-      "tr46@0.0.3": {
-        "integrity": "sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==",
-        "dependencies": {}
-      },
       "uuid@8.3.2": {
         "integrity": "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==",
         "dependencies": {}
-      },
-      "webidl-conversions@3.0.1": {
-        "integrity": "sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==",
-        "dependencies": {}
-      },
-      "whatwg-url@5.0.0": {
-        "integrity": "sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==",
-        "dependencies": {
-          "tr46": "tr46@0.0.3",
-          "webidl-conversions": "webidl-conversions@3.0.1"
-        }
       },
       "which@1.3.1": {
         "integrity": "sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==",
@@ -324,6 +234,10 @@
         "dependencies": {}
       }
     }
+  },
+  "redirects": {
+    "https://esm.sh/v128/@types/react@~18.2/index.d.ts": "https://esm.sh/v128/@types/react@18.2.38/index.d.ts",
+    "https://esm.sh/v132/@types/react-dom@~18.2/client~.d.ts": "https://esm.sh/v132/@types/react-dom@18.2.22/client~.d.ts"
   },
   "remote": {
     "https://deno.land/std@0.196.0/assert/assert.ts": "9a97dad6d98c238938e7540736b826440ad8c1c1e54430ca4c4e623e585607ee",
@@ -472,9 +386,71 @@
     "https://deno.land/x/cliffy@v1.0.0-rc.3/table/deps.ts": "1226c4d39d53edc81d7c3e661fb8a79f2e704937c276c60355cd4947a0fe9153",
     "https://deno.land/x/cliffy@v1.0.0-rc.3/table/row.ts": "79eb1468aafdd951e5963898cdafe0752d4ab4c519d5f847f3d8ecb8fe857d4f",
     "https://deno.land/x/cliffy@v1.0.0-rc.3/table/table.ts": "298671e72e61f1ab18b42ae36643181993f79e29b39dc411fdc6ffd53aa04684",
-    "https://deno.land/x/denoflate@1.2.1/mod.ts": "f5628e44b80b3d80ed525afa2ba0f12408e3849db817d47a883b801f9ce69dd6",
-    "https://deno.land/x/denoflate@1.2.1/pkg/denoflate.js": "b9f9ad9457d3f12f28b1fb35c555f57443427f74decb403113d67364e4f2caf4",
-    "https://deno.land/x/denoflate@1.2.1/pkg/denoflate_bg.wasm.js": "d581956245407a2115a3d7e8d85a9641c032940a8e810acbd59ca86afd34d44d",
-    "https://deno.land/x/esbuild@v0.20.2/mod.js": "67c608ee283233f5d0faa322b887356857c547a8e6a00981f798b2cd38e02436"
+    "https://esm.sh/stable/react@18.2.0/denonext/jsx-runtime.js": "54d8a51c6ca025380abd2d5302e4a9b38ff835d9759c4657e52314f587eaf6bf",
+    "https://esm.sh/stable/react@18.2.0/denonext/react.mjs": "3c4f23bcfc53b256fcfaf6f834fa9f584c3bb7be667b2682c6cb6ba8ef88f8e6",
+    "https://esm.sh/v132/@babel/runtime@7.23.1/denonext/helpers/esm/inheritsLoose.js": "f9aefa51a0c92b340ea7f4d6bc56924d55dae0201af55bb95cc05d0b13d2a6b3",
+    "https://esm.sh/v132/@babel/runtime@7.23.1/denonext/helpers/esm/objectWithoutPropertiesLoose.js": "cdf0811b9014db86318599dfc85878a2831d5b44a7bb6dde66af7c4f8a8102f3",
+    "https://esm.sh/v132/@restart/hooks@0.4.11/denonext/useEventCallback.js": "d7a02f24c30038637e1a8e75886730595910840727e487aaa3f09e2a25a0283c",
+    "https://esm.sh/v132/@restart/hooks@0.4.11/denonext/useIsomorphicEffect.js": "34969f36bc417ac223ce3f01213452555fb0f4b6b92840da48953412e1c46325",
+    "https://esm.sh/v132/@restart/hooks@0.4.11/denonext/useMergedRefs.js": "f0a971fbd5fa1f979dc284aeb1e04bc8d1dfd6dce5ee646d216b9ba737cc8cba",
+    "https://esm.sh/v132/@restart/hooks@0.4.11/denonext/useMounted.js": "8af0b823eb7aa6672b32d73b757fd1adf0c8abf534fdcf4473fb140bd50cfed7",
+    "https://esm.sh/v132/@restart/hooks@0.4.11/denonext/usePrevious.js": "b772c368434e2aff684c0ba07b3e147ccd7afcaa6d38dc68e53d7fb151e44639",
+    "https://esm.sh/v132/@restart/hooks@0.4.11/denonext/useWillUnmount.js": "40b5280cb085e27e1f410bd982bfd7948263d1ccb45f28c07d709dd4bb175626",
+    "https://esm.sh/v132/@restart/hooks@0.4.15/denonext/useCallbackRef.js": "0ba78f75d0bec7d7a2cb215c9217a049f71c38fd67de0a5cdbc1a5a3e902c676",
+    "https://esm.sh/v132/@restart/hooks@0.4.15/denonext/useEventCallback.js": "6920fc464251ec82c73094767dfc51818cbafc4e0efb2208b72cfdb8713dc415",
+    "https://esm.sh/v132/@restart/hooks@0.4.15/denonext/useMergedRefs.js": "e07988b54abadc5bd69673c5c1e543ef65910042d6d8f17ec1ce4078702e0e4b",
+    "https://esm.sh/v132/@restart/hooks@0.4.15/denonext/useWillUnmount.js": "c8f293cbede40112fc24ae1bfcd8e3d23376e2684e4ee5edf8b2457dbec4464f",
+    "https://esm.sh/v132/@restart/ui@1.6.6/denonext/Button.js": "78ebc2c7927c669eaf32a5a07c74775579dbe5b0dcab9545bfd961a1a2d735fd",
+    "https://esm.sh/v132/@restart/ui@1.6.6/denonext/Modal.js": "1abae9636571949ba6c9b0dedce76b5d177bf7f284f3432472f22daf5b354d33",
+    "https://esm.sh/v132/@restart/ui@1.6.6/denonext/ModalManager.js": "b28dce5e2056e237c43e9a3386180f6a67a5c7afb8e6f515f73aa872cfd47beb",
+    "https://esm.sh/v132/classnames@2.5.1/denonext/classnames.mjs": "9a9fac7781313e86125cd222b66df45f097d16a1c5c59df5b2b55751e0a98b4f",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/activeElement.js": "9ca8991cc97f6f57b311cb3fea7f6585c0999b13db3be7ba542d562e862896e1",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/addClass.js": "ec14db4c457608714334e78add30de9adcf2657eae8f6519c9822adea2f2fd54",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/addEventListener.js": "2ef44b2a9cf528eacb9c33af46485db3497cb5158ce5d9aa0fdb5d2556e9fe08",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/canUseDOM.js": "cf5768a5ae34502c2682a310cc6343f479697190dc407bcbf91291141f58425e",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/contains.js": "fcdee2ed00fd0794aef0c36d64f5af261f8141c485206f4273636bcffbdf7273",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/css.js": "e345a5ebf17d3df6fc2a6c1e2f309491842db4a41591a1beec09d3f57abb3618",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/listen.js": "e4d5e9571f01489bf4ba699fd04ccb6204e7188c8e8115de34c60a78dee5f158",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/ownerDocument.js": "f58577d4e8c55b5701738f285e9f126c0b04c3a2ce8f9290dcb8f6e650d6d4b3",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/querySelectorAll.js": "dcc613bcb049fa2fc64bbdf3c6eb4ac1d3d180792fdf4544d40d46cadaa9025e",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/removeClass.js": "eceda3a28bc82af43defd4794939db0a4cce1a684d51b100ecadab4ca7b8d22b",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/removeEventListener.js": "6aed2f0fd8f060a360bd2239c63cc87c2dbd4b9e47113f77583ee36a8263f9c9",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/scrollbarSize.js": "ee0344087ab080e43c07d4718914e56596f9e6a7b01f32194537f6f4d0a29002",
+    "https://esm.sh/v132/dom-helpers@5.2.1/denonext/transitionEnd.js": "d71eca1995cea6d4534932cf127f4f3d2127d7efba4e4fbc10a1a3aaf7a09b94",
+    "https://esm.sh/v132/prop-types@15.8.1/denonext/prop-types.mjs": "c4ce53e88327d3911a960c3f34e76f114fce31a9e45139427a0df4fad24c1bd5",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/Button": "7d93197ab70e8b5dd728bc0e5bff6403f43705b51e404b6a6ff99764d1ba6cf3",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/Card": "0b8562596e3f5ab18249de0a1cfe90297918535f4cb7676a8799eede46883599",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/Col": "2c53c44b9799bcf71708386036bc96d53c2f1e50b204e464958aa3f722e13d86",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/Container": "70ec10387454feb953750a9f0cd9cef212773ebceb7b80aa83c11723a18f64df",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/Form": "de909e0c940c046ccbe8f881417d1143fb40eceaba032714e84697cb031035b3",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/Image": "d76cc0272715c984081b60a8a8ce6b84656321cfd003256a693adc7058e549aa",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/Modal": "9e9472e741e04deb4463094774e89b92f150e5d9737d9bcf5dd1419379486a26",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/Row": "c610cfaee40cb5fd1dabc133bd58a765d7182606d9a48d599e1866e853b711a3",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/Table": "5129038c1face09b2b98ce069f2e612a0e4a27316e0489a6b01e1ce34e41ad11",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/denonext/Button.js": "5fd1be85557803c63e5d97c9c8d41e36b18af6ebbca2f1ab9a28a681bcd857e5",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/denonext/Card.js": "ffcf5a1cdd158d68ef6bba3dc7b774a04299e46b219e9543fca82156651db626",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/denonext/Col.js": "9e2a7b91d942d11b181d8d7ddd83c71940c165d8e842daedea44b944ad816fdd",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/denonext/Container.js": "de74b342f72838e7e14178dd433aefc1850f486d911d394aecadc4319acf3b7e",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/denonext/Form.js": "bddfa8ac5fa74527e5b0dcd0789f47dd3ee2cf50239fa44c63d1d0f996ec714f",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/denonext/Image.js": "6e48c7ae90a88ced7cac27822a8a97b6051dc51bcc4895b6d7f4950009b97b94",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/denonext/Modal.js": "fd51f67a9ce927b493ff867ab47ba1d678a41a9d03e3cbb1361b890d3cffd583",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/denonext/Row.js": "60c15f55c379b81b842bae9c8bc3de4b3ecc79e5609f79f209aef3a81e4ab74f",
+    "https://esm.sh/v132/react-bootstrap@2.9.2/denonext/Table.js": "8c0650d8461febade3a2759ab97b75ea70b001c48a4dd7ac3503016c15ac2dbb",
+    "https://esm.sh/v132/react-dom@18.2.0/client": "86044c4b602dfd078eedf7af27df18fce7d304bf9948d6e0f2795057f6669348",
+    "https://esm.sh/v132/react-dom@18.2.0/denonext/client.js": "d5d20a8b100e090f3701bc4a8856a681e4b2acd74fbf734aa272217b5384c8b2",
+    "https://esm.sh/v132/react-dom@18.2.0/denonext/react-dom.mjs": "90fb18bf37c6242aa1dad3524b42ce76efc8f117f35c060c1b246f62aa3a2988",
+    "https://esm.sh/v132/react-hotkeys-hook@4.4.3": "a4c88e4e3c95cc3818004c6fe5ed5c5ace9e6a98fede59d1a2060dbea965433d",
+    "https://esm.sh/v132/react-hotkeys-hook@4.4.3/denonext/react-hotkeys-hook.mjs": "ec0d8e765c1a25cd13d9fb70f85a56059664b6b571131a309b513d2e7b2bf937",
+    "https://esm.sh/v132/react-transition-group@4.4.5/denonext/Transition.js": "8bc000cef2877f07208946a830d1029f688b5c2ecaa22500010a3370201f176c",
+    "https://esm.sh/v132/react@18.2.0": "04ad7dc6d11fa27b24c136686a334ecdd19e972fae627cd98cbdc13cdac238c2",
+    "https://esm.sh/v132/scheduler@0.23.0/denonext/scheduler.mjs": "cdbc6d2823e2c6fffcb14501146ff2602a38c48d3c9dd9268f308e833ede2b49",
+    "https://esm.sh/v132/warning@4.0.3/denonext/warning.mjs": "085cc50dc1037e340bb79daf0f4ca04888a6ca5b2faafaba7fd5b0c6043143fb"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@webview/webview@^0.8.0",
+      "npm:esbuild-plugin-cache@0.2.10",
+      "npm:node-taglib-sharp@5.2.3"
+    ]
   }
 }

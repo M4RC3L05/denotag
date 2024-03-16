@@ -1,17 +1,18 @@
 #!/usr/bin/env -S deno run -A --unstable
 
-import { build, esbuildPluginCache, Plugin } from "../src/deps.ts";
+import { build, type Plugin } from "esbuild";
+import { cache as esbuildPluginCache } from "esbuild-plugin-cache";
 import json from "../deno.json" with { type: "json" };
 
 let htmlFile = Deno.readTextFileSync(
-  new URL("../public/index.html", import.meta.url),
+  new URL("../src/public/index.html", import.meta.url),
 );
 
 const code = await build({
   bundle: true,
   entryPoints: [
-    "./public/src/main.tsx",
-    "./public/css/main.css",
+    "./src/public/src/main.tsx",
+    "./src/public/css/main.css",
   ],
   tsconfigRaw: { compilerOptions: { jsx: "react-jsx" } },
   plugins: [

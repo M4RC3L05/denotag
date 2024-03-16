@@ -1,11 +1,6 @@
-import {
-  ByteVector,
-  decodeBase64,
-  File,
-  join,
-  OggTag,
-  PictureType,
-} from "./deps.ts";
+import { ByteVector, File, OggTag, PictureType } from "node-taglib-sharp";
+import { join } from "@deno/std/path/join.ts";
+import { decodeBase64 } from "@deno/std/encoding/base64.ts";
 
 class ActionError extends Error {
   toJSON() {
