@@ -1,4 +1,6 @@
 {
+  "name": "@m4rc3l05/denotag",
+  "version": "3.5.0",
   "tasks": {
     "run": "deno run -A --unstable-ffi --cached-only --lock=deno.lock ./bin/public-to-json.ts && deno run -A --unstable-ffi --cached-only --lock=deno.lock src/main.ts",
     "compile": "deno run -A --unstable-ffi --cached-only --lock=deno.lock ./bin/public-to-json.ts && deno compile -A --unstable-ffi --include ./src/public.json --cached-only --lock=deno.lock -o ./bin/denotag ./src/main.ts",
