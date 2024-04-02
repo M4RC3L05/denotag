@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { makeRequester } from "../utils.ts";
-import Alert, { AlertProps } from "./alert.tsx";
+import Alert, { type AlertProps } from "./alert.tsx";
 
 type DisplayMetadataProps = {
   metadata: Record<string, string | number>;

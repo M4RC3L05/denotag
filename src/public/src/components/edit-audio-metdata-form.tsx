@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Alert, { AlertProps } from "./alert.tsx";
+import Alert, { type AlertProps } from "./alert.tsx";
 import { setMusicFileMetadata } from "../actions.ts";
 
 type EditAudioMetadataFormProps = {

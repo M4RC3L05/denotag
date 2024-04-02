@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Image from "react-bootstrap/Image";
-import Alert, { AlertProps } from "./alert.tsx";
+import Alert, { type AlertProps } from "./alert.tsx";
 import { getMusicFileMetadata } from "../actions.ts";
 
 type ShowAudioFileMetadataModalProps = {

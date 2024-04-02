@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import EditAudioMetadataForm from "./edit-audio-metdata-form.tsx";
 import RemoteAudioInfo from "./remote-audio-info.tsx";
-import Alert, { AlertProps } from "./alert.tsx";
+import Alert, { type AlertProps } from "./alert.tsx";
 import { getMusicFileMetadata } from "../actions.ts";
 
 type EditAudioFileMetadataModalPorps = {

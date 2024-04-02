@@ -1,5 +1,5 @@
 import { Command, CompletionsCommand, HelpCommand } from "cliffy";
-import { join } from "@deno/std/path/mod.ts";
+import { join } from "@std/path";
 import { SizeHint, Webview } from "@webview/webview";
 import * as actions from "./actions.ts";
 import embed from "./public.json" with { type: "json" };

@@ -4,7 +4,7 @@ import App from "./app.tsx";
 
 (() => {
   const getPreferredTheme = () => {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
+    return globalThis.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
   };
@@ -15,7 +15,7 @@ import App from "./app.tsx";
 
   setTheme(getPreferredTheme());
 
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener(
+  globalThis.matchMedia("(prefers-color-scheme: dark)").addEventListener(
     "change",
     () => {
       setTheme(getPreferredTheme());

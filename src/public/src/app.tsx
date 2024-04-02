@@ -1,4 +1,10 @@
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import {
+  type ChangeEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,7 +13,7 @@ import Col from "react-bootstrap/Col";
 import MusicFiles from "./components/music-files.tsx";
 import { useHotkeys } from "react-hotkeys-hook";
 import { debounce } from "./utils.ts";
-import Alert, { AlertProps } from "./components/alert.tsx";
+import Alert, { type AlertProps } from "./components/alert.tsx";
 import { getFiles } from "./actions.ts";
 
 const App = () => {
