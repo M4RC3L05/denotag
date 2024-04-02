@@ -1,6 +1,6 @@
-bin/*
-!bin/.gitkeep
-!bin/public-to-json.ts
+.bin/*
+!.bin/.gitkeep
+!.bin/public-to-json.ts
 share
 lib
 include
