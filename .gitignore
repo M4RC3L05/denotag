@@ -1,4 +1,5 @@
 .bin/*
+!.bin/git-hooks
 !.bin/.gitkeep
 !.bin/public-to-json.ts
 share

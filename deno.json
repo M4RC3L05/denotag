@@ -4,6 +4,7 @@
   "tasks": {
     "run": "./.bin/public-to-json.ts && deno run -A --unstable-ffi --cached-only --lock=deno.lock src/main.ts",
     "compile": "./.bin/public-to-json.ts && deno compile -A --unstable-ffi --include ./src/public.json --cached-only --lock=deno.lock -o ./.bin/denotag ./src/main.ts",
+    "dev:boot": "git config core.hooksPath ./.bin/git-hooks/ && deno task deps",
     "deps:lock": "deno cache --lock=deno.lock --lock-write src/*.ts src/**/*.ts src/**/*.tsx ./.bin/*.ts",
     "deps": "deno cache --reload --lock=deno.lock src/*.ts src/**/*.ts src/**/*.tsx ./.bin/*.ts"
   },
@@ -17,7 +18,7 @@
     }
   },
   "fmt": {
-    "exclude": [".cache/"]
+    "exclude": [".cache/", "./src/public.json"]
   },
   "imports": {
     "@std/encoding": "jsr:@std/encoding@0.221.0",
