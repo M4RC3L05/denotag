@@ -1,73 +1,83 @@
 #!/usr/bin/env -S deno run -A --unstable-ffi --cached-only --lock=deno.lock
 
-import { build, type Plugin } from "esbuild";
-import { cache as esbuildPluginCache } from "esbuild-plugin-cache";
-import json from "../deno.json" with { type: "json" };
+import { build, type Plugin, stop } from "esbuild";
+import { denoPlugins } from "@luca/esbuild-deno-loader";
+import { resolve } from "@std/path";
 
 let htmlFile = Deno.readTextFileSync(
   new URL("../src/public/index.html", import.meta.url),
 );
 
-const code = await build({
-  bundle: true,
-  entryPoints: [
-    "./src/public/src/main.tsx",
-    "./src/public/css/main.css",
-  ],
-  tsconfigRaw: { compilerOptions: { jsx: "react-jsx" } },
-  plugins: [
-    {
-      name: "css-http-import",
-      setup(build) {
-        build.onResolve(
-          { filter: /^https?:\/\/.*\.css$/ },
-          (args) => ({ path: args.path, namespace: "css-http-url" }),
-        );
-
-        build.onLoad(
-          { filter: /.*/, namespace: "css-http-url" },
-          async (args) => ({
-            contents: await fetch(args.path + "?target=es2022").then((x) =>
-              x.text()
-            ),
-            loader: "css",
-          }),
-        );
+const [jsCode, cssCode] = await Promise.all([
+  build({
+    bundle: true,
+    tsconfigRaw: {
+      compilerOptions: {
+        jsx: "react-jsx",
       },
-    } as Plugin,
-    esbuildPluginCache({
-      importmap: {
-        imports: Object.fromEntries(
-          Object.entries(json.imports).map((
-            [key, value],
-          ) => [key, value + "?target=es2022"]),
-        ),
-      },
-      directory: "./.cache",
+    },
+    entryPoints: [
+      resolve(import.meta.dirname!, "../src/public/src/main.tsx"),
+    ],
+    plugins: denoPlugins({
+      configPath: resolve(import.meta.dirname!, "../deno.json"),
+      lockPath: resolve(import.meta.dirname!, "../deno.lock"),
     }),
-  ],
-  minify: true,
-  minifyIdentifiers: true,
-  minifySyntax: true,
-  minifyWhitespace: true,
-  keepNames: true,
-  treeShaking: true,
-  format: "esm",
-  target: ["es2022"],
-  write: false,
-  outdir: "foo",
-});
+    define: {
+      NODE_ENV: "production",
+    },
+    minify: true,
+    minifyIdentifiers: true,
+    minifySyntax: true,
+    minifyWhitespace: true,
+    keepNames: false,
+    treeShaking: true,
+    format: "esm",
+    write: false,
+    outdir: "out",
+  }),
+  build({
+    bundle: true,
+    entryPoints: [
+      resolve(import.meta.dirname!, "../src/public/css/main.css"),
+    ],
+    plugins: [
+      {
+        name: "css-http-import",
+        setup(build) {
+          build.onResolve(
+            { filter: /^https?:\/\/.*\.css$/ },
+            (args) => ({ path: args.path, namespace: "css-http-url" }),
+          );
+
+          build.onLoad(
+            { filter: /.*/, namespace: "css-http-url" },
+            async (args) => ({
+              contents: await fetch(args.path + "?target=es2022").then((x) =>
+                x.text()
+              ),
+              loader: "css",
+            }),
+          );
+        },
+      } as Plugin,
+    ],
+    minify: true,
+    write: false,
+    outdir: "out",
+  }),
+]);
 
 htmlFile = htmlFile.replace(
   "{{ CssItems }}",
-  code.outputFiles.filter(({ path }) => path.endsWith(".css")).map((
+  cssCode.outputFiles.filter(({ path }) => path.endsWith(".css")).map((
     { contents },
   ) => `<style>\n${new TextDecoder().decode(contents)}\n</style>`).join("\n"),
 );
 
 htmlFile = htmlFile.replace(
   "{{ JsItems }}",
-  code.outputFiles.filter(({ path }) => path.endsWith(".js")).map((
+  jsCode.outputFiles.filter(({ path }) => path.endsWith(".js")).map((
     { contents },
   ) =>
     `<script type="module">\n${new TextDecoder().decode(contents)}\n</script>`
@@ -87,4 +97,4 @@ Deno.writeTextFileSync(
   }),
 );
 
-Deno.exit(0);
+await stop();

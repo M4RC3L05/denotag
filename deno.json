@@ -17,28 +17,21 @@
     }
   },
   "fmt": {
-    "exclude": [".cache/", "./src/public.json"]
+    "exclude": ["./src/public.json"]
   },
   "imports": {
-    "@std/encoding": "jsr:@std/encoding@0.221.0",
-    "@std/path": "jsr:@std/path@0.221.0",
-    "@webview/webview": "jsr:@webview/webview@^0.8.0",
-    "cliffy": "https://deno.land/x/cliffy@v1.0.0-rc.3/command/mod.ts",
-    "esbuild": "https://deno.land/x/esbuild@v0.20.2/mod.js",
+    "@deno/emit": "jsr:@deno/emit@0.40.2",
+    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.10.3",
+    "@std/encoding": "jsr:@std/encoding@0.224.0",
+    "@std/path": "jsr:@std/path@0.224.0",
+    "@webview/webview": "jsr:@webview/webview@0.8.0",
+    "cliffy": "https://deno.land/x/cliffy@v1.0.0-rc.4/command/mod.ts",
+    "esbuild": "npm:esbuild@0.20.2",
     "esbuild-plugin-cache": "npm:esbuild-plugin-cache@0.2.10",
     "node-taglib-sharp": "npm:node-taglib-sharp@5.2.3",
-    "react": "https://esm.sh/v132/react@18.2.0",
-    "react-bootstrap/Button": "https://esm.sh/v132/react-bootstrap@2.10.2/Button",
-    "react-bootstrap/Card": "https://esm.sh/v132/react-bootstrap@2.10.2/Card",
-    "react-bootstrap/Col": "https://esm.sh/v132/react-bootstrap@2.10.2/Col",
-    "react-bootstrap/Container": "https://esm.sh/v132/react-bootstrap@2.10.2/Container",
-    "react-bootstrap/Form": "https://esm.sh/v132/react-bootstrap@2.10.2/Form",
-    "react-bootstrap/Image": "https://esm.sh/v132/react-bootstrap@2.10.2/Image",
-    "react-bootstrap/Modal": "https://esm.sh/v132/react-bootstrap@2.10.2/Modal",
-    "react-bootstrap/Row": "https://esm.sh/v132/react-bootstrap@2.10.2/Row",
-    "react-bootstrap/Table": "https://esm.sh/v132/react-bootstrap@2.10.2/Table",
-    "react-dom/client": "https://esm.sh/v132/react-dom@18.2.0/client",
-    "react-hotkeys-hook": "https://esm.sh/v132/react-hotkeys-hook@4.5.0",
-    "react/jsx-runtime": "https://esm.sh/v132/react@18.2.0/jsx-runtime"
+    "react": "npm:react@18.3.0",
+    "react-dom": "npm:react-dom@18.3.0",
+    "react-bootstrap": "npm:react-bootstrap@2.10.2",
+    "react-hotkeys-hook": "npm:react-hotkeys-hook@4.5.0"
   }
 }
