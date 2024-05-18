@@ -19,22 +19,24 @@ class ActionError extends Error {
   }
 }
 
-export const actionErrorMapper =
+const actionErrorMapper =
   // deno-lint-ignore no-explicit-any
   <F extends (...args: any[]) => any>(fn: F) =>
-  (
+  async (
     ...args: Parameters<typeof fn>
-  ): Promise<ReturnType<typeof fn>> => {
+  ): Promise<{ data: ReturnType<typeof fn> } | { error: unknown }> => {
     try {
-      return fn(...args);
+      return { data: await fn(...args) };
     } catch (error) {
-      throw new ActionError(`Error running action "${fn.name}"`, {
-        cause: error,
-      });
+      return {
+        error: new ActionError(`Error running action "${fn.name}"`, {
+          cause: error,
+        }),
+      };
     }
   };
 
-export const getFiles = (dir: string) => {
+const getFiles = (dir: string) => () => {
   const result = [];
 
   for (const file of Deno.readDirSync(dir)) {
@@ -44,7 +46,7 @@ export const getFiles = (dir: string) => {
   return result.sort((a, b) => a.localeCompare(b));
 };
 
-export const getMusicFileMetadata = ({ path }: { path: string }) => {
+const getMusicFileMetadata = ({ path }: { path: string }) => {
   const file = File.createFromPath(path);
 
   const cover = file.tag.pictures.find((p) =>
@@ -75,7 +77,7 @@ export const getMusicFileMetadata = ({ path }: { path: string }) => {
   return data;
 };
 
-export const setMusicFileMetadata = (
+const setMusicFileMetadata = (
   // deno-lint-ignore no-explicit-any
   { path, metadata }: { path: string; metadata: Record<string, any> },
 ) => {
@@ -123,4 +125,36 @@ export const setMusicFileMetadata = (
   }
 
   file.save();
+};
+
+export const bootActions = (data: { dir: string }) => {
+  const callMap = {
+    getFiles: actionErrorMapper(getFiles(data.dir)),
+    getMusicFileMetadata: actionErrorMapper(
+      getMusicFileMetadata,
+    ),
+    setMusicFileMetadata: actionErrorMapper(
+      setMusicFileMetadata,
+    ),
+  };
+
+  type CallMap = typeof callMap;
+
+  const invokeAction = async <K extends keyof CallMap>(
+    callName: K,
+    ...args: Parameters<CallMap[K]>
+  ): Promise<{ data: ReturnType<CallMap[K]> } | { error: ActionError }> => {
+    if (!(callName in callMap)) {
+      return { error: new ActionError(`Call "${callName}" does not exists`) };
+    }
+
+    // deno-lint-ignore ban-ts-comment
+    // @ts-ignore
+    // deno-lint-ignore no-explicit-any
+    return await callMap[callName](...args) as any as Promise<
+      { data: ReturnType<CallMap[K]> } | { error: ActionError }
+    >;
+  };
+
+  return { invokeAction };
 };

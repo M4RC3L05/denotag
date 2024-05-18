@@ -1,8 +1,7 @@
 import { Command, CompletionsCommand, HelpCommand } from "cliffy";
-import { join } from "@std/path";
-import { SizeHint, Webview } from "@webview/webview";
-import * as actions from "./actions.ts";
+import { bootActions } from "./actions.ts";
 import embed from "./public.json" with { type: "json" };
+import { join } from "@std/path";
 
 const tag = new Command()
   .description("Tag a audio file")
@@ -16,38 +15,31 @@ const tag = new Command()
       throw new Error(`Dir "${dir}" it not a directory`);
     }
 
-    const webview = new Webview(true);
+    const ui = new TextDecoder().decode(Uint8Array.from(embed["index.html"]));
+    const { invokeAction } = bootActions({ dir: join(dir) });
 
-    webview.bind(
-      "getFiles",
-      actions.actionErrorMapper(actions.getFiles.bind(null, join(dir))),
-    );
-    webview.bind(
-      "getMusicFileMetadata",
-      actions.actionErrorMapper(actions.getMusicFileMetadata),
-    );
-    webview.bind(
-      "setMusicFileMetadata",
-      actions.actionErrorMapper(actions.setMusicFileMetadata),
-    );
+    Deno.serve(async (request) => {
+      const { pathname } = new URL(request.url);
 
-    webview.navigate(
-      `data:text/html,${
-        encodeURIComponent(
-          new TextDecoder().decode(Uint8Array.from(embed["index.html"])),
-        )
-      }`,
-    );
+      if (request.method === "POST" && pathname.startsWith("/call")) {
+        const [_, callName] = pathname.slice(1).split("/");
 
-    webview.title = "DenoTag";
-    webview.size = {
-      width: 1280,
-      height: 920,
-      hint: SizeHint.NONE,
-    };
+        const hasContent = (request.headers.has("content-length") &&
+          request.headers.get("content-length") !== "0") ||
+          (request.headers.has("content-type") &&
+            request.headers.get("content-type")?.includes("application/json"));
 
-    webview.run();
-    webview.destroy();
+        const args = hasContent ? await request.json() : [];
+
+        // deno-lint-ignore no-explicit-any
+        return Response.json(await invokeAction(callName as any, ...args));
+      }
+
+      return new Response(ui, {
+        headers: { "content-type": "text/html" },
+        status: 200,
+      });
+    });
   });
 
 await new Command()
