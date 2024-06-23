@@ -21,14 +21,14 @@
   },
   "imports": {
     "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.10.3",
-    "@std/encoding": "jsr:@std/encoding@0.224.1",
-    "@std/path": "jsr:@std/path@0.225.1",
+    "@std/encoding": "jsr:@std/encoding@0.224.3",
+    "@std/path": "jsr:@std/path@0.225.2",
     "cliffy": "https://deno.land/x/cliffy@v1.0.0-rc.4/command/mod.ts",
-    "esbuild": "npm:esbuild@0.21.3",
+    "esbuild": "npm:esbuild@0.21.5",
     "node-taglib-sharp": "npm:node-taglib-sharp@5.2.3",
     "react": "npm:react@18.3.1",
     "react-dom": "npm:react-dom@18.3.1",
-    "react-bootstrap": "npm:react-bootstrap@2.10.2",
+    "react-bootstrap": "npm:react-bootstrap@2.10.3",
     "react-hotkeys-hook": "npm:react-hotkeys-hook@4.5.0"
   }
 }
