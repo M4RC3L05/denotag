@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run -A --unstable-ffi --cached-only --lock=deno.lock
+#!/usr/bin/env -S deno run -A --unstable-ffi --cached-only
 
 import { build, type Plugin, stop } from "esbuild";
 import { denoPlugins } from "@luca/esbuild-deno-loader";
