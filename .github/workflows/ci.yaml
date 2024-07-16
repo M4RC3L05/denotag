@@ -1,7 +1,6 @@
+---
 name: CI
-
 on: [push, pull_request]
-
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -9,10 +8,11 @@ jobs:
       - name: clone repository
         uses: actions/checkout@v4
 
-      - name: install deno
-        uses: denoland/setup-deno@v1
+      - name: setup tools
+        uses: jdx/mise-action@v2
         with:
-          deno-version-file: .tool-versions
+          install: true
+          cache: true
 
       - name: create public.json
         run: touch src/public.json
@@ -20,8 +20,14 @@ jobs:
       - name: check lockfile
         run: deno task deps:check
 
-      - name: check format
-        run: deno fmt --check
+      - name: check lint
+        run: |
+          deno lint
+          yamllint .
+          deno run -A npm:html-validate .
 
-      - name: check linting
-        run: deno lint
+      - name: check format
+        run: |-
+          deno fmt --check
+          yamlfmt -dry -lint .
+          deno run -A npm:prettier -c "./src/public/**/*.{html,css}"

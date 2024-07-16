@@ -1,0 +1,9 @@
+{
+  "$schema": "https://html-validate.org/schemas/config.json",
+  "extends": ["html-validate:recommended"],
+  "rules": {
+    "no-inline-style": "off",
+    "void-style": ["error", { "style": "selfclosing" }],
+    "doctype-style": ["error", { "style": "lowercase" }]
+  }
+}
