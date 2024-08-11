@@ -1,6 +1,5 @@
 import { Command, CompletionsCommand, HelpCommand } from "cliffy";
 import { bootActions } from "./actions.ts";
-import embed from "./public.json" with { type: "json" };
 import { join } from "@std/path";
 
 const tag = new Command()
@@ -14,6 +13,10 @@ const tag = new Command()
     if (!(await Deno.stat(dir)).isDirectory) {
       throw new Error(`Dir "${dir}" it not a directory`);
     }
+
+    const embed = await import("./public.json").then(({ default: main }) =>
+      main
+    );
 
     const ui = new TextDecoder().decode(Uint8Array.from(embed["index.html"]));
     const { invokeAction } = bootActions({ dir: join(dir) });
