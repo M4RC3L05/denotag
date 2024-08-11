@@ -14,11 +14,10 @@ const tag = new Command()
       throw new Error(`Dir "${dir}" it not a directory`);
     }
 
-    const embed = await import("./public.json").then(({ default: main }) =>
-      main
-    );
+    const embed = await import("./public.json", { with: { type: "json" } })
+      .then(({ default: main }) => main);
 
-    const ui = new TextDecoder().decode(Uint8Array.from(embed["index.html"]));
+    const ui = Uint8Array.from(embed["index.html"]);
     const { invokeAction } = bootActions({ dir: join(dir) });
 
     Deno.serve(async (request) => {
