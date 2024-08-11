@@ -1,8 +1,7 @@
 import { ByteVector, File, OggTag, PictureType } from "node-taglib-sharp";
 import { join } from "@std/path";
-import { decodeBase64 } from "@std/encoding/base64";
 
-class ActionError extends Error {
+export class ActionError extends Error {
   toJSON() {
     return {
       message: this.message,
@@ -24,26 +23,26 @@ const actionErrorMapper =
   <F extends (...args: any[]) => any>(fn: F) =>
   async (
     ...args: Parameters<typeof fn>
-  ): Promise<{ data: ReturnType<typeof fn> } | { error: unknown }> => {
+  ): Promise<ReturnType<typeof fn> | ActionError> => {
     try {
-      return { data: await fn(...args) };
+      return await fn(...args);
     } catch (error) {
-      return {
-        error: new ActionError(`Error running action "${fn.name}"`, {
-          cause: error,
-        }),
-      };
+      return new ActionError(`Error running action "${fn.name}"`, {
+        cause: error,
+      });
     }
   };
 
-const getFiles = (dir: string) => () => {
-  const result = [];
+const getFiles = (dir: string) => {
+  return function getFiles() {
+    const result = [];
 
-  for (const file of Deno.readDirSync(dir)) {
-    result.push(join(dir, file.name));
-  }
+    for (const file of Deno.readDirSync(dir)) {
+      result.push(join(dir, file.name));
+    }
 
-  return result.sort((a, b) => a.localeCompare(b));
+    return result.sort((a, b) => a.localeCompare(b));
+  };
 };
 
 const getMusicFileMetadata = ({ path }: { path: string }) => {
@@ -84,7 +83,7 @@ const setMusicFileMetadata = (
   const file = File.createFromPath(path);
 
   if (metadata.album) file.tag.album = metadata.album;
-  if (metadata.year) file.tag.year = metadata.year;
+  if (metadata.year) file.tag.year = Number(metadata.year);
 
   if (metadata.date) {
     if (file.tag instanceof OggTag) {
@@ -95,31 +94,21 @@ const setMusicFileMetadata = (
     }
   }
 
-  if (metadata.albumArtist) {
-    file.tag.albumArtists = [metadata.albumArtist];
-  }
+  if (metadata.albumArtist) file.tag.albumArtists = [metadata.albumArtist];
   if (metadata.genre) file.tag.genres = [metadata.genre];
   if (metadata.artist) file.tag.performers = [metadata.artist];
   if (metadata.title) file.tag.title = metadata.title;
-  if (metadata.track) file.tag.track = metadata.track;
-  if (metadata.trackCount) file.tag.trackCount = metadata.trackCount;
-  if (metadata.disc) file.tag.disc = metadata.disc;
-  if (metadata.discCount) file.tag.discCount = metadata.discCount;
+  if (metadata.track) file.tag.track = Number(metadata.track);
+  if (metadata.trackCount) file.tag.trackCount = Number(metadata.trackCount);
+  if (metadata.disc) file.tag.disc = Number(metadata.disc);
+  if (metadata.discCount) file.tag.discCount = Number(metadata.discCount);
 
   if (metadata.cover) {
-    const mimeType = metadata.cover.slice(
-      metadata.cover.indexOf(":") + 1,
-      metadata.cover.indexOf(";"),
-    );
-    const data = decodeBase64(metadata.cover.slice(
-      metadata.cover.indexOf(",") + 1,
-    ));
-
     file.tag.pictures = [{
-      data: ByteVector.fromByteArray(data),
+      data: ByteVector.fromByteArray(metadata.cover.data),
       description: "",
       filename: "",
-      mimeType: mimeType,
+      mimeType: metadata.cover.mimeType,
       type: PictureType.FrontCover,
     }];
   }
@@ -136,24 +125,22 @@ export const bootActions = (data: { dir: string }) => {
     setMusicFileMetadata: actionErrorMapper(
       setMusicFileMetadata,
     ),
-  };
+  } as const;
 
   type CallMap = typeof callMap;
 
   const invokeAction = async <K extends keyof CallMap>(
     callName: K,
     ...args: Parameters<CallMap[K]>
-  ): Promise<{ data: ReturnType<CallMap[K]> } | { error: ActionError }> => {
+  ): Promise<ReturnType<CallMap[K]> | ActionError> => {
     if (!(callName in callMap)) {
-      return { error: new ActionError(`Call "${callName}" does not exists`) };
+      return new ActionError(`Call "${callName}" does not exists`);
     }
 
     // deno-lint-ignore ban-ts-comment
     // @ts-ignore
     // deno-lint-ignore no-explicit-any
-    return await callMap[callName](...args) as any as Promise<
-      { data: ReturnType<CallMap[K]> } | { error: ActionError }
-    >;
+    return await callMap[callName](...args) as any;
   };
 
   return { invokeAction };

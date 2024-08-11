@@ -1,1 +1,52 @@
-@import url("https://esm.sh/bootstrap@5.3.3/dist/css/bootstrap.min.css");
+@import url("https://unpkg.com/simpledotcss@2.3.1/simple.min.css");
+
+body:has(.backdrop-dialog.show),
+html:has(.backdrop-dialog.show) {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.backdrop-dialog {
+  z-index: 10000;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  transition: all .3s ease-in-out;
+
+  & dialog {
+    transition: all .3s ease-in-out;
+    max-height: calc(100vh - 80px);
+    overflow: scroll;
+  }
+
+  &.show {
+    pointer-events: all;
+    background: #000000a3;
+
+    & dialog {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &.hidden {
+    pointer-events: none;
+    background: transparent;
+
+    & dialog {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+}
+
+form input {
+  width: 100%;
+}

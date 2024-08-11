@@ -9,3 +9,5 @@ data
 src/public.json
 *.dll
 .cache
+out/*
+!out/.gitkeep

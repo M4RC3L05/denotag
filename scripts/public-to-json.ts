@@ -4,10 +4,6 @@ import { build, type Plugin, stop } from "esbuild";
 import { denoPlugins } from "@luca/esbuild-deno-loader";
 import { resolve } from "@std/path";
 
-let htmlFile = Deno.readTextFileSync(
-  new URL("../src/public/index.html", import.meta.url),
-);
-
 const [jsCode, cssCode] = await Promise.all([
   build({
     bundle: true,
@@ -17,7 +13,7 @@ const [jsCode, cssCode] = await Promise.all([
       },
     },
     entryPoints: [
-      resolve(import.meta.dirname!, "../src/public/src/main.tsx"),
+      resolve(import.meta.dirname!, "../src/public/src/main.ts"),
     ],
     plugins: denoPlugins({
       configPath: resolve(import.meta.dirname!, "../deno.json"),
@@ -68,21 +64,20 @@ const [jsCode, cssCode] = await Promise.all([
   }),
 ]);
 
-htmlFile = htmlFile.replace(
-  "{{ CssItems }}",
-  cssCode.outputFiles.filter(({ path }) => path.endsWith(".css")).map((
-    { contents },
-  ) => `<style>\n${new TextDecoder().decode(contents)}\n</style>`).join("\n"),
-);
-
-htmlFile = htmlFile.replace(
-  "{{ JsItems }}",
-  jsCode.outputFiles.filter(({ path }) => path.endsWith(".js")).map((
-    { contents },
-  ) =>
-    `<script type="module">\n${new TextDecoder().decode(contents)}\n</script>`
-  ).join("\n"),
-);
+const contents = {
+  css: cssCode.outputFiles
+    .filter(({ path }) => path.endsWith(".css"))
+    .map(({ contents }) =>
+      `<style>\n${new TextDecoder().decode(contents)}\n</style>`
+    )
+    .map((data) => Array.from(new TextEncoder().encode(data))),
+  js: jsCode.outputFiles
+    .filter(({ path }) => path.endsWith(".js"))
+    .map(({ contents }) =>
+      `<script type="module">\n${new TextDecoder().decode(contents)}\n</script>`
+    )
+    .map((data) => Array.from(new TextEncoder().encode(data))),
+};
 
 try {
   Deno.statSync("./src/public.json");
@@ -92,9 +87,7 @@ try {
 
 Deno.writeTextFileSync(
   "./src/public.json",
-  JSON.stringify({
-    "index.html": Array.from(new TextEncoder().encode(htmlFile)),
-  }),
+  JSON.stringify(contents),
 );
 
 await stop();
