@@ -1,6 +1,6 @@
 {
   "name": "@m4rc3l05/denotag",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "exports": "./src/main.ts",
   "tasks": {
     "run": "./scripts/public-to-json.ts && deno run -A --unstable-ffi --cached-only src/main.ts",
