@@ -9,3 +9,4 @@ data
 src/public.json
 *.dll
 .cache
+.env

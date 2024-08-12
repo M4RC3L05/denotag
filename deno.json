@@ -4,7 +4,7 @@
   "exports": "./src/main.ts",
   "tasks": {
     "run": "./scripts/public-to-json.ts && deno run -A --unstable-ffi --cached-only src/main.ts",
-    "compile": "./scripts/public-to-json.ts && deno compile -A --unstable-ffi --include ./src/public.json --cached-only -o ./.bin/denotag ./src/main.ts",
+    "compile": "./scripts/public-to-json.ts && deno compile -A --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag ./src/main.ts",
     "deps:check": "deno cache --frozen src/*.ts src/**/*.ts src/**/*.tsx ./scripts/*.ts",
     "deps:lock": "deno cache --frozen=false src/*.ts src/**/*.ts src/**/*.tsx ./scripts/*.ts",
     "deps": "deno cache --reload src/*.ts src/**/*.ts src/**/*.tsx ./scripts/*.ts"

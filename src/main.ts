@@ -20,7 +20,10 @@ const tag = new Command()
     const ui = Uint8Array.from(embed["index.html"]);
     const { invokeAction } = bootActions({ dir: join(dir) });
 
-    Deno.serve(async (request) => {
+    Deno.serve({
+      hostname: "127.0.0.1",
+      port: Deno.env.get("ENV") === "production" ? 0 : 8000,
+    }, async (request) => {
       const { pathname } = new URL(request.url);
 
       if (request.method === "POST" && pathname.startsWith("/call")) {
