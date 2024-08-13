@@ -1,6 +1,5 @@
 import { ByteVector, File, OggTag, PictureType } from "node-taglib-sharp";
 import { join } from "@std/path";
-import { decodeBase64 } from "@std/encoding/base64";
 
 class ActionError extends Error {
   toJSON() {
@@ -79,12 +78,12 @@ const getMusicFileMetadata = ({ path }: { path: string }) => {
 
 const setMusicFileMetadata = (
   // deno-lint-ignore no-explicit-any
-  { path, metadata }: { path: string; metadata: Record<string, any> },
+  { path, ...metadata }: { path: string } & Record<string, any>,
 ) => {
   const file = File.createFromPath(path);
 
   if (metadata.album) file.tag.album = metadata.album;
-  if (metadata.year) file.tag.year = metadata.year;
+  if (metadata.year) file.tag.year = Number(metadata.year);
 
   if (metadata.date) {
     if (file.tag instanceof OggTag) {
@@ -101,25 +100,17 @@ const setMusicFileMetadata = (
   if (metadata.genre) file.tag.genres = [metadata.genre];
   if (metadata.artist) file.tag.performers = [metadata.artist];
   if (metadata.title) file.tag.title = metadata.title;
-  if (metadata.track) file.tag.track = metadata.track;
-  if (metadata.trackCount) file.tag.trackCount = metadata.trackCount;
-  if (metadata.disc) file.tag.disc = metadata.disc;
-  if (metadata.discCount) file.tag.discCount = metadata.discCount;
+  if (metadata.track) file.tag.track = Number(metadata.track);
+  if (metadata.trackCount) file.tag.trackCount = Number(metadata.trackCount);
+  if (metadata.disc) file.tag.disc = Number(metadata.disc);
+  if (metadata.discCount) file.tag.discCount = Number(metadata.discCount);
 
   if (metadata.cover) {
-    const mimeType = metadata.cover.slice(
-      metadata.cover.indexOf(":") + 1,
-      metadata.cover.indexOf(";"),
-    );
-    const data = decodeBase64(metadata.cover.slice(
-      metadata.cover.indexOf(",") + 1,
-    ));
-
     file.tag.pictures = [{
-      data: ByteVector.fromByteArray(data),
+      data: ByteVector.fromByteArray(metadata.cover.data),
       description: "",
       filename: "",
-      mimeType: mimeType,
+      mimeType: metadata.cover.mimetype,
       type: PictureType.FrontCover,
     }];
   }

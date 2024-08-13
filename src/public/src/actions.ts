@@ -2,8 +2,10 @@
 const call = <R>(callName: string, ...args: any[]) =>
   fetch(`/call/${callName}`, {
     method: "POST",
-    body: args.length > 0 ? JSON.stringify(args) : undefined,
-    headers: args.length > 0
+    body: args.length > 0
+      ? args[0] instanceof FormData ? args[0] : JSON.stringify(args)
+      : undefined,
+    headers: args.length > 0 && !(args[0] instanceof FormData)
       ? { "content-type": "application/json" }
       : undefined,
   }).then((x) => x.json()).then(({ data, error }) => {
@@ -30,6 +32,5 @@ export const getMusicFileMetadata = ({ path }: { path: string }) =>
   }>("getMusicFileMetadata", { path });
 
 export const setMusicFileMetadata = (
-  // deno-lint-ignore no-explicit-any
-  { path, metadata }: { path: string; metadata: Record<string, any> },
-) => call<void>("setMusicFileMetadata", { path, metadata });
+  data: FormData,
+) => call<void>("setMusicFileMetadata", data);

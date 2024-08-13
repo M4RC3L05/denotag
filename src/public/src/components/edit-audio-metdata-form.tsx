@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
@@ -16,7 +16,6 @@ type EditAudioMetadataFormProps = {
 const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
   { metadata, file, onTagged },
 ) => {
-  const [formData, setFormData] = useState<Record<string, string | number>>({});
   const [alertInfo, setAlertInfo] = useState<AlertProps>({
     show: false,
     title: "",
@@ -24,21 +23,20 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
       setAlertInfo((ps) => ({ ...ps, show: false }));
     }, []),
   });
-
-  useEffect(() => {
-    setFormData(metadata);
-  }, [metadata]);
+  const imgRef = useRef();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = Object.fromEntries(
-      Object.entries(formData).filter(([_, value]) =>
-        typeof value === "string" ? value.trim() !== "" : true
-      ),
-    );
+    const fd = new FormData(e.target);
 
-    setMusicFileMetadata({ path: file, metadata: data })
+    const cover = fd.get("cover");
+
+    if ((cover as File).size <= 0) {
+      fd.delete("cover");
+    }
+
+    setMusicFileMetadata(fd)
       .then(() => {
         setAlertInfo((ps) => ({
           ...ps,
@@ -65,25 +63,19 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      setFormData((prev) => ({
-        ...prev,
-        cover: reader.result as string,
-      }));
+      imgRef.current.src = reader.result as string;
     };
     reader.readAsDataURL(e.target.files![0]);
   };
 
-  const setProp =
-    (prop: string, map = (v: string): string | number => v) =>
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setFormData((prev) => ({ ...prev, [prop]: map(e.target.value) }));
-
   return (
     <>
       <Alert {...alertInfo} />
-      <Form onSubmit={onSubmit}>
-        <Image src={formData?.cover as string} fluid />
+      <Form onSubmit={onSubmit} enctype="multipart/form-data">
+        <input type="hidden" name="path" value={file} />
+        <Image ref={imgRef} src={metadata?.cover as string} fluid />
         <Form.Control
+          name="cover"
           className="mb-2"
           type="file"
           placeholder="Cover"
@@ -94,9 +86,9 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
           <Form.Label>Album artist</Form.Label>
           <Form.Control
             type="text"
+            name="albumArtist"
             placeholder="Album artist name"
-            value={formData?.albumArtist}
-            onChange={setProp("albumArtist")}
+            defaultValue={metadata?.albumArtist}
           />
         </Form.Group>
 
@@ -104,9 +96,9 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
           <Form.Label>Album</Form.Label>
           <Form.Control
             type="text"
+            name="album"
             placeholder="Album name"
-            value={formData?.album}
-            onChange={setProp("album")}
+            defaultValue={metadata?.album}
           />
         </Form.Group>
 
@@ -114,9 +106,9 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
           <Form.Label>Title</Form.Label>
           <Form.Control
             type="text"
+            name="title"
             placeholder="Title"
-            value={formData?.title}
-            onChange={setProp("title")}
+            defaultValue={metadata?.title}
           />
         </Form.Group>
 
@@ -124,9 +116,9 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
           <Form.Label>Artist</Form.Label>
           <Form.Control
             type="text"
+            name="artist"
             placeholder="Artist"
-            value={formData?.artist}
-            onChange={setProp("artist")}
+            defaultValue={metadata?.artist}
           />
         </Form.Group>
 
@@ -138,8 +130,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
                 type="number"
                 min={0}
                 placeholder="Year"
-                value={formData?.year}
-                onChange={setProp("year", (v) => Number(v))}
+                name="year"
+                defaultValue={metadata?.year}
               />
             </Form.Group>
           </Col>
@@ -150,8 +142,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
               <Form.Control
                 type="date"
                 placeholder="Date"
-                value={formData?.date}
-                onChange={setProp("date")}
+                name="date"
+                defaultValue={metadata?.date}
               />
             </Form.Group>
           </Col>
@@ -162,8 +154,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
           <Form.Control
             type="text"
             placeholder="Genre"
-            value={formData?.genre}
-            onChange={setProp("genre")}
+            name="genre"
+            defaultValue={metadata?.genre}
           />
         </Form.Group>
 
@@ -175,8 +167,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
                 type="number"
                 min={0}
                 placeholder="Track number"
-                value={formData?.track}
-                onChange={setProp("track", (v) => Number(v))}
+                defaultValue={metadata?.track}
+                name="track"
               />
             </Form.Group>
           </Col>
@@ -188,8 +180,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
                 type="number"
                 min={0}
                 placeholder="Track count"
-                value={formData?.trackCount}
-                onChange={setProp("trackCount", (v) => Number(v))}
+                defaultValue={metadata?.trackCount}
+                name="trackCount"
               />
             </Form.Group>
           </Col>
@@ -203,8 +195,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
                 type="number"
                 min={0}
                 placeholder="Disc number"
-                value={formData?.disc}
-                onChange={setProp("disc", (v) => Number(v))}
+                defaultValue={metadata?.disc}
+                name="disc"
               />
             </Form.Group>
           </Col>
@@ -216,8 +208,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
                 type="number"
                 min={0}
                 placeholder="Disc count"
-                value={formData?.discCount}
-                onChange={setProp("discCount", (v) => Number(v))}
+                defaultValue={metadata?.discCount}
+                name="discCount"
               />
             </Form.Group>
           </Col>

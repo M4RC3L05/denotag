@@ -1,6 +1,27 @@
 import { Command, CompletionsCommand, HelpCommand } from "cliffy";
 import { bootActions } from "./actions.ts";
 import { join } from "@std/path";
+import {
+  isMultipartRequest,
+  parseMultipartRequest,
+} from "@mjackson/multipart-parser";
+
+const multipartToObj = async (request: Request) => {
+  const response = new Map<string, unknown>();
+
+  for await (const part of parseMultipartRequest(request)) {
+    if (!part.name) continue;
+
+    response.set(
+      part.name,
+      part.isFile
+        ? { mimetype: part.mediaType, data: await part.bytes() }
+        : await part.text(),
+    );
+  }
+
+  return Object.fromEntries(response.entries());
+};
 
 const tag = new Command()
   .description("Tag a audio file")
@@ -32,9 +53,16 @@ const tag = new Command()
         const hasContent = (request.headers.has("content-length") &&
           request.headers.get("content-length") !== "0") ||
           (request.headers.has("content-type") &&
-            request.headers.get("content-type")?.includes("application/json"));
+            (request.headers.get("content-type")?.includes(
+              "application/json",
+            ) ||
+              isMultipartRequest(request)));
 
-        const args = hasContent ? await request.json() : [];
+        const args = hasContent
+          ? isMultipartRequest(request)
+            ? [await multipartToObj(request)]
+            : await request.json()
+          : [];
 
         // deno-lint-ignore no-explicit-any
         return Response.json(await invokeAction(callName as any, ...args));
