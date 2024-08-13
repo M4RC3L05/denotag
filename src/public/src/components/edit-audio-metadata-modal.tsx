@@ -1,8 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { useCallback, useEffect, useState } from "./../deps.ts";
+import { Col, Container, Modal, Row } from "react-bootstrap";
 import EditAudioMetadataForm from "./edit-audio-metdata-form.tsx";
 import RemoteAudioInfo from "./remote-audio-info.tsx";
 import Alert, { type AlertProps } from "./alert.tsx";

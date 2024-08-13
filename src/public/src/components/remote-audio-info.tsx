@@ -1,9 +1,5 @@
-import { useCallback, useState } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { useCallback, useState } from "./../deps.ts";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { makeRequester } from "../utils.ts";
 import Alert, { type AlertProps } from "./alert.tsx";
 

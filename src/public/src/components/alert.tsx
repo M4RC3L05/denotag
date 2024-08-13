@@ -1,4 +1,4 @@
-import Modal from "react-bootstrap/Modal";
+import { Modal } from "react-bootstrap";
 
 export type AlertProps = {
   // deno-lint-ignore no-explicit-any

@@ -1,20 +1,17 @@
-import {
-  type ChangeEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Form from "react-bootstrap/Form";
-import Col from "react-bootstrap/Col";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import MusicFiles from "./components/music-files.tsx";
 import { useHotkeys } from "react-hotkeys-hook";
 import { debounce } from "./utils.ts";
 import Alert, { type AlertProps } from "./components/alert.tsx";
 import { getFiles } from "./actions.ts";
+import {
+  type ChangeEvent,
+  type RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "./deps.ts";
 
 const App = () => {
   const [files, setFiles] = useState<string[]>([]);
@@ -71,7 +68,7 @@ const App = () => {
         </div>
         <div className="col">
           <Form.Control
-            ref={searchRef as React.RefObject<HTMLInputElement>}
+            ref={searchRef as RefObject<HTMLInputElement>}
             placeholder="search"
             onChange={onSearch}
             className="w-100"

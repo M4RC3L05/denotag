@@ -5,17 +5,16 @@
       "jsr:@luca/esbuild-deno-loader@0.10.3": "jsr:@luca/esbuild-deno-loader@0.10.3",
       "jsr:@mjackson/multipart-parser@0.4.1": "jsr:@mjackson/multipart-parser@0.4.1",
       "jsr:@std/assert@^0.213.1": "jsr:@std/assert@0.213.1",
-      "jsr:@std/assert@^0.226.0": "jsr:@std/assert@0.226.0",
       "jsr:@std/encoding@0.213": "jsr:@std/encoding@0.213.1",
-      "jsr:@std/encoding@0.224.3": "jsr:@std/encoding@0.224.3",
       "jsr:@std/json@^0.213.1": "jsr:@std/json@0.213.1",
       "jsr:@std/jsonc@0.213": "jsr:@std/jsonc@0.213.1",
       "jsr:@std/path@0.213": "jsr:@std/path@0.213.1",
-      "jsr:@std/path@0.225.2": "jsr:@std/path@0.225.2",
+      "jsr:@std/path@1.0.2": "jsr:@std/path@1.0.2",
       "npm:@mjackson/headers@^0.5.0": "npm:@mjackson/headers@0.5.1",
-      "npm:esbuild@0.21.5": "npm:esbuild@0.21.5",
+      "npm:@types/react@18.3.3": "npm:@types/react@18.3.3",
+      "npm:esbuild@0.23.0": "npm:esbuild@0.23.0",
       "npm:node-taglib-sharp@5.2.3": "npm:node-taglib-sharp@5.2.3",
-      "npm:react-bootstrap@2.10.3": "npm:react-bootstrap@2.10.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+      "npm:react-bootstrap@2.10.4": "npm:react-bootstrap@2.10.4_react@18.3.1_react-dom@18.3.1__react@18.3.1",
       "npm:react-dom@18.3.1": "npm:react-dom@18.3.1_react@18.3.1",
       "npm:react-hotkeys-hook@4.5.0": "npm:react-hotkeys-hook@4.5.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
       "npm:react@18.3.1": "npm:react@18.3.1"
@@ -38,14 +37,8 @@
       "@std/assert@0.213.1": {
         "integrity": "24c28178b30c8e0782c18e8e94ea72b16282207569cdd10ffb9d1d26f2edebfe"
       },
-      "@std/assert@0.226.0": {
-        "integrity": "0dfb5f7c7723c18cec118e080fec76ce15b4c31154b15ad2bd74822603ef75b3"
-      },
       "@std/encoding@0.213.1": {
         "integrity": "fcbb6928713dde941a18ca5db88ca1544d0755ec8fb20fe61e2dc8144b390c62"
-      },
-      "@std/encoding@0.224.3": {
-        "integrity": "5e861b6d81be5359fad4155e591acf17c0207b595112d1840998bb9f476dbdaf"
       },
       "@std/json@0.213.1": {
         "integrity": "f572b1de605d07c4a5602445dac54bfc51b1fb87a3710a17aed2608bfca54e68"
@@ -63,110 +56,111 @@
           "jsr:@std/assert@^0.213.1"
         ]
       },
-      "@std/path@0.225.2": {
-        "integrity": "0f2db41d36b50ef048dcb0399aac720a5348638dd3cb5bf80685bf2a745aa506",
-        "dependencies": [
-          "jsr:@std/assert@^0.226.0"
-        ]
+      "@std/path@1.0.2": {
+        "integrity": "a452174603f8c620bd278a380c596437a9eef50c891c64b85812f735245d9ec7"
       }
     },
     "npm": {
-      "@babel/runtime@7.24.8": {
-        "integrity": "sha512-5F7SDGs1T72ZczbRwbGO9lQi0NLjQxzl6i4lJxLxfW9U5UluCSyEJeniWvnhl3/euNiqQVbo8zruhsDfid0esA==",
+      "@babel/runtime@7.25.0": {
+        "integrity": "sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==",
         "dependencies": {
           "regenerator-runtime": "regenerator-runtime@0.14.1"
         }
       },
-      "@esbuild/aix-ppc64@0.21.5": {
-        "integrity": "sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==",
+      "@esbuild/aix-ppc64@0.23.0": {
+        "integrity": "sha512-3sG8Zwa5fMcA9bgqB8AfWPQ+HFke6uD3h1s3RIwUNK8EG7a4buxvuFTs3j1IMs2NXAk9F30C/FF4vxRgQCcmoQ==",
         "dependencies": {}
       },
-      "@esbuild/android-arm64@0.21.5": {
-        "integrity": "sha512-c0uX9VAUBQ7dTDCjq+wdyGLowMdtR/GoC2U5IYk/7D1H1JYC0qseD7+11iMP2mRLN9RcCMRcjC4YMclCzGwS/A==",
+      "@esbuild/android-arm64@0.23.0": {
+        "integrity": "sha512-EuHFUYkAVfU4qBdyivULuu03FhJO4IJN9PGuABGrFy4vUuzk91P2d+npxHcFdpUnfYKy0PuV+n6bKIpHOB3prQ==",
         "dependencies": {}
       },
-      "@esbuild/android-arm@0.21.5": {
-        "integrity": "sha512-vCPvzSjpPHEi1siZdlvAlsPxXl7WbOVUBBAowWug4rJHb68Ox8KualB+1ocNvT5fjv6wpkX6o/iEpbDrf68zcg==",
+      "@esbuild/android-arm@0.23.0": {
+        "integrity": "sha512-+KuOHTKKyIKgEEqKbGTK8W7mPp+hKinbMBeEnNzjJGyFcWsfrXjSTNluJHCY1RqhxFurdD8uNXQDei7qDlR6+g==",
         "dependencies": {}
       },
-      "@esbuild/android-x64@0.21.5": {
-        "integrity": "sha512-D7aPRUUNHRBwHxzxRvp856rjUHRFW1SdQATKXH2hqA0kAZb1hKmi02OpYRacl0TxIGz/ZmXWlbZgjwWYaCakTA==",
+      "@esbuild/android-x64@0.23.0": {
+        "integrity": "sha512-WRrmKidLoKDl56LsbBMhzTTBxrsVwTKdNbKDalbEZr0tcsBgCLbEtoNthOW6PX942YiYq8HzEnb4yWQMLQuipQ==",
         "dependencies": {}
       },
-      "@esbuild/darwin-arm64@0.21.5": {
-        "integrity": "sha512-DwqXqZyuk5AiWWf3UfLiRDJ5EDd49zg6O9wclZ7kUMv2WRFr4HKjXp/5t8JZ11QbQfUS6/cRCKGwYhtNAY88kQ==",
+      "@esbuild/darwin-arm64@0.23.0": {
+        "integrity": "sha512-YLntie/IdS31H54Ogdn+v50NuoWF5BDkEUFpiOChVa9UnKpftgwzZRrI4J132ETIi+D8n6xh9IviFV3eXdxfow==",
         "dependencies": {}
       },
-      "@esbuild/darwin-x64@0.21.5": {
-        "integrity": "sha512-se/JjF8NlmKVG4kNIuyWMV/22ZaerB+qaSi5MdrXtd6R08kvs2qCN4C09miupktDitvh8jRFflwGFBQcxZRjbw==",
+      "@esbuild/darwin-x64@0.23.0": {
+        "integrity": "sha512-IMQ6eme4AfznElesHUPDZ+teuGwoRmVuuixu7sv92ZkdQcPbsNHzutd+rAfaBKo8YK3IrBEi9SLLKWJdEvJniQ==",
         "dependencies": {}
       },
-      "@esbuild/freebsd-arm64@0.21.5": {
-        "integrity": "sha512-5JcRxxRDUJLX8JXp/wcBCy3pENnCgBR9bN6JsY4OmhfUtIHe3ZW0mawA7+RDAcMLrMIZaf03NlQiX9DGyB8h4g==",
+      "@esbuild/freebsd-arm64@0.23.0": {
+        "integrity": "sha512-0muYWCng5vqaxobq6LB3YNtevDFSAZGlgtLoAc81PjUfiFz36n4KMpwhtAd4he8ToSI3TGyuhyx5xmiWNYZFyw==",
         "dependencies": {}
       },
-      "@esbuild/freebsd-x64@0.21.5": {
-        "integrity": "sha512-J95kNBj1zkbMXtHVH29bBriQygMXqoVQOQYA+ISs0/2l3T9/kj42ow2mpqerRBxDJnmkUDCaQT/dfNXWX/ZZCQ==",
+      "@esbuild/freebsd-x64@0.23.0": {
+        "integrity": "sha512-XKDVu8IsD0/q3foBzsXGt/KjD/yTKBCIwOHE1XwiXmrRwrX6Hbnd5Eqn/WvDekddK21tfszBSrE/WMaZh+1buQ==",
         "dependencies": {}
       },
-      "@esbuild/linux-arm64@0.21.5": {
-        "integrity": "sha512-ibKvmyYzKsBeX8d8I7MH/TMfWDXBF3db4qM6sy+7re0YXya+K1cem3on9XgdT2EQGMu4hQyZhan7TeQ8XkGp4Q==",
+      "@esbuild/linux-arm64@0.23.0": {
+        "integrity": "sha512-j1t5iG8jE7BhonbsEg5d9qOYcVZv/Rv6tghaXM/Ug9xahM0nX/H2gfu6X6z11QRTMT6+aywOMA8TDkhPo8aCGw==",
         "dependencies": {}
       },
-      "@esbuild/linux-arm@0.21.5": {
-        "integrity": "sha512-bPb5AHZtbeNGjCKVZ9UGqGwo8EUu4cLq68E95A53KlxAPRmUyYv2D6F0uUI65XisGOL1hBP5mTronbgo+0bFcA==",
+      "@esbuild/linux-arm@0.23.0": {
+        "integrity": "sha512-SEELSTEtOFu5LPykzA395Mc+54RMg1EUgXP+iw2SJ72+ooMwVsgfuwXo5Fn0wXNgWZsTVHwY2cg4Vi/bOD88qw==",
         "dependencies": {}
       },
-      "@esbuild/linux-ia32@0.21.5": {
-        "integrity": "sha512-YvjXDqLRqPDl2dvRODYmmhz4rPeVKYvppfGYKSNGdyZkA01046pLWyRKKI3ax8fbJoK5QbxblURkwK/MWY18Tg==",
+      "@esbuild/linux-ia32@0.23.0": {
+        "integrity": "sha512-P7O5Tkh2NbgIm2R6x1zGJJsnacDzTFcRWZyTTMgFdVit6E98LTxO+v8LCCLWRvPrjdzXHx9FEOA8oAZPyApWUA==",
         "dependencies": {}
       },
-      "@esbuild/linux-loong64@0.21.5": {
-        "integrity": "sha512-uHf1BmMG8qEvzdrzAqg2SIG/02+4/DHB6a9Kbya0XDvwDEKCoC8ZRWI5JJvNdUjtciBGFQ5PuBlpEOXQj+JQSg==",
+      "@esbuild/linux-loong64@0.23.0": {
+        "integrity": "sha512-InQwepswq6urikQiIC/kkx412fqUZudBO4SYKu0N+tGhXRWUqAx+Q+341tFV6QdBifpjYgUndV1hhMq3WeJi7A==",
         "dependencies": {}
       },
-      "@esbuild/linux-mips64el@0.21.5": {
-        "integrity": "sha512-IajOmO+KJK23bj52dFSNCMsz1QP1DqM6cwLUv3W1QwyxkyIWecfafnI555fvSGqEKwjMXVLokcV5ygHW5b3Jbg==",
+      "@esbuild/linux-mips64el@0.23.0": {
+        "integrity": "sha512-J9rflLtqdYrxHv2FqXE2i1ELgNjT+JFURt/uDMoPQLcjWQA5wDKgQA4t/dTqGa88ZVECKaD0TctwsUfHbVoi4w==",
         "dependencies": {}
       },
-      "@esbuild/linux-ppc64@0.21.5": {
-        "integrity": "sha512-1hHV/Z4OEfMwpLO8rp7CvlhBDnjsC3CttJXIhBi+5Aj5r+MBvy4egg7wCbe//hSsT+RvDAG7s81tAvpL2XAE4w==",
+      "@esbuild/linux-ppc64@0.23.0": {
+        "integrity": "sha512-cShCXtEOVc5GxU0fM+dsFD10qZ5UpcQ8AM22bYj0u/yaAykWnqXJDpd77ublcX6vdDsWLuweeuSNZk4yUxZwtw==",
         "dependencies": {}
       },
-      "@esbuild/linux-riscv64@0.21.5": {
-        "integrity": "sha512-2HdXDMd9GMgTGrPWnJzP2ALSokE/0O5HhTUvWIbD3YdjME8JwvSCnNGBnTThKGEB91OZhzrJ4qIIxk/SBmyDDA==",
+      "@esbuild/linux-riscv64@0.23.0": {
+        "integrity": "sha512-HEtaN7Y5UB4tZPeQmgz/UhzoEyYftbMXrBCUjINGjh3uil+rB/QzzpMshz3cNUxqXN7Vr93zzVtpIDL99t9aRw==",
         "dependencies": {}
       },
-      "@esbuild/linux-s390x@0.21.5": {
-        "integrity": "sha512-zus5sxzqBJD3eXxwvjN1yQkRepANgxE9lgOW2qLnmr8ikMTphkjgXu1HR01K4FJg8h1kEEDAqDcZQtbrRnB41A==",
+      "@esbuild/linux-s390x@0.23.0": {
+        "integrity": "sha512-WDi3+NVAuyjg/Wxi+o5KPqRbZY0QhI9TjrEEm+8dmpY9Xir8+HE/HNx2JoLckhKbFopW0RdO2D72w8trZOV+Wg==",
         "dependencies": {}
       },
-      "@esbuild/linux-x64@0.21.5": {
-        "integrity": "sha512-1rYdTpyv03iycF1+BhzrzQJCdOuAOtaqHTWJZCWvijKD2N5Xu0TtVC8/+1faWqcP9iBCWOmjmhoH94dH82BxPQ==",
+      "@esbuild/linux-x64@0.23.0": {
+        "integrity": "sha512-a3pMQhUEJkITgAw6e0bWA+F+vFtCciMjW/LPtoj99MhVt+Mfb6bbL9hu2wmTZgNd994qTAEw+U/r6k3qHWWaOQ==",
         "dependencies": {}
       },
-      "@esbuild/netbsd-x64@0.21.5": {
-        "integrity": "sha512-Woi2MXzXjMULccIwMnLciyZH4nCIMpWQAs049KEeMvOcNADVxo0UBIQPfSmxB3CWKedngg7sWZdLvLczpe0tLg==",
+      "@esbuild/netbsd-x64@0.23.0": {
+        "integrity": "sha512-cRK+YDem7lFTs2Q5nEv/HHc4LnrfBCbH5+JHu6wm2eP+d8OZNoSMYgPZJq78vqQ9g+9+nMuIsAO7skzphRXHyw==",
         "dependencies": {}
       },
-      "@esbuild/openbsd-x64@0.21.5": {
-        "integrity": "sha512-HLNNw99xsvx12lFBUwoT8EVCsSvRNDVxNpjZ7bPn947b8gJPzeHWyNVhFsaerc0n3TsbOINvRP2byTZ5LKezow==",
+      "@esbuild/openbsd-arm64@0.23.0": {
+        "integrity": "sha512-suXjq53gERueVWu0OKxzWqk7NxiUWSUlrxoZK7usiF50C6ipColGR5qie2496iKGYNLhDZkPxBI3erbnYkU0rQ==",
         "dependencies": {}
       },
-      "@esbuild/sunos-x64@0.21.5": {
-        "integrity": "sha512-6+gjmFpfy0BHU5Tpptkuh8+uw3mnrvgs+dSPQXQOv3ekbordwnzTVEb4qnIvQcYXq6gzkyTnoZ9dZG+D4garKg==",
+      "@esbuild/openbsd-x64@0.23.0": {
+        "integrity": "sha512-6p3nHpby0DM/v15IFKMjAaayFhqnXV52aEmv1whZHX56pdkK+MEaLoQWj+H42ssFarP1PcomVhbsR4pkz09qBg==",
         "dependencies": {}
       },
-      "@esbuild/win32-arm64@0.21.5": {
-        "integrity": "sha512-Z0gOTd75VvXqyq7nsl93zwahcTROgqvuAcYDUr+vOv8uHhNSKROyU961kgtCD1e95IqPKSQKH7tBTslnS3tA8A==",
+      "@esbuild/sunos-x64@0.23.0": {
+        "integrity": "sha512-BFelBGfrBwk6LVrmFzCq1u1dZbG4zy/Kp93w2+y83Q5UGYF1d8sCzeLI9NXjKyujjBBniQa8R8PzLFAUrSM9OA==",
         "dependencies": {}
       },
-      "@esbuild/win32-ia32@0.21.5": {
-        "integrity": "sha512-SWXFF1CL2RVNMaVs+BBClwtfZSvDgtL//G/smwAc5oVK/UPu2Gu9tIaRgFmYFFKrmg3SyAjSrElf0TiJ1v8fYA==",
+      "@esbuild/win32-arm64@0.23.0": {
+        "integrity": "sha512-lY6AC8p4Cnb7xYHuIxQ6iYPe6MfO2CC43XXKo9nBXDb35krYt7KGhQnOkRGar5psxYkircpCqfbNDB4uJbS2jQ==",
         "dependencies": {}
       },
-      "@esbuild/win32-x64@0.21.5": {
-        "integrity": "sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==",
+      "@esbuild/win32-ia32@0.23.0": {
+        "integrity": "sha512-7L1bHlOTcO4ByvI7OXVI5pNN6HSu6pUQq9yodga8izeuB1KcT2UkHaH6118QJwopExPn0rMHIseCTx1CRo/uNA==",
+        "dependencies": {}
+      },
+      "@esbuild/win32-x64@0.23.0": {
+        "integrity": "sha512-Arm+WgUFLUATuoxCJcahGuk6Yj9Pzxd6l11Zb/2aAuv5kWWvvfhLFo2fni4uSK5vzlUdCGZ/BdV5tH8klj8p8g==",
         "dependencies": {}
       },
       "@mjackson/headers@0.5.1": {
@@ -177,10 +171,10 @@
         "integrity": "sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==",
         "dependencies": {}
       },
-      "@react-aria/ssr@3.9.4_react@18.3.1": {
-        "integrity": "sha512-4jmAigVq409qcJvQyuorsmBR4+9r3+JEC60wC+Y0MZV0HCtTmm8D9guYXlJMdx0SSkgj0hHAyFm/HvPNFofCoQ==",
+      "@react-aria/ssr@3.9.5_react@18.3.1": {
+        "integrity": "sha512-xEwGKoysu+oXulibNUSkXf8itW0npHHTa6c4AyYeZIJyRoegeteYuFpZUBPtIDE8RfHdNsSmE1ssOkxRnwbkuQ==",
         "dependencies": {
-          "@swc/helpers": "@swc/helpers@0.5.11",
+          "@swc/helpers": "@swc/helpers@0.5.12",
           "react": "react@18.3.1"
         }
       },
@@ -191,12 +185,12 @@
           "react": "react@18.3.1"
         }
       },
-      "@restart/ui@1.6.9_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
-        "integrity": "sha512-mUbygUsJcRurjZCt1f77gg4DpheD1D+Sc7J3JjAkysUj7t8m4EBJVOqWC9788Qtbc69cJ+HlJc6jBguKwS8Mcw==",
+      "@restart/ui@1.8.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+        "integrity": "sha512-xJEOXUOTmT4FngTmhdjKFRrVVF0hwCLNPdatLCHkyS4dkiSK12cEu1Y0fjxktjJrdst9jJIc5J6ihMJCoWEN/g==",
         "dependencies": {
-          "@babel/runtime": "@babel/runtime@7.24.8",
+          "@babel/runtime": "@babel/runtime@7.25.0",
           "@popperjs/core": "@popperjs/core@2.11.8",
-          "@react-aria/ssr": "@react-aria/ssr@3.9.4_react@18.3.1",
+          "@react-aria/ssr": "@react-aria/ssr@3.9.5_react@18.3.1",
           "@restart/hooks": "@restart/hooks@0.4.16_react@18.3.1",
           "@types/warning": "@types/warning@3.0.3",
           "dequal": "dequal@2.0.3",
@@ -207,8 +201,8 @@
           "warning": "warning@4.0.3"
         }
       },
-      "@swc/helpers@0.5.11": {
-        "integrity": "sha512-YNlnKRWF2sVojTpIyzwou9XoTNbzbzONwRhOoniEioF1AtaitTvVZblaQRrAzChWQ1bLYyYSWzM18y4WwgzJ+A==",
+      "@swc/helpers@0.5.12": {
+        "integrity": "sha512-KMZNXiGibsW9kvZAO1Pam2JPTDBm+KSHMMHWdsyI/1DbIZjT2A6Gy3hblVXUMEDvUAKq+e0vL0X0o54owWji7g==",
         "dependencies": {
           "tslib": "tslib@2.6.3"
         }
@@ -217,8 +211,8 @@
         "integrity": "sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==",
         "dependencies": {}
       },
-      "@types/react-transition-group@4.4.10": {
-        "integrity": "sha512-hT/+s0VQs2ojCX823m60m5f0sL5idt9SO6Tj6Dg+rdphGPIeJbJ6CxvBYkgkGKrYeDjvIpKTR38UzmtHJOGW3Q==",
+      "@types/react-transition-group@4.4.11": {
+        "integrity": "sha512-RM05tAniPZ5DZPzzNFP+DmrcOdD0efDUxMy3145oljWSl3x9ZV5vhme98gTxFrj2lhXvmGNnUiuDyJgY9IKkNA==",
         "dependencies": {
           "@types/react": "@types/react@18.3.3"
         }
@@ -263,7 +257,7 @@
       "dom-helpers@5.2.1": {
         "integrity": "sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==",
         "dependencies": {
-          "@babel/runtime": "@babel/runtime@7.24.8",
+          "@babel/runtime": "@babel/runtime@7.25.0",
           "csstype": "csstype@3.1.3"
         }
       },
@@ -273,32 +267,33 @@
           "once": "once@1.4.0"
         }
       },
-      "esbuild@0.21.5": {
-        "integrity": "sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==",
+      "esbuild@0.23.0": {
+        "integrity": "sha512-1lvV17H2bMYda/WaFb2jLPeHU3zml2k4/yagNMG8Q/YtfMjCwEUZa2eXXMgZTVSL5q1n4H7sQ0X6CdJDqqeCFA==",
         "dependencies": {
-          "@esbuild/aix-ppc64": "@esbuild/aix-ppc64@0.21.5",
-          "@esbuild/android-arm": "@esbuild/android-arm@0.21.5",
-          "@esbuild/android-arm64": "@esbuild/android-arm64@0.21.5",
-          "@esbuild/android-x64": "@esbuild/android-x64@0.21.5",
-          "@esbuild/darwin-arm64": "@esbuild/darwin-arm64@0.21.5",
-          "@esbuild/darwin-x64": "@esbuild/darwin-x64@0.21.5",
-          "@esbuild/freebsd-arm64": "@esbuild/freebsd-arm64@0.21.5",
-          "@esbuild/freebsd-x64": "@esbuild/freebsd-x64@0.21.5",
-          "@esbuild/linux-arm": "@esbuild/linux-arm@0.21.5",
-          "@esbuild/linux-arm64": "@esbuild/linux-arm64@0.21.5",
-          "@esbuild/linux-ia32": "@esbuild/linux-ia32@0.21.5",
-          "@esbuild/linux-loong64": "@esbuild/linux-loong64@0.21.5",
-          "@esbuild/linux-mips64el": "@esbuild/linux-mips64el@0.21.5",
-          "@esbuild/linux-ppc64": "@esbuild/linux-ppc64@0.21.5",
-          "@esbuild/linux-riscv64": "@esbuild/linux-riscv64@0.21.5",
-          "@esbuild/linux-s390x": "@esbuild/linux-s390x@0.21.5",
-          "@esbuild/linux-x64": "@esbuild/linux-x64@0.21.5",
-          "@esbuild/netbsd-x64": "@esbuild/netbsd-x64@0.21.5",
-          "@esbuild/openbsd-x64": "@esbuild/openbsd-x64@0.21.5",
-          "@esbuild/sunos-x64": "@esbuild/sunos-x64@0.21.5",
-          "@esbuild/win32-arm64": "@esbuild/win32-arm64@0.21.5",
-          "@esbuild/win32-ia32": "@esbuild/win32-ia32@0.21.5",
-          "@esbuild/win32-x64": "@esbuild/win32-x64@0.21.5"
+          "@esbuild/aix-ppc64": "@esbuild/aix-ppc64@0.23.0",
+          "@esbuild/android-arm": "@esbuild/android-arm@0.23.0",
+          "@esbuild/android-arm64": "@esbuild/android-arm64@0.23.0",
+          "@esbuild/android-x64": "@esbuild/android-x64@0.23.0",
+          "@esbuild/darwin-arm64": "@esbuild/darwin-arm64@0.23.0",
+          "@esbuild/darwin-x64": "@esbuild/darwin-x64@0.23.0",
+          "@esbuild/freebsd-arm64": "@esbuild/freebsd-arm64@0.23.0",
+          "@esbuild/freebsd-x64": "@esbuild/freebsd-x64@0.23.0",
+          "@esbuild/linux-arm": "@esbuild/linux-arm@0.23.0",
+          "@esbuild/linux-arm64": "@esbuild/linux-arm64@0.23.0",
+          "@esbuild/linux-ia32": "@esbuild/linux-ia32@0.23.0",
+          "@esbuild/linux-loong64": "@esbuild/linux-loong64@0.23.0",
+          "@esbuild/linux-mips64el": "@esbuild/linux-mips64el@0.23.0",
+          "@esbuild/linux-ppc64": "@esbuild/linux-ppc64@0.23.0",
+          "@esbuild/linux-riscv64": "@esbuild/linux-riscv64@0.23.0",
+          "@esbuild/linux-s390x": "@esbuild/linux-s390x@0.23.0",
+          "@esbuild/linux-x64": "@esbuild/linux-x64@0.23.0",
+          "@esbuild/netbsd-x64": "@esbuild/netbsd-x64@0.23.0",
+          "@esbuild/openbsd-arm64": "@esbuild/openbsd-arm64@0.23.0",
+          "@esbuild/openbsd-x64": "@esbuild/openbsd-x64@0.23.0",
+          "@esbuild/sunos-x64": "@esbuild/sunos-x64@0.23.0",
+          "@esbuild/win32-arm64": "@esbuild/win32-arm64@0.23.0",
+          "@esbuild/win32-ia32": "@esbuild/win32-ia32@0.23.0",
+          "@esbuild/win32-x64": "@esbuild/win32-x64@0.23.0"
         }
       },
       "execa@1.0.0": {
@@ -458,13 +453,13 @@
           "once": "once@1.4.0"
         }
       },
-      "react-bootstrap@2.10.3_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
-        "integrity": "sha512-cc1KAaQyj6Gr3AfA0eRRiUMSlRi3brDVcjc/o0E9y9XNW7ISo8TITrq8G8G3QTFe7VIhCiDt38k99AEFoLOolw==",
+      "react-bootstrap@2.10.4_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+        "integrity": "sha512-W3398nBM2CBfmGP2evneEO3ZZwEMPtHs72q++eNw60uDGDAdiGn0f9yNys91eo7/y8CTF5Ke1C0QO8JFVPU40Q==",
         "dependencies": {
-          "@babel/runtime": "@babel/runtime@7.24.8",
+          "@babel/runtime": "@babel/runtime@7.25.0",
           "@restart/hooks": "@restart/hooks@0.4.16_react@18.3.1",
-          "@restart/ui": "@restart/ui@1.6.9_react@18.3.1_react-dom@18.3.1__react@18.3.1",
-          "@types/react-transition-group": "@types/react-transition-group@4.4.10",
+          "@restart/ui": "@restart/ui@1.8.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+          "@types/react-transition-group": "@types/react-transition-group@4.4.11",
           "classnames": "classnames@2.5.1",
           "dom-helpers": "dom-helpers@5.2.1",
           "invariant": "invariant@2.2.4",
@@ -503,7 +498,7 @@
       "react-transition-group@4.4.5_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
         "integrity": "sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==",
         "dependencies": {
-          "@babel/runtime": "@babel/runtime@7.24.8",
+          "@babel/runtime": "@babel/runtime@7.25.0",
           "dom-helpers": "dom-helpers@5.2.1",
           "loose-envify": "loose-envify@1.4.0",
           "prop-types": "prop-types@15.8.1",
@@ -560,7 +555,7 @@
       "uncontrollable@7.2.1_react@18.3.1": {
         "integrity": "sha512-svtcfoTADIB0nT9nltgjujTi7BzVmwjZClOmskKu/E8FW9BXzg9os8OLr4f8Dlnk0rYWJIWr4wv9eKUXiQvQwQ==",
         "dependencies": {
-          "@babel/runtime": "@babel/runtime@7.24.8",
+          "@babel/runtime": "@babel/runtime@7.25.0",
           "@types/react": "@types/react@18.3.3",
           "invariant": "invariant@2.2.4",
           "react": "react@18.3.1",
@@ -594,6 +589,10 @@
         "dependencies": {}
       }
     }
+  },
+  "redirects": {
+    "https://esm.sh/v128/@types/react@~18.3/index.d.ts": "https://esm.sh/v128/@types/react@18.2.38/index.d.ts",
+    "https://esm.sh/v135/@types/react-dom@~18.3/client~.d.ts": "https://esm.sh/v135/@types/react-dom@18.3.0/client~.d.ts"
   },
   "remote": {
     "https://deno.land/std@0.221.0/assert/assert.ts": "bec068b2fccdd434c138a555b19a2c2393b71dfaada02b7d568a01541e67cdc5",
@@ -662,17 +661,22 @@
     "https://deno.land/x/cliffy@v1.0.0-rc.4/table/consume_words.ts": "369d065dbf7f15c664ea8523e0ef750fb952aea6d88e146c375e64aec9503052",
     "https://deno.land/x/cliffy@v1.0.0-rc.4/table/deps.ts": "cbb896e8d7a6b5e3c2b9dda7d16638c202d9b46eb738c2dae1fa9480d8091486",
     "https://deno.land/x/cliffy@v1.0.0-rc.4/table/row.ts": "79eb1468aafdd951e5963898cdafe0752d4ab4c519d5f847f3d8ecb8fe857d4f",
-    "https://deno.land/x/cliffy@v1.0.0-rc.4/table/table.ts": "298671e72e61f1ab18b42ae36643181993f79e29b39dc411fdc6ffd53aa04684"
+    "https://deno.land/x/cliffy@v1.0.0-rc.4/table/table.ts": "298671e72e61f1ab18b42ae36643181993f79e29b39dc411fdc6ffd53aa04684",
+    "https://esm.sh/react-dom@18.3.1/client": "3e23a449c16029111f8fa64809dd83ea5f896a4065f956b6b6d87998854efa1e",
+    "https://esm.sh/react@18.3.1": "52480d4c00855e4f76843caa4f2818eb001671523740cbf064cbd108721c29c8",
+    "https://esm.sh/stable/react@18.3.1/denonext/react.mjs": "fc048ffc55366baf7669519127d186761db72046e2bebf35fe8d0de3964defa3",
+    "https://esm.sh/v135/react-dom@18.3.1/denonext/client.js": "51910a60c05a5614b9dbec634d8594f74a4300fed2023dbdf1f8ea2a41a82b96",
+    "https://esm.sh/v135/react-dom@18.3.1/denonext/react-dom.mjs": "0c4ad76e514ad1c9d8987d49679c5f2a6299b34c1b7fbf10a5da056ae4a0963f",
+    "https://esm.sh/v135/scheduler@0.23.2/denonext/scheduler.mjs": "dc96e5be52b14a40ce36295d938d5211e520c4da3183fe2ad4283ed103747d82"
   },
   "workspace": {
     "dependencies": [
       "jsr:@luca/esbuild-deno-loader@0.10.3",
       "jsr:@mjackson/multipart-parser@0.4.1",
-      "jsr:@std/encoding@0.224.3",
-      "jsr:@std/path@0.225.2",
-      "npm:esbuild@0.21.5",
+      "jsr:@std/path@1.0.2",
+      "npm:esbuild@0.23.0",
       "npm:node-taglib-sharp@5.2.3",
-      "npm:react-bootstrap@2.10.3",
+      "npm:react-bootstrap@2.10.4",
       "npm:react-dom@18.3.1",
       "npm:react-hotkeys-hook@4.5.0",
       "npm:react@18.3.1"

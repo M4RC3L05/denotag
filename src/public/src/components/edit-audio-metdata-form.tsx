@@ -1,9 +1,5 @@
-import { useCallback, useRef, useState } from "react";
-import Form from "react-bootstrap/Form";
-import Image from "react-bootstrap/Image";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
+import { type RefObject, useCallback, useRef, useState } from "./../deps.ts";
+import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import Alert, { type AlertProps } from "./alert.tsx";
 import { setMusicFileMetadata } from "../actions.ts";
 
@@ -23,12 +19,12 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
       setAlertInfo((ps) => ({ ...ps, show: false }));
     }, []),
   });
-  const imgRef = useRef();
+  const imgRef = useRef<HTMLImageElement>();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const fd = new FormData(e.target);
+    const fd = new FormData(e.target as HTMLFormElement);
 
     const cover = fd.get("cover");
 
@@ -63,7 +59,7 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      imgRef.current.src = reader.result as string;
+      imgRef.current!.src = reader.result as string;
     };
     reader.readAsDataURL(e.target.files![0]);
   };
@@ -73,7 +69,11 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
       <Alert {...alertInfo} />
       <Form onSubmit={onSubmit} enctype="multipart/form-data">
         <input type="hidden" name="path" value={file} />
-        <Image ref={imgRef} src={metadata?.cover as string} fluid />
+        <Image
+          ref={imgRef as RefObject<HTMLImageElement>}
+          src={metadata?.cover as string}
+          fluid
+        />
         <Form.Control
           name="cover"
           className="mb-2"

@@ -64,6 +64,7 @@ const [jsCode, cssCode] = await Promise.all([
     ],
     minify: true,
     write: false,
+    treeShaking: true,
     outdir: "out",
   }),
 ]);
