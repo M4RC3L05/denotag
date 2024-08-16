@@ -25,6 +25,7 @@ jobs:
           deno lint
           yamllint .
           deno run -A npm:html-validate .
+          deno run -A npm:markdownlint-cli2 "**/*.{md,markdown}"
 
       - name: check format
         run: |-
