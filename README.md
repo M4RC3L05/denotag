@@ -6,13 +6,20 @@ Tag editor.
 
 ```sh
 git submodule update --init
+```
+
+```sh
 git config --local core.hooksPath ./.git-hooks/hooks
 ```
 
 ## Compiling
 
+Create env and set env to production
+
 ```sh
-# Create env and set env to production
 cp .env.example .env
+```
+
+```sh
 deno task compile
 ```
