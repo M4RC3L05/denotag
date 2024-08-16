@@ -8,27 +8,16 @@ jobs:
       - name: clone repository
         uses: actions/checkout@v4
 
-      - name: setup tools
-        uses: jdx/mise-action@v2
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.9.0
         with:
-          install: true
-          cache: true
-
-      - name: create public.json
-        run: touch src/public.json
+          enable-cache: 'true'
 
       - name: check lockfile
-        run: deno task deps:check
-
-      - name: check lint
-        run: |
-          deno lint
-          yamllint .
-          deno run -A npm:html-validate .
-          deno run -A npm:markdownlint-cli2 "**/*.{md,markdown}"
+        run: devbox run -- deno task deps:check
 
       - name: check format
-        run: |-
-          deno fmt --check
-          yamlfmt -dry -lint .
-          deno run -A npm:prettier -c "./src/public/**/*.{html,css}"
+        run: devbox run check:format
+
+      - name: check lint
+        run: devbox run check:lint
