@@ -1,4 +1,10 @@
-import { type RefObject, useCallback, useRef, useState } from "./../deps.ts";
+import {
+  type RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "./../deps.ts";
 import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import Alert, { type AlertProps } from "./alert.tsx";
 import { setMusicFileMetadata } from "../actions.ts";
@@ -20,16 +26,24 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
     }, []),
   });
   const imgRef = useRef<HTMLImageElement>();
+  const coverInputRef = useRef<HTMLInputElement>();
+  const [coverSelectedFromAbove, setCoverSelectedFromAbove] = useState(
+    !!metadata?.cover,
+  );
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    setCoverSelectedFromAbove(!!metadata?.cover);
+  }, [metadata?.cover]);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const fd = new FormData(e.target as HTMLFormElement);
 
-    const cover = fd.get("cover");
-
-    if ((cover as File).size <= 0) {
-      fd.delete("cover");
+    if (coverSelectedFromAbove && metadata?.cover) {
+      await fetch(metadata.cover as string).then(async (response) => {
+        fd.set("cover", await response.blob());
+      });
     }
 
     setMusicFileMetadata(fd)
@@ -57,6 +71,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
   const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if ((e.target.files?.length ?? 0) <= 0) return;
 
+    setCoverSelectedFromAbove(false);
+
     const reader = new FileReader();
     reader.onloadend = () => {
       imgRef.current!.src = reader.result as string;
@@ -67,7 +83,7 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
   return (
     <>
       <Alert {...alertInfo} />
-      <Form onSubmit={onSubmit} enctype="multipart/form-data">
+      <Form onSubmit={onSubmit} encType="multipart/form-data">
         <input type="hidden" name="path" value={file} />
         <Image
           ref={imgRef as RefObject<HTMLImageElement>}
@@ -75,6 +91,7 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
           fluid
         />
         <Form.Control
+          ref={coverInputRef as RefObject<HTMLInputElement>}
           name="cover"
           className="mb-2"
           type="file"

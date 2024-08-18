@@ -62,7 +62,7 @@ const getMusicFileMetadata = ({ path }: { path: string }) => {
       : undefined,
     artist: file.tag.firstPerformer,
     genre: file.tag.firstGenre,
-    cover: cover
+    cover: cover && cover.data.length > 0
       ? `data:${cover.mimeType};base64,${cover.data.toBase64String()}`
       : undefined,
     track: file.tag.track,
@@ -105,7 +105,7 @@ const setMusicFileMetadata = (
   if (metadata.disc) file.tag.disc = Number(metadata.disc);
   if (metadata.discCount) file.tag.discCount = Number(metadata.discCount);
 
-  if (metadata.cover) {
+  if (metadata.cover && metadata.cover.data.length > 0) {
     file.tag.pictures = [{
       data: ByteVector.fromByteArray(metadata.cover.data),
       description: "",
