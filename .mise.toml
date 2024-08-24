@@ -1,0 +1,23 @@
+[tools]
+deno = "1.46"
+yamlfmt = "latest"
+yamllint = "latest"
+
+[tasks."check:format"]
+run = """
+set -ex
+
+deno fmt --check
+deno run -A --no-lock npm:prettier -c "./**/*.{html,css}"
+yamlfmt -dry -lint $(find . -name '*.yaml')
+"""
+
+[tasks."check:lint"]
+run = """
+set -ex
+
+deno lint
+deno check --no-lock $(find . -name '*.ts' -o -name '*.tsx')
+deno run -A --no-lock npm:markdownlint-cli2 "**/*.{md,markdown}"
+yamllint $(find . -name '*.yaml')
+"""
