@@ -14,7 +14,7 @@
       "npm:@types/react@18.3.3": "npm:@types/react@18.3.3",
       "npm:esbuild@0.23.0": "npm:esbuild@0.23.0",
       "npm:node-taglib-sharp@5.2.3": "npm:node-taglib-sharp@5.2.3",
-      "npm:react-bootstrap@2.10.4": "npm:react-bootstrap@2.10.4_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+      "npm:react-bootstrap@2.10.4": "npm:react-bootstrap@2.10.4_@types+react@18.3.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
       "npm:react-dom@18.3.1": "npm:react-dom@18.3.1_react@18.3.1",
       "npm:react-hotkeys-hook@4.5.0": "npm:react-hotkeys-hook@4.5.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
       "npm:react@18.3.1": "npm:react@18.3.1"
@@ -453,12 +453,13 @@
           "once": "once@1.4.0"
         }
       },
-      "react-bootstrap@2.10.4_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "react-bootstrap@2.10.4_@types+react@18.3.3_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
         "integrity": "sha512-W3398nBM2CBfmGP2evneEO3ZZwEMPtHs72q++eNw60uDGDAdiGn0f9yNys91eo7/y8CTF5Ke1C0QO8JFVPU40Q==",
         "dependencies": {
           "@babel/runtime": "@babel/runtime@7.25.0",
           "@restart/hooks": "@restart/hooks@0.4.16_react@18.3.1",
           "@restart/ui": "@restart/ui@1.8.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+          "@types/react": "@types/react@18.3.3",
           "@types/react-transition-group": "@types/react-transition-group@4.4.11",
           "classnames": "classnames@2.5.1",
           "dom-helpers": "dom-helpers@5.2.1",
@@ -590,10 +591,6 @@
       }
     }
   },
-  "redirects": {
-    "https://esm.sh/v128/@types/react@~18.3/index.d.ts": "https://esm.sh/v128/@types/react@18.2.38/index.d.ts",
-    "https://esm.sh/v135/@types/react-dom@~18.3/client~.d.ts": "https://esm.sh/v135/@types/react-dom@18.3.0/client~.d.ts"
-  },
   "remote": {
     "https://deno.land/std@0.221.0/assert/assert.ts": "bec068b2fccdd434c138a555b19a2c2393b71dfaada02b7d568a01541e67cdc5",
     "https://deno.land/std@0.221.0/assert/assertion_error.ts": "9f689a101ee586c4ce92f52fa7ddd362e86434ffdf1f848e45987dc7689976b8",
@@ -661,13 +658,7 @@
     "https://deno.land/x/cliffy@v1.0.0-rc.4/table/consume_words.ts": "369d065dbf7f15c664ea8523e0ef750fb952aea6d88e146c375e64aec9503052",
     "https://deno.land/x/cliffy@v1.0.0-rc.4/table/deps.ts": "cbb896e8d7a6b5e3c2b9dda7d16638c202d9b46eb738c2dae1fa9480d8091486",
     "https://deno.land/x/cliffy@v1.0.0-rc.4/table/row.ts": "79eb1468aafdd951e5963898cdafe0752d4ab4c519d5f847f3d8ecb8fe857d4f",
-    "https://deno.land/x/cliffy@v1.0.0-rc.4/table/table.ts": "298671e72e61f1ab18b42ae36643181993f79e29b39dc411fdc6ffd53aa04684",
-    "https://esm.sh/react-dom@18.3.1/client": "3e23a449c16029111f8fa64809dd83ea5f896a4065f956b6b6d87998854efa1e",
-    "https://esm.sh/react@18.3.1": "52480d4c00855e4f76843caa4f2818eb001671523740cbf064cbd108721c29c8",
-    "https://esm.sh/stable/react@18.3.1/denonext/react.mjs": "fc048ffc55366baf7669519127d186761db72046e2bebf35fe8d0de3964defa3",
-    "https://esm.sh/v135/react-dom@18.3.1/denonext/client.js": "51910a60c05a5614b9dbec634d8594f74a4300fed2023dbdf1f8ea2a41a82b96",
-    "https://esm.sh/v135/react-dom@18.3.1/denonext/react-dom.mjs": "0c4ad76e514ad1c9d8987d49679c5f2a6299b34c1b7fbf10a5da056ae4a0963f",
-    "https://esm.sh/v135/scheduler@0.23.2/denonext/scheduler.mjs": "dc96e5be52b14a40ce36295d938d5211e520c4da3183fe2ad4283ed103747d82"
+    "https://deno.land/x/cliffy@v1.0.0-rc.4/table/table.ts": "298671e72e61f1ab18b42ae36643181993f79e29b39dc411fdc6ffd53aa04684"
   },
   "workspace": {
     "dependencies": [
