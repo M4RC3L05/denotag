@@ -19,7 +19,7 @@ jobs:
         run: deno task deps
 
       - name: check format
-        run: devbox run check:format
+        run: mise run check:format
 
       - name: check lint
-        run: devbox run check:lint
+        run: mise run check:lint
