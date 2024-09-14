@@ -35,6 +35,15 @@ const tag = new Command()
       throw new Error(`Dir "${dir}" it not a directory`);
     }
 
+    const [allowRead, allowWrite] = await Promise.all([
+      Deno.permissions.request({ name: "read", path: dir }),
+      Deno.permissions.request({ name: "write", path: dir }),
+    ]);
+
+    if (allowRead.state !== "granted" || allowWrite.state !== "granted") {
+      throw new Error(`Permission to read/write to "${dir}" not granted.`);
+    }
+
     const embed = await import("./public.json", { with: { type: "json" } })
       .then(({ default: main }) => main);
 

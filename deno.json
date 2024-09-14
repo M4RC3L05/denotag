@@ -3,8 +3,8 @@
   "version": "4.4.0",
   "exports": "./src/main.ts",
   "tasks": {
-    "run": "./scripts/public-to-json.ts && deno run -A --unstable-ffi --cached-only src/main.ts",
-    "compile": "./scripts/public-to-json.ts && deno compile -A --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag ./src/main.ts",
+    "run": "./scripts/public-to-json.ts && deno run --allow-env=ENV --allow-net=127.0.0.1 --cached-only src/main.ts",
+    "compile": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag ./src/main.ts",
     "deps:lock": "deno cache --frozen=false **/*.ts **/*.tsx",
     "deps": "deno cache --reload **/*.ts **/*.tsx"
   },
