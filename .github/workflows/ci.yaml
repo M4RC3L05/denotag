@@ -13,7 +13,6 @@ jobs:
         with:
           install: true
           cache: true
-          experimental: true
 
       - name: install deps
         run: deno task deps
