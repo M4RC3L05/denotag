@@ -1,7 +1,7 @@
 [tools]
-deno = "1.46"
-yamlfmt = "latest"
-yamllint = "latest"
+deno = "1.46.3"
+yamlfmt = "0.13.0"
+yamllint = "1.35.1"
 
 [tasks."check:format"]
 run = """
