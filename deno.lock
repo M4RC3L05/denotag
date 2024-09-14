@@ -9,7 +9,7 @@
       "jsr:@std/json@^0.213.1": "jsr:@std/json@0.213.1",
       "jsr:@std/jsonc@0.213": "jsr:@std/jsonc@0.213.1",
       "jsr:@std/path@0.213": "jsr:@std/path@0.213.1",
-      "jsr:@std/path@1.0.2": "jsr:@std/path@1.0.2",
+      "jsr:@std/path@1.0.6": "jsr:@std/path@1.0.6",
       "npm:@mjackson/headers@^0.5.0": "npm:@mjackson/headers@0.5.1",
       "npm:@types/react@18.3.3": "npm:@types/react@18.3.3",
       "npm:esbuild@0.23.1": "npm:esbuild@0.23.1",
@@ -56,8 +56,8 @@
           "jsr:@std/assert@^0.213.1"
         ]
       },
-      "@std/path@1.0.2": {
-        "integrity": "a452174603f8c620bd278a380c596437a9eef50c891c64b85812f735245d9ec7"
+      "@std/path@1.0.6": {
+        "integrity": "ab2c55f902b380cf28e0eec501b4906e4c1960d13f00e11cfbcd21de15f18fed"
       }
     },
     "npm": {
@@ -664,7 +664,7 @@
     "dependencies": [
       "jsr:@luca/esbuild-deno-loader@0.10.3",
       "jsr:@mjackson/multipart-parser@0.6.2",
-      "jsr:@std/path@1.0.2",
+      "jsr:@std/path@1.0.6",
       "npm:esbuild@0.23.1",
       "npm:node-taglib-sharp@5.2.3",
       "npm:react-bootstrap@2.10.4",

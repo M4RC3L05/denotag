@@ -23,7 +23,7 @@
   "imports": {
     "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.10.3",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.6.2",
-    "@std/path": "jsr:@std/path@1.0.2",
+    "@std/path": "jsr:@std/path@1.0.6",
     "cliffy": "https://deno.land/x/cliffy@v1.0.0-rc.4/command/mod.ts",
     "esbuild": "npm:esbuild@0.23.1",
     "node-taglib-sharp": "npm:node-taglib-sharp@5.2.3",
