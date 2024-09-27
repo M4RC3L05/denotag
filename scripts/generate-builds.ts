@@ -11,10 +11,13 @@ const targets = Object.keys(deno.tasks).filter((key) =>
 await $`echo "ENV=production" > .env`;
 
 for (const target of targets) {
+  const archiveCmd = target.includes("windows")
+    ? `zip -j ./.bin/denotag-${target}.zip ./.bin/denotag.exe`
+    : `tar -czvf ./.bin/denotag-${target}.tar.gz -C ./.bin denotag`;
+
   await $`echo "==> Generating binary for ${target}"`;
-  await $`deno task compile:${target} && tar -czvf ./.bin/denotag-${target}.tar.gz -C ./.bin denotag${
-    target.includes("windows") ? ".exe" : ""
-  }`;
+  await $`deno task compile:${target}`;
+  await $.raw`${archiveCmd}`;
 
   await $`echo`;
 }
