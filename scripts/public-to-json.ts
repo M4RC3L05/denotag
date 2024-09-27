@@ -1,7 +1,7 @@
-#!/usr/bin/env -S deno run -A --unstable-ffi --cached-only
+#!/usr/bin/env -S deno run -A --unstable-ffi --no-lock
 
-import { build, type Plugin, stop } from "esbuild";
-import { denoPlugins } from "@luca/esbuild-deno-loader";
+import { build, type Plugin, stop } from "npm:esbuild@0.23.1";
+import { denoPlugins } from "jsr:@luca/esbuild-deno-loader@0.10.3";
 import { resolve } from "@std/path";
 
 let htmlFile = Deno.readTextFileSync(

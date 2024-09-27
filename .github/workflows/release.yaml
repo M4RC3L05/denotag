@@ -1,0 +1,33 @@
+---
+name: Release
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: clone repository
+        uses: actions/checkout@v4
+
+      - name: Install mise
+        uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: true
+
+      - name: install deps
+        run: deno task deps
+
+      - name: build
+        run: ./scripts/generate-builds.ts
+
+      - name: release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "./.bin/denotag-*.tar.gz"

@@ -5,8 +5,13 @@
   "tasks": {
     "run": "./scripts/public-to-json.ts && deno run --allow-env=ENV --allow-net=127.0.0.1 --cached-only src/main.ts",
     "compile": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag ./src/main.ts",
-    "deps:lock": "deno cache --frozen=false **/*.ts **/*.tsx",
-    "deps": "deno cache --reload **/*.ts **/*.tsx"
+    "compile:x86_64-pc-windows-msvc": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag.exe --target=x86_64-pc-windows-msvc ./src/main.ts",
+    "compile:x86_64-apple-darwin": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag --target=x86_64-apple-darwin ./src/main.ts",
+    "compile:aarch64-apple-darwin": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag --target=aarch64-apple-darwin ./src/main.ts",
+    "compile:x86_64-unknown-linux-gnu": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag --target=x86_64-unknown-linux-gnu ./src/main.ts",
+    "compile:aarch64-unknown-linux-gnu": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag --target=aarch64-unknown-linux-gnu ./src/main.ts",
+    "deps:lock": "deno cache --frozen=false src/**/*.ts src/**/*.tsx",
+    "deps": "deno cache --reload src/**/*.ts src/**/*.tsx"
   },
   "compilerOptions": {
     "lib": ["DOM", "deno.ns"],
@@ -21,11 +26,9 @@
     "exclude": ["./src/public.json"]
   },
   "imports": {
-    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.10.3",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.6.2",
     "@std/path": "jsr:@std/path@1.0.6",
     "cliffy": "https://deno.land/x/cliffy@v1.0.0-rc.4/command/mod.ts",
-    "esbuild": "npm:esbuild@0.23.1",
     "node-taglib-sharp": "npm:node-taglib-sharp@5.2.3",
     "react": "npm:react@18.3.1",
     "react-bootstrap": "npm:react-bootstrap@2.10.4",
