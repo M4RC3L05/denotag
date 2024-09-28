@@ -5,6 +5,7 @@ import {
   isMultipartRequest,
   parseMultipartRequest,
 } from "@mjackson/multipart-parser";
+import meta from "./../deno.json" with { type: "json" };
 
 const multipartToObj = async (request: Request) => {
   const response = new Map<string, unknown>();
@@ -87,7 +88,7 @@ const tag = new Command()
 await new Command()
   .name("denotag")
   .description("Tag audio files")
-  .version("4.5.2")
+  .version(meta.version)
   .default("help")
   .command("tag", tag).alias("t")
   .command("completions", new CompletionsCommand())
