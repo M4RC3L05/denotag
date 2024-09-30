@@ -30,4 +30,5 @@ jobs:
       - name: release
         uses: ncipollo/release-action@v1
         with:
+          # yamllint disable-line rule:line-length
           artifacts: "./.bin/denotag-*.tar.gz,./.bin/denotag-*.zip,./.bin/denotag-*.sha256"
