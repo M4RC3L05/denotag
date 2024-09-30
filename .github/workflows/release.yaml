@@ -30,4 +30,4 @@ jobs:
       - name: release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "./.bin/denotag-*.tar.gz,./.bin/denotag-*.zip"
+          artifacts: "./.bin/denotag-*.tar.gz,./.bin/denotag-*.zip,./.bin/denotag-*.sha256"
