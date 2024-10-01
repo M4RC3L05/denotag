@@ -45,7 +45,7 @@ const tag = new Command()
       throw new Error(`Permission to read/write to "${dir}" not granted.`);
     }
 
-    const embed = await import("./public.json", { with: { type: "json" } })
+    const embed = await import("./../embed.json", { with: { type: "json" } })
       .then(({ default: main }) => main);
 
     const ui = Uint8Array.from(embed["index.html"]);

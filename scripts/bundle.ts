@@ -4,9 +4,9 @@ import { build, type Plugin, stop } from "npm:esbuild@0.23.1";
 import { denoPlugins } from "jsr:@luca/esbuild-deno-loader@0.10.3";
 import { resolve } from "@std/path";
 
-let htmlFile = Deno.readTextFileSync(
-  new URL("../src/public/index.html", import.meta.url),
-);
+const rootDir = resolve(import.meta.dirname!, "../");
+const dataDir = resolve(rootDir, "data");
+const bundleFilePath = resolve(dataDir, "index.html");
 
 const [jsCode, cssCode] = await Promise.all([
   build({
@@ -17,11 +17,11 @@ const [jsCode, cssCode] = await Promise.all([
       },
     },
     entryPoints: [
-      resolve(import.meta.dirname!, "../src/public/src/main.tsx"),
+      resolve(rootDir, "src/public/src/main.tsx"),
     ],
     plugins: denoPlugins({
-      configPath: resolve(import.meta.dirname!, "../deno.json"),
-      lockPath: resolve(import.meta.dirname!, "../deno.lock"),
+      configPath: resolve(rootDir, "deno.json"),
+      lockPath: resolve(rootDir, "deno.lock"),
     }),
     define: {
       NODE_ENV: "production",
@@ -39,7 +39,7 @@ const [jsCode, cssCode] = await Promise.all([
   build({
     bundle: true,
     entryPoints: [
-      resolve(import.meta.dirname!, "../src/public/css/main.css"),
+      resolve(rootDir, "src/public/css/main.css"),
     ],
     plugins: [
       {
@@ -69,6 +69,8 @@ const [jsCode, cssCode] = await Promise.all([
   }),
 ]);
 
+let htmlFile = Deno.readTextFileSync(resolve(rootDir, "src/public/index.html"));
+
 htmlFile = htmlFile.replace(
   "{{ CssItems }}",
   cssCode.outputFiles.filter(({ path }) => path.endsWith(".css")).map((
@@ -86,16 +88,16 @@ htmlFile = htmlFile.replace(
 );
 
 try {
-  Deno.statSync("./src/public.json");
-  Deno.removeSync("./src/public.json");
+  Deno.mkdirSync(dataDir);
   // deno-lint-ignore no-empty
 } catch {}
 
-Deno.writeTextFileSync(
-  "./src/public.json",
-  JSON.stringify({
-    "index.html": Array.from(new TextEncoder().encode(htmlFile)),
-  }),
-);
+try {
+  Deno.statSync(bundleFilePath);
+  Deno.removeSync(bundleFilePath);
+  // deno-lint-ignore no-empty
+} catch {}
+
+Deno.writeTextFileSync(bundleFilePath, htmlFile);
 
 await stop();

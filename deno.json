@@ -3,13 +3,8 @@
   "version": "4.5.3",
   "exports": "./src/main.ts",
   "tasks": {
-    "run": "./scripts/public-to-json.ts && deno run --allow-env=ENV --allow-net=127.0.0.1 --cached-only src/main.ts",
-    "compile": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag ./src/main.ts",
-    "compile:x86_64-pc-windows-msvc": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag.exe --target=x86_64-pc-windows-msvc ./src/main.ts",
-    "compile:x86_64-apple-darwin": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag --target=x86_64-apple-darwin ./src/main.ts",
-    "compile:aarch64-apple-darwin": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag --target=aarch64-apple-darwin ./src/main.ts",
-    "compile:x86_64-unknown-linux-gnu": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag --target=x86_64-unknown-linux-gnu ./src/main.ts",
-    "compile:aarch64-unknown-linux-gnu": "./scripts/public-to-json.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --unstable-ffi --include ./src/public.json --cached-only --env=.env -o ./.bin/denotag --target=aarch64-unknown-linux-gnu ./src/main.ts",
+    "run": "./scripts/bundle.ts && ./scripts/embed.ts && deno run --allow-env=ENV --allow-net=127.0.0.1 --cached-only src/main.ts",
+    "compile": "./scripts/bundle.ts && ./scripts/embed.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --cached-only --env=.env -o ./.bin/denotag ./src/main.ts",
     "deps:lock": "deno cache --frozen=false src/**/*.ts src/**/*.tsx",
     "deps": "deno cache --reload src/**/*.ts src/**/*.tsx"
   },
@@ -18,12 +13,13 @@
     "jsx": "react-jsx"
   },
   "lint": {
+    "exclude": ["embed.json"],
     "rules": {
       "include": ["verbatim-module-syntax"]
     }
   },
   "fmt": {
-    "exclude": ["./src/public.json"]
+    "exclude": ["embed.json"]
   },
   "imports": {
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.6.2",
