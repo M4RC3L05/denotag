@@ -15,7 +15,7 @@ const targets = [
   "aarch64-unknown-linux-gnu",
 ] as const;
 
-for (const file of Deno.readDirSync("./.bin")) {
+for (const file of Deno.readDirSync(binDir)) {
   if (
     file.name.match(/.*\.(zip|tar\.gz)(\.sha256)?$/) ||
     targets.some((target) => file.name.includes(target))
