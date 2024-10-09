@@ -7,7 +7,7 @@
     "npm:@mjackson/headers@0.5": "0.5.1",
     "npm:@types/react@18.3.3": "18.3.3",
     "npm:node-taglib-sharp@5.2.3": "5.2.3",
-    "npm:react-bootstrap@2.10.4": "2.10.4_react@18.3.1_react-dom@18.3.1__react@18.3.1",
+    "npm:react-bootstrap@2.10.5": "2.10.5_@types+react@18.3.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:react-dom@18.3.1": "18.3.1_react@18.3.1",
     "npm:react-hotkeys-hook@4.5.0": "4.5.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:react@18.3.1": "18.3.1"
@@ -81,14 +81,7 @@
     "@types/react-transition-group@4.4.11": {
       "integrity": "sha512-RM05tAniPZ5DZPzzNFP+DmrcOdD0efDUxMy3145oljWSl3x9ZV5vhme98gTxFrj2lhXvmGNnUiuDyJgY9IKkNA==",
       "dependencies": [
-        "@types/react@18.3.11"
-      ]
-    },
-    "@types/react@18.3.11": {
-      "integrity": "sha512-r6QZ069rFTjrEYgFdOck1gK7FLVsgJE7tTz0pQBczlBNUhBNk0MQH4UbnFSwjpQLMkLzgqvBBa+qGpLje16eTQ==",
-      "dependencies": [
-        "@types/prop-types",
-        "csstype"
+        "@types/react"
       ]
     },
     "@types/react@18.3.3": {
@@ -281,12 +274,13 @@
         "once"
       ]
     },
-    "react-bootstrap@2.10.4_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
-      "integrity": "sha512-W3398nBM2CBfmGP2evneEO3ZZwEMPtHs72q++eNw60uDGDAdiGn0f9yNys91eo7/y8CTF5Ke1C0QO8JFVPU40Q==",
+    "react-bootstrap@2.10.5_@types+react@18.3.3_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
+      "integrity": "sha512-XueAOEn64RRkZ0s6yzUTdpFtdUXs5L5491QU//8ZcODKJNDLt/r01tNyriZccjgRImH1REynUc9pqjiRMpDLWQ==",
       "dependencies": [
         "@babel/runtime",
         "@restart/hooks",
         "@restart/ui",
+        "@types/react",
         "@types/react-transition-group",
         "classnames",
         "dom-helpers",
@@ -375,7 +369,7 @@
       "integrity": "sha512-svtcfoTADIB0nT9nltgjujTi7BzVmwjZClOmskKu/E8FW9BXzg9os8OLr4f8Dlnk0rYWJIWr4wv9eKUXiQvQwQ==",
       "dependencies": [
         "@babel/runtime",
-        "@types/react@18.3.11",
+        "@types/react",
         "invariant",
         "react",
         "react-lifecycles-compat"
@@ -412,7 +406,7 @@
       "jsr:@std/cli@1.0.6",
       "jsr:@std/path@1.0.6",
       "npm:node-taglib-sharp@5.2.3",
-      "npm:react-bootstrap@2.10.4",
+      "npm:react-bootstrap@2.10.5",
       "npm:react-dom@18.3.1",
       "npm:react-hotkeys-hook@4.5.0",
       "npm:react@18.3.1"
