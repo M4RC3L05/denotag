@@ -1,7 +1,6 @@
 {
   "deno.enable": true,
   "deno.lint": true,
-  "deno.unstable": true,
   "editor.formatOnSave": true,
   "[typescript]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
@@ -13,9 +12,15 @@
     "editor.defaultFormatter": "denoland.vscode-deno"
   },
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "denoland.vscode-deno"
   },
   "[markdown]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[yaml]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
   }
 }
