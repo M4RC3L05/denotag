@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run -A --no-lock
 
-import { resolve } from "jsr:@std/path@1.0.6";
+import { resolve } from "@std/path";
 
 const rootDir = resolve(import.meta.dirname!, "../");
 const dataDir = resolve(rootDir, "data");

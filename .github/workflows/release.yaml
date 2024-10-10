@@ -22,7 +22,7 @@ jobs:
           cache: true
 
       - name: install deps
-        run: deno task deps
+        run: deno install
 
       - name: build
         run: ./scripts/bundle.ts && ./scripts/embed.ts && ./scripts/build.ts

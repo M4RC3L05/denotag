@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run -A --no-lock
 
-import $ from "jsr:@david/dax@0.42.0";
+import $ from "@david/dax";
 import { basename, resolve } from "@std/path";
 
 const rootDir = resolve(import.meta.dirname!, "../");

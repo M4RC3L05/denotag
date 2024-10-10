@@ -4,9 +4,7 @@
   "exports": "./src/main.ts",
   "tasks": {
     "run": "./scripts/bundle.ts && ./scripts/embed.ts && deno run --allow-env=ENV --allow-net=127.0.0.1 --cached-only src/main.ts",
-    "compile": "./scripts/bundle.ts && ./scripts/embed.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --cached-only --env=.env -o ./.bin/denotag ./src/main.ts",
-    "deps:lock": "deno install --frozen=false --entrypoint src/**/*.ts src/**/*.tsx",
-    "deps": "deno install --reload --entrypoint src/**/*.ts src/**/*.tsx"
+    "compile": "./scripts/bundle.ts && ./scripts/embed.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --cached-only --env=.env -o ./.bin/denotag ./src/main.ts"
   },
   "compilerOptions": {
     "lib": ["DOM", "deno.ns"],
@@ -21,10 +19,14 @@
   "fmt": {
     "exclude": ["embed.json", "data"]
   },
+  "lock": true,
   "imports": {
+    "@david/dax": "jsr:@david/dax@^0.42.0",
+    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@^0.10.3",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.6.2",
     "@std/cli": "jsr:@std/cli@1.0.6",
     "@std/path": "jsr:@std/path@1.0.6",
+    "esbuild": "npm:esbuild@^0.24.0",
     "node-taglib-sharp": "npm:node-taglib-sharp@5.2.3",
     "react": "npm:react@18.3.1",
     "react-bootstrap": "npm:react-bootstrap@2.10.5",
