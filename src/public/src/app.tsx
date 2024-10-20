@@ -1,32 +1,19 @@
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import MusicFiles from "./components/music-files.tsx";
-import { useHotkeys } from "react-hotkeys-hook";
 import { debounce } from "./utils.ts";
 import Alert, { type AlertProps } from "./components/alert.tsx";
 import { getFiles } from "./actions.ts";
-import {
-  type ChangeEvent,
-  type RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "./deps.ts";
+import { type ChangeEvent, useCallback, useEffect, useState } from "./deps.ts";
 
 const App = () => {
   const [files, setFiles] = useState<string[]>([]);
   const [search, setSearch] = useState("");
-  const searchRef = useRef<HTMLInputElement>();
   const [alertInfo, setAlertInfo] = useState<AlertProps>({
     show: false,
     title: "",
     handleClose: useCallback(() => {
       setAlertInfo((ps) => ({ ...ps, show: false }));
     }, []),
-  });
-
-  useHotkeys("ctrl+f", () => {
-    searchRef.current?.focus();
   });
 
   useEffect(() => {
@@ -68,7 +55,6 @@ const App = () => {
         </div>
         <div className="col">
           <Form.Control
-            ref={searchRef as RefObject<HTMLInputElement>}
             placeholder="search"
             onChange={onSearch}
             className="w-100"

@@ -24,7 +24,6 @@
     "npm:node-taglib-sharp@5.2.3": "5.2.3",
     "npm:react-bootstrap@2.10.5": "2.10.5_@types+react@18.3.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:react-dom@18.3.1": "18.3.1_react@18.3.1",
-    "npm:react-hotkeys-hook@4.5.0": "4.5.0_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:react@18.3.1": "18.3.1"
   },
   "jsr": {
@@ -482,13 +481,6 @@
         "scheduler"
       ]
     },
-    "react-hotkeys-hook@4.5.0_react@18.3.1_react-dom@18.3.1__react@18.3.1": {
-      "integrity": "sha512-Samb85GSgAWFQNvVt3PS90LPPGSf9mkH/r4au81ZP1yOIFayLC3QAvqTgGtJ8YEDMXtPmaVBs6NgipHO6h4Mug==",
-      "dependencies": [
-        "react",
-        "react-dom"
-      ]
-    },
     "react-is@16.13.1": {
       "integrity": "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
     },
@@ -591,7 +583,6 @@
       "npm:node-taglib-sharp@5.2.3",
       "npm:react-bootstrap@2.10.5",
       "npm:react-dom@18.3.1",
-      "npm:react-hotkeys-hook@4.5.0",
       "npm:react@18.3.1"
     ]
   }

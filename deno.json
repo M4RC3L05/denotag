@@ -32,7 +32,6 @@
     "node-taglib-sharp": "npm:node-taglib-sharp@5.2.3",
     "react": "npm:react@18.3.1",
     "react-bootstrap": "npm:react-bootstrap@2.10.5",
-    "react-dom": "npm:react-dom@18.3.1",
-    "react-hotkeys-hook": "npm:react-hotkeys-hook@4.5.0"
+    "react-dom": "npm:react-dom@18.3.1"
   }
 }
