@@ -3,8 +3,8 @@
   "version": "4.5.7",
   "exports": "./src/main.ts",
   "tasks": {
-    "run": "./scripts/bundle.ts && ./scripts/embed.ts && deno run --allow-env=ENV --allow-net=127.0.0.1 --cached-only src/main.ts",
-    "compile": "./scripts/bundle.ts && ./scripts/embed.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --cached-only --env=.env -o ./.bin/denotag ./src/main.ts"
+    "run": "./scripts/bundle.ts && ./scripts/embed.ts && deno run --allow-env=ENV --allow-net=127.0.0.1 src/main.ts",
+    "compile": "./scripts/bundle.ts && ./scripts/embed.ts && deno compile --allow-env=ENV --allow-net=127.0.0.1 --env=.env -o ./.bin/denotag ./src/main.ts"
   },
   "compilerOptions": {
     "lib": ["DOM", "deno.ns"],
@@ -19,10 +19,12 @@
   "fmt": {
     "exclude": ["embed.json", "data"]
   },
-  "lock": true,
+  "lock": {
+    "frozen": true
+  },
   "imports": {
-    "@david/dax": "jsr:@david/dax@^0.42.0",
-    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@^0.10.3",
+    "@david/dax": "jsr:@david/dax@0.42.0",
+    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.0",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.6.2",
     "@std/cli": "jsr:@std/cli@1.0.6",
     "@std/path": "jsr:@std/path@1.0.6",

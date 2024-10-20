@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run -A --no-lock
+#!/usr/bin/env -S deno run -A
 
 import $ from "@david/dax";
 import { basename, resolve } from "@std/path";
