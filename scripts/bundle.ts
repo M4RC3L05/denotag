@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run -A
+#!/usr/bin/env -S deno run -A --cached-only
 
 import { build, type Plugin, stop } from "esbuild";
 import { denoPlugins } from "@luca/esbuild-deno-loader";

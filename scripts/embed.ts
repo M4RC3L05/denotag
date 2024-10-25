@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run -A
+#!/usr/bin/env -S deno run -A --cached-only
 
 import { resolve } from "@std/path";
 

@@ -2,7 +2,7 @@
 experimental = true
 
 [tools]
-deno = "2.0.2"
+deno = "2.0.3"
 
 [tasks."check:format"]
 run = """
@@ -20,5 +20,5 @@ run = """
 set -ex
 
 deno lint
-deno check --no-lock $(find . -type f | grep -E "\\.ts$|\\.tsx$" | grep -v "node_modules/")
+deno check $(find . -type f | grep -E "\\.ts$|\\.tsx$" | grep -v "node_modules/")
 """
