@@ -14,13 +14,14 @@
     "jsr:@std/fmt@1": "1.0.2",
     "jsr:@std/fs@1": "1.0.4",
     "jsr:@std/io@0.221": "0.221.0",
-    "jsr:@std/path@1": "1.0.6",
+    "jsr:@std/path@1": "1.0.7",
     "jsr:@std/path@1.0.6": "1.0.6",
-    "jsr:@std/path@^1.0.6": "1.0.6",
+    "jsr:@std/path@1.0.7": "1.0.7",
+    "jsr:@std/path@^1.0.6": "1.0.7",
     "jsr:@std/streams@0.221": "0.221.0",
     "npm:@mjackson/headers@0.5": "0.5.1",
     "npm:@types/react@18.3.3": "18.3.3",
-    "npm:esbuild@0.24": "0.24.0",
+    "npm:esbuild@0.24.0": "0.24.0",
     "npm:node-taglib-sharp@5.2.3": "5.2.3",
     "npm:react-bootstrap@2.10.5": "2.10.5_@types+react@18.3.3_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:react-dom@18.3.1": "18.3.1_react@18.3.1",
@@ -96,6 +97,9 @@
     },
     "@std/path@1.0.6": {
       "integrity": "ab2c55f902b380cf28e0eec501b4906e4c1960d13f00e11cfbcd21de15f18fed"
+    },
+    "@std/path@1.0.7": {
+      "integrity": "76a689e07f0e15dcc6002ec39d0866797e7156629212b28f27179b8a5c3b33a1"
     },
     "@std/streams@0.221.0": {
       "integrity": "47f2f74634b47449277c0ee79fe878da4424b66bd8975c032e3afdca88986e61",
@@ -578,8 +582,8 @@
       "jsr:@luca/esbuild-deno-loader@0.11.0",
       "jsr:@mjackson/multipart-parser@0.6.2",
       "jsr:@std/cli@1.0.6",
-      "jsr:@std/path@1.0.6",
-      "npm:esbuild@0.24",
+      "jsr:@std/path@1.0.7",
+      "npm:esbuild@0.24.0",
       "npm:node-taglib-sharp@5.2.3",
       "npm:react-bootstrap@2.10.5",
       "npm:react-dom@18.3.1",
