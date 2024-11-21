@@ -7,6 +7,9 @@ import {
 import { bootActions } from "./actions.ts";
 import meta from "./../deno.json" with { type: "json" };
 
+const indexFile = new URL("./../data/index.html", import.meta.url);
+const indexFileContents = Deno.readTextFileSync(indexFile);
+
 const multipartToObj = async (request: Request) => {
   const response = new Map<string, unknown>();
 
@@ -80,10 +83,6 @@ const onTagCmd = async ({ dir }: { dir: string }) => {
     throw new Error(`Dir "${dir}" it not a directory`);
   }
 
-  const embed = await import("./../embed.json", { with: { type: "json" } })
-    .then(({ default: main }) => main);
-
-  const ui = Uint8Array.from(embed["index.html"]);
   const { invokeAction } = bootActions({ dir: join(dir) });
 
   return Deno.serve({
@@ -113,7 +112,7 @@ const onTagCmd = async ({ dir }: { dir: string }) => {
       return Response.json(await invokeAction(callName as any, ...args));
     }
 
-    return new Response(ui, {
+    return new Response(indexFileContents, {
       headers: { "content-type": "text/html" },
       status: 200,
     });

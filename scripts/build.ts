@@ -39,7 +39,7 @@ const buildFor = async (target: typeof targets[number]) => {
     : `tar -czvf ${finalCompressPath} -C ${finalBinDir} ${finalBinName}`;
   const scriptPath = resolve(rootDir, "src", "main.ts");
 
-  await $`deno compile --allow-env=ENV --allow-net=127.0.0.1 --env=${
+  await $`deno compile --allow-read=./data --allow-env=ENV --allow-net=127.0.0.1 --include ./data/index.html --env=${
     $.path(resolve(rootDir, ".env"))
   } --target=${target} --output ${$.path(finalBinPath)} ${$.path(scriptPath)}`;
   await $.raw`${compressCmd}`;

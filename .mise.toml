@@ -2,7 +2,7 @@
 experimental = true
 
 [tools]
-deno = "2.0.5"
+deno = "2.1.1"
 
 [tasks."check:format"]
 run = """

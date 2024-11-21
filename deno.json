@@ -3,8 +3,8 @@
   "version": "4.6.3",
   "exports": "./src/main.ts",
   "tasks": {
-    "run": "./scripts/bundle.ts && ./scripts/embed.ts && deno run --cached-only --allow-env=ENV --allow-net=127.0.0.1 src/main.ts",
-    "compile": "./scripts/bundle.ts && ./scripts/embed.ts && deno compile --cached-only --allow-env=ENV --allow-net=127.0.0.1 --env=.env -o ./.bin/denotag ./src/main.ts"
+    "run": "./scripts/bundle.ts && deno run --allow-read=./data --cached-only --allow-env=ENV --allow-net=127.0.0.1 src/main.ts",
+    "compile": "./scripts/bundle.ts && deno compile --allow-read=./data --cached-only --allow-env=ENV --allow-net=127.0.0.1 --include ./data/index.html --env=.env -o ./.bin/denotag ./src/main.ts"
   },
   "compilerOptions": {
     "lib": ["DOM", "deno.ns"],
