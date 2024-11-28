@@ -12,12 +12,6 @@ const bundleFilePath = resolve(dataDir, "index.html");
 const [jsCode, cssCode] = await Promise.all([
   build({
     bundle: true,
-    tsconfigRaw: {
-      compilerOptions: {
-        jsx: denoConf.compilerOptions.jsx as "react-jsx",
-        jsxImportSource: denoConf.compilerOptions.jsxImportSource,
-      },
-    },
     entryPoints: [
       resolve(rootDir, "src/public/src/main.tsx"),
     ],
@@ -37,6 +31,8 @@ const [jsCode, cssCode] = await Promise.all([
     format: "esm",
     write: false,
     outdir: "out",
+    jsx: "automatic",
+    jsxImportSource: denoConf.compilerOptions.jsxImportSource,
   }),
   build({
     bundle: true,

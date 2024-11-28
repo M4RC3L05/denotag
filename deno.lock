@@ -20,7 +20,8 @@
     "jsr:@std/path@^1.0.8": "1.0.8",
     "jsr:@std/streams@0.221": "0.221.0",
     "npm:@mjackson/headers@0.5": "0.5.1",
-    "npm:@types/react@18.3.3": "18.3.3",
+    "npm:@types/react@18.3.12": "18.3.12",
+    "npm:@types/react@^18.3.12": "18.3.12",
     "npm:esbuild@0.24.0": "0.24.0",
     "npm:node-taglib-sharp@6.0.0": "6.0.0",
     "npm:react-bootstrap@2.10.6": "2.10.6_react@18.3.1_react-dom@18.3.1__react@18.3.1",
@@ -239,18 +240,11 @@
     "@types/react-transition-group@4.4.11": {
       "integrity": "sha512-RM05tAniPZ5DZPzzNFP+DmrcOdD0efDUxMy3145oljWSl3x9ZV5vhme98gTxFrj2lhXvmGNnUiuDyJgY9IKkNA==",
       "dependencies": [
-        "@types/react@18.3.12"
+        "@types/react"
       ]
     },
     "@types/react@18.3.12": {
       "integrity": "sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==",
-      "dependencies": [
-        "@types/prop-types",
-        "csstype"
-      ]
-    },
-    "@types/react@18.3.3": {
-      "integrity": "sha512-hti/R0pS0q1/xx+TsI73XIqk26eBsISZ2R0wUijXIngRK9R/e7Xw/cXVxQK7R5JjW+SV4zGcn5hXjudkN/pLIw==",
       "dependencies": [
         "@types/prop-types",
         "csstype"
@@ -436,7 +430,7 @@
       "integrity": "sha512-svtcfoTADIB0nT9nltgjujTi7BzVmwjZClOmskKu/E8FW9BXzg9os8OLr4f8Dlnk0rYWJIWr4wv9eKUXiQvQwQ==",
       "dependencies": [
         "@babel/runtime",
-        "@types/react@18.3.12",
+        "@types/react",
         "invariant",
         "react",
         "react-lifecycles-compat"
@@ -465,6 +459,7 @@
       "jsr:@mjackson/multipart-parser@0.6.2",
       "jsr:@std/cli@1.0.7",
       "jsr:@std/path@1.0.8",
+      "npm:@types/react@18.3.12",
       "npm:esbuild@0.24.0",
       "npm:node-taglib-sharp@6.0.0",
       "npm:react-bootstrap@2.10.6",

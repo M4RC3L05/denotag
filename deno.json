@@ -29,6 +29,7 @@
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.6.2",
     "@std/cli": "jsr:@std/cli@1.0.7",
     "@std/path": "jsr:@std/path@1.0.8",
+    "@types/react": "npm:@types/react@18.3.12",
     "esbuild": "npm:esbuild@0.24.0",
     "node-taglib-sharp": "npm:node-taglib-sharp@6.0.0",
     "react": "npm:react@18.3.1",
