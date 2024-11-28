@@ -3,6 +3,7 @@
 import { build, type Plugin, stop } from "esbuild";
 import { denoPlugins } from "@luca/esbuild-deno-loader";
 import { resolve } from "@std/path";
+import denoConf from "../deno.json" with { type: "json" };
 
 const rootDir = resolve(import.meta.dirname!, "../");
 const dataDir = resolve(rootDir, "data");
@@ -13,7 +14,8 @@ const [jsCode, cssCode] = await Promise.all([
     bundle: true,
     tsconfigRaw: {
       compilerOptions: {
-        jsx: "react-jsx",
+        jsx: denoConf.compilerOptions.jsx as "react-jsx",
+        jsxImportSource: denoConf.compilerOptions.jsxImportSource,
       },
     },
     entryPoints: [
