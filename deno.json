@@ -13,13 +13,12 @@
     "jsxImportSource": "react"
   },
   "lint": {
-    "exclude": ["embed.json"],
     "rules": {
       "include": ["verbatim-module-syntax"]
     }
   },
   "fmt": {
-    "exclude": ["embed.json", "data"]
+    "exclude": ["data"]
   },
   "lock": {
     "frozen": true
