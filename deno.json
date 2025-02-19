@@ -26,13 +26,13 @@
   "imports": {
     "@david/dax": "jsr:@david/dax@0.42.0",
     "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.1",
-    "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.7.2",
-    "@std/cli": "jsr:@std/cli@1.0.8",
+    "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.8.2",
+    "@std/cli": "jsr:@std/cli@1.0.13",
     "@std/path": "jsr:@std/path@1.0.8",
-    "esbuild": "npm:esbuild@0.24.0",
-    "node-taglib-sharp": "npm:node-taglib-sharp@6.0.0",
+    "esbuild": "npm:esbuild@0.25.0",
+    "node-taglib-sharp": "npm:node-taglib-sharp@6.0.1",
     "react": "npm:react@19.0.0",
-    "react-bootstrap": "npm:react-bootstrap@2.10.6",
+    "react-bootstrap": "npm:react-bootstrap@2.10.9",
     "react-dom": "npm:react-dom@19.0.0"
   }
 }

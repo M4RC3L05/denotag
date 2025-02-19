@@ -12,9 +12,8 @@ const indexFileContents = Deno.readTextFileSync(indexFile);
 
 const multipartToObj = async (request: Request) => {
   const response = new Map<string, unknown>();
-
-  for await (const part of parseMultipartRequest(request)) {
-    if (!part.name) continue;
+  await parseMultipartRequest(request, async (part) => {
+    if (!part.name) return;
 
     response.set(
       part.name,
@@ -22,7 +21,7 @@ const multipartToObj = async (request: Request) => {
         ? { mimetype: part.mediaType, data: await part.bytes() }
         : await part.text(),
     );
-  }
+  });
 
   return Object.fromEntries(response.entries());
 };
