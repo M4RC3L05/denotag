@@ -3,14 +3,36 @@
   "version": "4.6.8",
   "exports": "./src/main.ts",
   "tasks": {
-    "run": "./scripts/bundle.ts && deno run --allow-read=./data --cached-only --allow-env=ENV --allow-net=127.0.0.1 src/main.ts",
-    "compile": "./scripts/bundle.ts && deno compile --cached-only --allow-env=ENV --allow-net=127.0.0.1 --include ./data/index.html --env=.env -o ./.bin/denotag ./src/main.ts"
+    "run": {
+      "description": "Runs the program",
+      "command": "./scripts/bundle.ts && deno run --allow-read=./data --cached-only --allow-env=ENV --allow-net=127.0.0.1 src/main.ts"
+    },
+    "compile": {
+      "description": "Compiles de program",
+      "command": "./scripts/bundle.ts && deno compile --cached-only --unstable-npm-lazy-caching --allow-env=ENV --allow-net=127.0.0.1 --include ./data/index.html --env=.env -o ./.bin/denotag ./src/main.ts"
+    },
+    "check:fmt": {
+      "description": "Run formatting checks",
+      "command": "deno fmt --check"
+    },
+    "check:lint": {
+      "description": "Run lint checks",
+      "command": "deno lint"
+    },
+    "check:check": {
+      "description": "Run check checks",
+      "command": "deno check ."
+    },
+    "checks": {
+      "description": "Run code checks",
+      "dependencies": ["check:fmt", "check:lint", "check:check"]
+    }
   },
   "compilerOptions": {
-    "types": ["npm:@types/react"],
-    "lib": ["DOM", "deno.ns"],
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "jsxImportSourceTypes": "@types/react",
+    "lib": ["dom", "dom.iterable", "deno.ns"]
   },
   "lint": {
     "rules": {
@@ -29,6 +51,8 @@
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.8.2",
     "@std/cli": "jsr:@std/cli@1.0.13",
     "@std/path": "jsr:@std/path@1.0.8",
+    "@types/react": "npm:@types/react@19.0.10",
+    "@types/react-dom": "npm:@types/react-dom@19.0.4",
     "esbuild": "npm:esbuild@0.25.0",
     "node-taglib-sharp": "npm:node-taglib-sharp@6.0.1",
     "react": "npm:react@19.0.0",

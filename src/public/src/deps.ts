@@ -1,4 +1,4 @@
-// @deno-types="npm:@types/react"
+// @ts-types="@types/react"
 export {
   type ChangeEvent,
   type RefObject,

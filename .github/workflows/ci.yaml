@@ -19,8 +19,5 @@ jobs:
       - name: install deps
         run: deno install
 
-      - name: check format
-        run: mise run check:format
-
-      - name: check lint
-        run: mise run check:lint
+      - name: run code checks
+        run: deno task checks

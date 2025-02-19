@@ -25,8 +25,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
       setAlertInfo((ps) => ({ ...ps, show: false }));
     }, []),
   });
-  const imgRef = useRef<HTMLImageElement>();
-  const coverInputRef = useRef<HTMLInputElement>();
+  const imgRef = useRef<HTMLImageElement>(undefined);
+  const coverInputRef = useRef<HTMLInputElement>(undefined);
   const [coverSelectedFromAbove, setCoverSelectedFromAbove] = useState(
     !!metadata?.cover,
   );
