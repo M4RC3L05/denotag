@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "./../deps.ts";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Image, Modal } from "react-bootstrap";
 import Alert, { type AlertProps } from "./alert.tsx";
 import { getMusicFileMetadata } from "../actions.ts";

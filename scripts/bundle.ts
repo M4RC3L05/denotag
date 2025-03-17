@@ -23,9 +23,6 @@ const [jsCode, cssCode] = await Promise.all([
       NODE_ENV: "production",
     },
     minify: true,
-    minifyIdentifiers: true,
-    minifySyntax: true,
-    minifyWhitespace: true,
     keepNames: false,
     treeShaking: true,
     format: "esm",
@@ -67,23 +64,32 @@ const [jsCode, cssCode] = await Promise.all([
   }),
 ]);
 
-let htmlFile = Deno.readTextFileSync(resolve(rootDir, "src/public/index.html"));
+const cssContent = cssCode.outputFiles.filter(({ path }) =>
+  path.endsWith(".css")
+).map((
+  { contents },
+) => `<style>\n${new TextDecoder().decode(contents)}\n</style>`).join("\n");
 
-htmlFile = htmlFile.replace(
-  "{{ CssItems }}",
-  cssCode.outputFiles.filter(({ path }) => path.endsWith(".css")).map((
-    { contents },
-  ) => `<style>\n${new TextDecoder().decode(contents)}\n</style>`).join("\n"),
-);
-
-htmlFile = htmlFile.replace(
-  "{{ JsItems }}",
-  jsCode.outputFiles.filter(({ path }) => path.endsWith(".js")).map((
+const jsContent = jsCode.outputFiles.filter(({ path }) => path.endsWith(".js"))
+  .map((
     { contents },
   ) =>
     `<script type="module">\n${new TextDecoder().decode(contents)}\n</script>`
-  ).join("\n"),
-);
+  ).join("\n");
+
+const htmlFile = Deno.readTextFileSync(
+  resolve(rootDir, "src/public/index.html"),
+).split(/{{ | }}/gm).map((segment) => {
+  if (segment === "CssItems") {
+    return cssContent;
+  }
+
+  if (segment === "JsItems") {
+    return jsContent;
+  }
+
+  return segment;
+}).join("\n");
 
 try {
   Deno.mkdirSync(dataDir);

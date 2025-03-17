@@ -4,7 +4,7 @@ import {
   useEffect,
   useRef,
   useState,
-} from "./../deps.ts";
+} from "react";
 import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import Alert, { type AlertProps } from "./alert.tsx";
 import { setMusicFileMetadata } from "../actions.ts";

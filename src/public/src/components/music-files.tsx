@@ -1,4 +1,4 @@
-import { useCallback, useState } from "./../deps.ts";
+import { useCallback, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import EditAudioFileMetadataModal from "./edit-audio-metadata-modal.tsx";
 import ShowAudioFileMetadataModal from "./show-audio-metadata-modal.tsx";

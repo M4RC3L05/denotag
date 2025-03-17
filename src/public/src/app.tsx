@@ -3,7 +3,7 @@ import MusicFiles from "./components/music-files.tsx";
 import { debounce } from "./utils.ts";
 import Alert, { type AlertProps } from "./components/alert.tsx";
 import { getFiles } from "./actions.ts";
-import { type ChangeEvent, useCallback, useEffect, useState } from "./deps.ts";
+import { type ChangeEvent, useCallback, useEffect, useState } from "react";
 
 const App = () => {
   const [files, setFiles] = useState<string[]>([]);

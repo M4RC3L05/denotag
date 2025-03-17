@@ -31,7 +31,6 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "jsxImportSourceTypes": "@types/react",
     "lib": ["dom", "dom.iterable", "deno.ns"]
   },
   "lint": {
@@ -49,11 +48,9 @@
     "@david/dax": "jsr:@david/dax@0.42.0",
     "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.1",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.8.2",
-    "@std/cli": "jsr:@std/cli@1.0.13",
+    "@std/cli": "jsr:@std/cli@1.0.14",
     "@std/path": "jsr:@std/path@1.0.8",
-    "@types/react": "npm:@types/react@19.0.10",
-    "@types/react-dom": "npm:@types/react-dom@19.0.4",
-    "esbuild": "npm:esbuild@0.25.0",
+    "esbuild": "npm:esbuild@0.25.1",
     "node-taglib-sharp": "npm:node-taglib-sharp@6.0.1",
     "react": "npm:react@19.0.0",
     "react-bootstrap": "npm:react-bootstrap@2.10.9",

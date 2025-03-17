@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "./../deps.ts";
+import { useCallback, useEffect, useState } from "react";
 import { Col, Container, Modal, Row } from "react-bootstrap";
 import EditAudioMetadataForm from "./edit-audio-metdata-form.tsx";
 import RemoteAudioInfo from "./remote-audio-info.tsx";
