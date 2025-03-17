@@ -1,24 +1,2 @@
-[settings]
-experimental = true
-
 [tools]
 deno = "2.2.4"
-
-[tasks."check:format"]
-run = """
-#!/usr/bin/env sh
-
-set -ex
-
-deno fmt --check
-"""
-
-[tasks."check:lint"]
-run = """
-#!/usr/bin/env sh
-
-set -ex
-
-deno lint
-deno check .
-"""
