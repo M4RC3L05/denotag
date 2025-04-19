@@ -1,0 +1,47 @@
+{
+  "tasks": {
+    "check:fmt": {
+      "description": "Run formatting checks",
+      "command": "deno fmt --check"
+    },
+    "check:lint": {
+      "description": "Run lint checks",
+      "command": "deno lint"
+    },
+    "check:check": {
+      "description": "Run check checks",
+      "command": "deno check ."
+    },
+    "checks": {
+      "description": "Run code checks",
+      "dependencies": ["check:fmt", "check:lint", "check:check"]
+    }
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "lib": ["dom", "dom.iterable", "deno.ns"]
+  },
+  "lint": {
+    "rules": {
+      "include": ["verbatim-module-syntax"]
+    }
+  },
+  "fmt": {
+    "exclude": ["data"]
+  },
+  "lock": {
+    "frozen": true
+  },
+  "imports": {
+    "@david/dax": "jsr:@david/dax@0.43.0",
+    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.1",
+    "@std/path": "jsr:@std/path@1.0.8",
+    "@types/react": "npm:@types/react@19.1.2",
+    "@types/react-dom": "npm:@types/react-dom@19.1.2",
+    "esbuild": "npm:esbuild@0.25.2",
+    "react": "npm:react@19.1.0",
+    "react-bootstrap": "npm:react-bootstrap@2.10.9",
+    "react-dom": "npm:react-dom@19.1.0"
+  }
+}

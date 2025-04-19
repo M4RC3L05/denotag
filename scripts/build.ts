@@ -1,6 +1,6 @@
-#!/usr/bin/env -S deno run -A --cached-only
+#!/usr/bin/env -S deno run -A --no-lock
 
-import $ from "@david/dax";
+import $ from "jsr:@david/dax";
 
 $.setPrintCommand(true);
 
@@ -33,7 +33,7 @@ const buildFor = async (target: typeof targets[number]) => {
     `${compressedBinName}.sha256`,
   );
 
-  await $`deno compile --allow-env=ENV --allow-net=127.0.0.1 --include=./data/index.html --env=${
+  await $`deno compile --cached-only --unstable-npm-lazy-caching --allow-env=ENV --allow-net=127.0.0.1 --include=./data/index.html --env=${
     rootDir.resolve(".env")
   } --target=${target} --output=${compiledPath} ${
     rootDir.resolve("src", "main.ts")

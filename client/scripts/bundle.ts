@@ -6,14 +6,14 @@ import { resolve } from "@std/path";
 import denoConf from "../deno.json" with { type: "json" };
 
 const rootDir = resolve(import.meta.dirname!, "../");
-const dataDir = resolve(rootDir, "data");
+const dataDir = resolve(rootDir, "..", "data");
 const bundleFilePath = resolve(dataDir, "index.html");
 
 const [jsCode, cssCode] = await Promise.all([
   build({
     bundle: true,
     entryPoints: [
-      resolve(rootDir, "src/public/src/main.tsx"),
+      resolve(rootDir, "src/main.tsx"),
     ],
     plugins: denoPlugins({
       configPath: resolve(rootDir, "deno.json"),
@@ -34,7 +34,7 @@ const [jsCode, cssCode] = await Promise.all([
   build({
     bundle: true,
     entryPoints: [
-      resolve(rootDir, "src/public/css/main.css"),
+      resolve(rootDir, "css/main.css"),
     ],
     plugins: [
       {
@@ -78,7 +78,7 @@ const jsContent = jsCode.outputFiles.filter(({ path }) => path.endsWith(".js"))
   ).join("\n");
 
 const htmlFile = Deno.readTextFileSync(
-  resolve(rootDir, "src/public/index.html"),
+  resolve(rootDir, "index.html"),
 ).split(/{{ | }}/gm).map((segment) => {
   if (segment === "CssItems") {
     return cssContent;

@@ -1,9 +1,11 @@
 ---
 name: Release
+
 on:
   push:
     tags:
       - "*"
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -21,11 +23,22 @@ jobs:
           install: true
           cache: true
 
-      - name: install deps
+      - name: install client deps
+        working-directory: ./client
         run: deno install
 
+      - name: build client
+        working-directory: ./client
+        run: ./scripts/bundle.ts
+
+      - name: remove client deps
+        run: deno clean
+
+      - name: install deps
+        run: deno install --entrypoint --unstable-npm-lazy-caching src/main.ts
+
       - name: build
-        run: ./scripts/bundle.ts && ./scripts/build.ts
+        run: ./scripts/build.ts
 
       - name: release
         uses: ncipollo/release-action@v1
