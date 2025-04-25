@@ -1,5 +1,5 @@
 import { parseArgs } from "@std/cli";
-import { join } from "@std/path";
+import { resolve } from "@std/path";
 import {
   isMultipartRequest,
   parseMultipartRequest,
@@ -78,11 +78,13 @@ const onTagCmd = async ({ dir }: { dir: string }) => {
     throw new Error(`Permission to read/write to "${dir}" not granted.`);
   }
 
-  if (!(await Deno.stat(dir)).isDirectory) {
-    throw new Error(`Dir "${dir}" it not a directory`);
+  if (
+    !(await Deno.stat(dir).catch(() => ({ isDirectory: false }))).isDirectory
+  ) {
+    throw new Error(`Dir "${dir}" it not a directory or is not a valid path`);
   }
 
-  const { invokeAction } = bootActions({ dir: join(dir) });
+  const { invokeAction } = bootActions({ dir });
 
   return Deno.serve({
     hostname: "127.0.0.1",
@@ -133,7 +135,7 @@ if (import.meta.main) {
         const directory = args.dir ?? args.d;
 
         try {
-          const server = await onTagCmd({ dir: directory! });
+          const server = await onTagCmd({ dir: resolve(directory!) });
 
           Deno.addSignalListener("SIGINT", () => server.shutdown());
 
