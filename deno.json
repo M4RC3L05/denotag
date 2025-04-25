@@ -46,6 +46,7 @@
     "frozen": true
   },
   "imports": {
+    "@david/dax": "jsr:@david/dax@0.43.0",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.8.2",
     "@std/cli": "jsr:@std/cli@1.0.16",
     "@std/path": "jsr:@std/path@1.0.8",

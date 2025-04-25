@@ -1,6 +1,6 @@
-#!/usr/bin/env -S deno run -A --no-lock
+#!/usr/bin/env -S deno run -A
 
-import $ from "jsr:@david/dax";
+import $ from "@david/dax";
 
 $.setPrintCommand(true);
 
