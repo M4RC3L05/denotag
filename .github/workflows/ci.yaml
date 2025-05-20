@@ -17,7 +17,7 @@ jobs:
           cache: true
 
       - name: install deps
-        run: deno install && cd client && deno install
+        run: deno install --frozen=true && cd client && deno install --frozen=true
 
       - name: run code checks
         run: deno task checks && cd client && deno task checks
