@@ -1,25 +1,30 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@david/dax@0.43.1": "0.43.1",
+    "jsr:@david/console-static-text@0.3": "0.3.0",
+    "jsr:@david/dax@0.43.2": "0.43.2",
     "jsr:@david/path@0.2": "0.2.0",
     "jsr:@david/which@~0.4.1": "0.4.1",
     "jsr:@mjackson/multipart-parser@0.8.2": "0.8.2",
     "jsr:@std/bytes@^1.0.5": "1.0.5",
-    "jsr:@std/cli@1.0.17": "1.0.17",
+    "jsr:@std/cli@1.0.19": "1.0.19",
     "jsr:@std/fmt@1": "1.0.7",
     "jsr:@std/fs@1": "1.0.17",
     "jsr:@std/io@0.225": "0.225.2",
-    "jsr:@std/path@1": "1.0.9",
-    "jsr:@std/path@1.0.9": "1.0.9",
-    "jsr:@std/path@^1.0.9": "1.0.9",
+    "jsr:@std/path@1": "1.1.0",
+    "jsr:@std/path@1.1.0": "1.1.0",
+    "jsr:@std/path@^1.0.9": "1.1.0",
     "npm:@mjackson/headers@0.10": "0.10.0",
     "npm:node-taglib-sharp@6.0.1": "6.0.1"
   },
   "jsr": {
-    "@david/dax@0.43.1": {
-      "integrity": "2891dd94b53b8dec5d9caeeefe8378346a245d58edeb275274ef562b9434180e",
+    "@david/console-static-text@0.3.0": {
+      "integrity": "2dfb46ecee525755f7989f94ece30bba85bd8ffe3e8666abc1bf926e1ee0698d"
+    },
+    "@david/dax@0.43.2": {
+      "integrity": "8c7df175465d994c0e3568e3eb91102768c2f1c86d2a513d7fc4cab13f9cb328",
       "dependencies": [
+        "jsr:@david/console-static-text",
         "jsr:@david/path",
         "jsr:@david/which",
         "jsr:@std/fmt",
@@ -47,8 +52,8 @@
     "@std/bytes@1.0.5": {
       "integrity": "4465dd739d7963d964c809202ebea6d5c6b8e3829ef25c6a224290fbb8a1021e"
     },
-    "@std/cli@1.0.17": {
-      "integrity": "e15b9abe629e17be90cc6216327f03a29eae613365f1353837fa749aad29ce7b"
+    "@std/cli@1.0.19": {
+      "integrity": "b3601a54891f89f3f738023af11960c4e6f7a45dc76cde39a6861124cba79e88"
     },
     "@std/fmt@1.0.7": {
       "integrity": "2a727c043d8df62cd0b819b3fb709b64dd622e42c3b1bb817ea7e6cc606360fb"
@@ -65,8 +70,8 @@
         "jsr:@std/bytes"
       ]
     },
-    "@std/path@1.0.9": {
-      "integrity": "260a49f11edd3db93dd38350bf9cd1b4d1366afa98e81b86167b4e3dd750129e"
+    "@std/path@1.1.0": {
+      "integrity": "ddc94f8e3c275627281cbc23341df6b8bcc874d70374f75fec2533521e3d6886"
     }
   },
   "npm": {
@@ -112,10 +117,10 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@david/dax@0.43.1",
+      "jsr:@david/dax@0.43.2",
       "jsr:@mjackson/multipart-parser@0.8.2",
-      "jsr:@std/cli@1.0.17",
-      "jsr:@std/path@1.0.9",
+      "jsr:@std/cli@1.0.19",
+      "jsr:@std/path@1.1.0",
       "npm:node-taglib-sharp@6.0.1"
     ]
   }

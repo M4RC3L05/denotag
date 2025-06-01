@@ -31,12 +31,12 @@
     "exclude": ["data"]
   },
   "imports": {
-    "@david/dax": "jsr:@david/dax@0.43.1",
+    "@david/dax": "jsr:@david/dax@0.43.2",
     "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.1",
-    "@std/path": "jsr:@std/path@1.0.9",
-    "@types/react": "npm:@types/react@19.1.4",
+    "@std/path": "jsr:@std/path@1.1.0",
+    "@types/react": "npm:@types/react@19.1.6",
     "@types/react-dom": "npm:@types/react-dom@19.1.5",
-    "esbuild": "npm:esbuild@0.25.4",
+    "esbuild": "npm:esbuild@0.25.5",
     "react": "npm:react@19.1.0",
     "react-bootstrap": "npm:react-bootstrap@2.10.10",
     "react-dom": "npm:react-dom@19.1.0"

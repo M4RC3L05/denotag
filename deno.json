@@ -43,10 +43,10 @@
     "exclude": ["data", "client"]
   },
   "imports": {
-    "@david/dax": "jsr:@david/dax@0.43.1",
+    "@david/dax": "jsr:@david/dax@0.43.2",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.8.2",
-    "@std/cli": "jsr:@std/cli@1.0.17",
-    "@std/path": "jsr:@std/path@1.0.9",
+    "@std/cli": "jsr:@std/cli@1.0.19",
+    "@std/path": "jsr:@std/path@1.1.0",
     "node-taglib-sharp": "npm:node-taglib-sharp@6.0.1"
   }
 }
