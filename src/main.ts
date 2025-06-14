@@ -10,22 +10,6 @@ import meta from "./../deno.json" with { type: "json" };
 const indexFile = new URL("./../data/index.html", import.meta.url);
 const indexFileContents = Deno.readTextFileSync(indexFile);
 
-const multipartToObj = async (request: Request) => {
-  const response = new Map<string, unknown>();
-  await parseMultipartRequest(request, async (part) => {
-    if (!part.name) return;
-
-    response.set(
-      part.name,
-      part.isFile
-        ? { mimetype: part.mediaType, data: await part.bytes() }
-        : await part.text(),
-    );
-  });
-
-  return Object.fromEntries(response.entries());
-};
-
 const help = `
 Denotag
 
@@ -105,7 +89,18 @@ const onTagCmd = async ({ dir }: { dir: string }) => {
 
       const args = hasContent
         ? isMultipartRequest(request)
-          ? [await multipartToObj(request)]
+          ? [
+            Object.fromEntries(
+              (await Array.fromAsync(parseMultipartRequest(request))).filter(
+                (item) => !!item.name,
+              ).map((item) => [
+                item.name,
+                item.isFile
+                  ? { mimetype: item.mediaType, data: item.bytes }
+                  : item.text,
+              ]),
+            ),
+          ]
           : await request.json()
         : [];
 

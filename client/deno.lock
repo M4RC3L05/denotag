@@ -18,9 +18,9 @@
     "jsr:@std/path@^1.0.6": "1.0.8",
     "jsr:@std/path@^1.0.9": "1.1.0",
     "npm:@types/react-dom@19.1.2": "19.1.2_@types+react@19.1.2",
-    "npm:@types/react-dom@19.1.5": "19.1.5_@types+react@19.1.2",
+    "npm:@types/react-dom@19.1.6": "19.1.6_@types+react@19.1.2",
     "npm:@types/react@19.1.2": "19.1.2",
-    "npm:@types/react@19.1.6": "19.1.6",
+    "npm:@types/react@19.1.8": "19.1.8",
     "npm:esbuild@0.25.2": "0.25.2",
     "npm:esbuild@0.25.5": "0.25.5",
     "npm:react-bootstrap@2.10.10": "2.10.10_@types+react@19.1.2_react@19.1.0_react-dom@19.1.0__react@19.1.0",
@@ -524,8 +524,8 @@
         "@types/react@19.1.2"
       ]
     },
-    "@types/react-dom@19.1.5_@types+react@19.1.2": {
-      "integrity": "sha512-CMCjrWucUBZvohgZxkjd6S9h0nZxXjzus6yDfUb+xLxYM7VvjKNH1tQrE9GWLql1XoOP4/Ds3bwFqShHUYraGg==",
+    "@types/react-dom@19.1.6_@types+react@19.1.2": {
+      "integrity": "sha512-4hOiT/dwO8Ko0gV1m/TJZYk3y0KBnY9vzDh7W+DH17b2HFSOGgdj33dhihPeuy3l0q23+4e+hoXHV6hCC4dCXw==",
       "dependencies": [
         "@types/react@19.1.2"
       ]
@@ -542,8 +542,8 @@
         "csstype"
       ]
     },
-    "@types/react@19.1.6": {
-      "integrity": "sha512-JeG0rEWak0N6Itr6QUx+X60uQmN+5t3j9r/OVDtWzFXKaj6kD1BwJzOksD0FF6iWxZlbE1kB0q9vtnU2ekqa1Q==",
+    "@types/react@19.1.8": {
+      "integrity": "sha512-AwAfQ2Wa5bCx9WP8nZL2uMZWod7J7/JSplxbTmBQ5ms6QpqNYm672H0Vu9ZVKVngQ+ii4R/byguVEUZQyeg44g==",
       "dependencies": [
         "csstype"
       ]
@@ -775,8 +775,8 @@
       "jsr:@david/dax@0.43.2",
       "jsr:@luca/esbuild-deno-loader@0.11.1",
       "jsr:@std/path@1.1.0",
-      "npm:@types/react-dom@19.1.5",
-      "npm:@types/react@19.1.6",
+      "npm:@types/react-dom@19.1.6",
+      "npm:@types/react@19.1.8",
       "npm:esbuild@0.25.5",
       "npm:react-bootstrap@2.10.10",
       "npm:react-dom@19.1.0",

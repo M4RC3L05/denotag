@@ -5,16 +5,16 @@
     "jsr:@david/dax@0.43.2": "0.43.2",
     "jsr:@david/path@0.2": "0.2.0",
     "jsr:@david/which@~0.4.1": "0.4.1",
-    "jsr:@mjackson/multipart-parser@0.8.2": "0.8.2",
+    "jsr:@mjackson/multipart-parser@0.10.1": "0.10.1",
     "jsr:@std/bytes@^1.0.5": "1.0.5",
-    "jsr:@std/cli@1.0.19": "1.0.19",
+    "jsr:@std/cli@1.0.20": "1.0.20",
     "jsr:@std/fmt@1": "1.0.7",
     "jsr:@std/fs@1": "1.0.17",
     "jsr:@std/io@0.225": "0.225.2",
     "jsr:@std/path@1": "1.1.0",
     "jsr:@std/path@1.1.0": "1.1.0",
     "jsr:@std/path@^1.0.9": "1.1.0",
-    "npm:@mjackson/headers@0.10": "0.10.0",
+    "npm:@mjackson/headers@~0.11.1": "0.11.1",
     "npm:node-taglib-sharp@6.0.1": "6.0.1"
   },
   "jsr": {
@@ -43,8 +43,8 @@
     "@david/which@0.4.1": {
       "integrity": "896a682b111f92ab866cc70c5b4afab2f5899d2f9bde31ed00203b9c250f225e"
     },
-    "@mjackson/multipart-parser@0.8.2": {
-      "integrity": "9cd6181ff46ab2bfd44550d4e2240d5135e3b0c1a2368fcec445b71c79cdc71f",
+    "@mjackson/multipart-parser@0.10.1": {
+      "integrity": "3d97055d48fd800150bf8d0319271b281f36c7909206c2f2bcfbc1873a8db33d",
       "dependencies": [
         "npm:@mjackson/headers"
       ]
@@ -52,8 +52,8 @@
     "@std/bytes@1.0.5": {
       "integrity": "4465dd739d7963d964c809202ebea6d5c6b8e3829ef25c6a224290fbb8a1021e"
     },
-    "@std/cli@1.0.19": {
-      "integrity": "b3601a54891f89f3f738023af11960c4e6f7a45dc76cde39a6861124cba79e88"
+    "@std/cli@1.0.20": {
+      "integrity": "a8c384a2c98cec6ec6a2055c273a916e2772485eb784af0db004c5ab8ba52333"
     },
     "@std/fmt@1.0.7": {
       "integrity": "2a727c043d8df62cd0b819b3fb709b64dd622e42c3b1bb817ea7e6cc606360fb"
@@ -75,8 +75,8 @@
     }
   },
   "npm": {
-    "@mjackson/headers@0.10.0": {
-      "integrity": "sha512-U1Eu1gF979k7ZoIBsJyD+T5l9MjtPONsZfoXfktsQHPJD0s7SokBGx+tLKDLsOY+gzVYAWS0yRFDNY8cgbQzWQ=="
+    "@mjackson/headers@0.11.1": {
+      "integrity": "sha512-uXXhd4rtDdDwkqAuGef1nuafkCa1NlTmEc1Jzc0NL4YiA1yON1NFXuqJ3hOuKvNKQwkiDwdD+JJlKVyz4dunFA=="
     },
     "iconv-lite@0.6.3": {
       "integrity": "sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==",
@@ -118,8 +118,8 @@
   "workspace": {
     "dependencies": [
       "jsr:@david/dax@0.43.2",
-      "jsr:@mjackson/multipart-parser@0.8.2",
-      "jsr:@std/cli@1.0.19",
+      "jsr:@mjackson/multipart-parser@0.10.1",
+      "jsr:@std/cli@1.0.20",
       "jsr:@std/path@1.1.0",
       "npm:node-taglib-sharp@6.0.1"
     ]
