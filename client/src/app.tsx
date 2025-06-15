@@ -1,9 +1,9 @@
+import { useCallback, useEffect, useState } from "preact/hooks";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import MusicFiles from "./components/music-files.tsx";
 import { debounce } from "./utils.ts";
 import Alert, { type AlertProps } from "./components/alert.tsx";
 import { getFiles } from "./actions.ts";
-import { type ChangeEvent, useCallback, useEffect, useState } from "react";
 
 const App = () => {
   const [files, setFiles] = useState<string[]>([]);
@@ -35,7 +35,7 @@ const App = () => {
   };
 
   const onSearch = useCallback(
-    debounce((e: ChangeEvent<HTMLInputElement>) => {
+    debounce((e: React.ChangeEvent<HTMLInputElement>) => {
       setSearch(e.target.value);
     }, 250),
     [],

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from "preact/hooks";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
 import { makeRequester } from "../utils.ts";
 import Alert, { type AlertProps } from "./alert.tsx";
@@ -7,7 +7,7 @@ type DisplayMetadataProps = {
   metadata: Record<string, string | number>;
 };
 
-const DisplayMetadata: React.FC<DisplayMetadataProps> = ({ metadata }) => {
+const DisplayMetadata = ({ metadata }: DisplayMetadataProps) => {
   const albumArtist = metadata.collectionArtistName ?? metadata.artistName;
   const year = new Date(metadata.releaseDate).getFullYear();
   const date = `${new Date(metadata.releaseDate).getFullYear()}-${
@@ -59,7 +59,7 @@ type RemoteAudioInfoProps = {
   onSelect: (metadata: Record<string, string | number>) => unknown;
 };
 
-const RemoteAudioInfo: React.FC<RemoteAudioInfoProps> = ({ onSelect }) => {
+const RemoteAudioInfo = ({ onSelect }: RemoteAudioInfoProps) => {
   const [formData, setFormData] = useState({ q: "", nResults: 5 });
   const [results, setResults] = useState([]);
   const [alertInfo, setAlertInfo] = useState<AlertProps>({

@@ -1,5 +1,9 @@
 {
   "tasks": {
+    "build": {
+      "description": "Build frontend",
+      "command": "vite build"
+    },
     "check:fmt": {
       "description": "Run formatting checks",
       "command": "deno fmt --check"
@@ -17,28 +21,30 @@
       "dependencies": ["check:fmt", "check:lint", "check:check"]
     }
   },
+  "nodeModulesDir": "auto",
   "compilerOptions": {
+    "lib": ["deno.ns", "dom", "dom.iterable"],
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "lib": ["dom", "dom.iterable", "deno.ns"]
+    "jsxImportSource": "preact",
+    "jsxImportSourceTypes": "@types/react"
+  },
+  "fmt": {
+    "exclude": ["node_modules"]
   },
   "lint": {
+    "exclude": ["node_modules"],
     "rules": {
       "include": ["verbatim-module-syntax"]
     }
   },
-  "fmt": {
-    "exclude": ["data"]
-  },
   "imports": {
-    "@david/dax": "jsr:@david/dax@0.43.2",
-    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@0.11.1",
-    "@std/path": "jsr:@std/path@1.1.0",
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.4",
+    "@preact/preset-vite": "npm:@preact/preset-vite@2.10.1",
     "@types/react": "npm:@types/react@19.1.8",
-    "@types/react-dom": "npm:@types/react-dom@19.1.6",
-    "esbuild": "npm:esbuild@0.25.5",
-    "react": "npm:react@19.1.0",
+    "bootstrap": "npm:bootstrap@5.3.6",
+    "preact": "npm:preact@10.26.9",
     "react-bootstrap": "npm:react-bootstrap@2.10.10",
-    "react-dom": "npm:react-dom@19.1.0"
+    "vite": "npm:vite@6.3.5",
+    "vite-plugin-singlefile": "npm:vite-plugin-singlefile@2.2.0"
   }
 }

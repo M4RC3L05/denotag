@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import { Image, Modal } from "react-bootstrap";
 import Alert, { type AlertProps } from "./alert.tsx";
 import { getMusicFileMetadata } from "../actions.ts";
@@ -9,8 +9,8 @@ type ShowAudioFileMetadataModalProps = {
   handleClose: () => unknown;
 };
 
-const ShowAudioFileMetadataModal: React.FC<ShowAudioFileMetadataModalProps> = (
-  { file, show, handleClose },
+const ShowAudioFileMetadataModal = (
+  { file, show, handleClose }: ShowAudioFileMetadataModalProps,
 ) => {
   const [metadata, setMetadata] = useState<
     Awaited<ReturnType<typeof getMusicFileMetadata>> | undefined

@@ -1,10 +1,5 @@
-import {
-  type RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import type { RefObject } from "preact";
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import Alert, { type AlertProps } from "./alert.tsx";
 import { setMusicFileMetadata } from "../actions.ts";
@@ -15,8 +10,8 @@ type EditAudioMetadataFormProps = {
   onTagged: () => unknown;
 };
 
-const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
-  { metadata, file, onTagged },
+const EditAudioMetadataForm = (
+  { metadata, file, onTagged }: EditAudioMetadataFormProps,
 ) => {
   const [alertInfo, setAlertInfo] = useState<AlertProps>({
     show: false,
@@ -25,8 +20,8 @@ const EditAudioMetadataForm: React.FC<EditAudioMetadataFormProps> = (
       setAlertInfo((ps) => ({ ...ps, show: false }));
     }, []),
   });
-  const imgRef = useRef<HTMLImageElement>(undefined);
-  const coverInputRef = useRef<HTMLInputElement>(undefined);
+  const imgRef = useRef<HTMLImageElement>();
+  const coverInputRef = useRef<HTMLInputElement>();
   const [coverSelectedFromAbove, setCoverSelectedFromAbove] = useState(
     !!metadata?.cover,
   );

@@ -9,9 +9,7 @@ export type AlertProps = {
   show: boolean;
 };
 
-const Alert: React.FC<AlertProps> = (
-  { error, message, title, show, handleClose },
-) => {
+const Alert = ({ error, message, title, show, handleClose }: AlertProps) => {
   return (
     <Modal
       show={show}

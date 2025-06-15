@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from "preact/hooks";
 import { Button, Table } from "react-bootstrap";
 import EditAudioFileMetadataModal from "./edit-audio-metadata-modal.tsx";
 import ShowAudioFileMetadataModal from "./show-audio-metadata-modal.tsx";
@@ -10,9 +10,7 @@ type MusicFileRowProps = {
   onEdit: () => unknown;
 };
 
-const MusicFileRow: React.FC<MusicFileRowProps> = (
-  { file, id, onInfo, onEdit },
-) => {
+const MusicFileRow = ({ file, id, onInfo, onEdit }: MusicFileRowProps) => {
   return (
     <tr>
       <td>{id}</td>
@@ -35,7 +33,7 @@ type MusicFilesProps = {
   files: string[];
 };
 
-const MusicFiles: React.FC<MusicFilesProps> = ({ files }) => {
+const MusicFiles = ({ files }: MusicFilesProps) => {
   const [file, setFile] = useState<string | undefined>(undefined);
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);

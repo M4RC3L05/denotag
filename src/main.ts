@@ -7,7 +7,7 @@ import {
 import { bootActions } from "./actions.ts";
 import meta from "./../deno.json" with { type: "json" };
 
-const indexFile = new URL("./../data/index.html", import.meta.url);
+const indexFile = new URL("./../client/dist/index.html", import.meta.url);
 const indexFileContents = Deno.readTextFileSync(indexFile);
 
 const help = `

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "preact/hooks";
 import { Col, Container, Modal, Row } from "react-bootstrap";
 import EditAudioMetadataForm from "./edit-audio-metdata-form.tsx";
 import RemoteAudioInfo from "./remote-audio-info.tsx";
@@ -11,8 +11,8 @@ type EditAudioFileMetadataModalPorps = {
   handleClose: () => unknown;
 };
 
-const EditAudioFileMetadataModal: React.FC<EditAudioFileMetadataModalPorps> = (
-  { file, show, handleClose },
+const EditAudioFileMetadataModal = (
+  { file, show, handleClose }: EditAudioFileMetadataModalPorps,
 ) => {
   const [metadata, setMetadata] = useState<
     Awaited<ReturnType<typeof getMusicFileMetadata>> | undefined

@@ -5,11 +5,11 @@
   "tasks": {
     "run": {
       "description": "Runs the program",
-      "command": "./client/scripts/bundle.ts && deno run --allow-read=./data --cached-only --allow-env=ENV --allow-net=127.0.0.1 src/main.ts"
+      "command": "cd client && deno task build && cd .. && deno run --allow-read=./data --cached-only --allow-env=ENV --allow-net=127.0.0.1 src/main.ts"
     },
     "compile": {
       "description": "Compiles the program",
-      "command": "./client/scripts/bundle.ts && deno compile --cached-only --unstable-npm-lazy-caching --allow-env=ENV --allow-net=127.0.0.1 --include ./data/index.html --env=.env -o ./.bin/denotag ./src/main.ts"
+      "command": "cd client && deno task build && cd .. && deno compile --cached-only --unstable-npm-lazy-caching --allow-env=ENV --allow-net=127.0.0.1 --include ./client/dist/index.html --env=.env -o ./.bin/denotag ./src/main.ts"
     },
     "check:fmt": {
       "description": "Run formatting checks",

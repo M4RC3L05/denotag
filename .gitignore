@@ -3,3 +3,6 @@
 data
 .env
 embed.json
+node_modules
+dist
+.vite
