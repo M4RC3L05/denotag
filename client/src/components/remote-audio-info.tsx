@@ -9,10 +9,10 @@ type DisplayMetadataProps = {
 
 const DisplayMetadata = ({ metadata }: DisplayMetadataProps) => {
   const albumArtist = metadata.collectionArtistName ?? metadata.artistName;
-  const year = new Date(metadata.releaseDate).getFullYear();
-  const date = `${new Date(metadata.releaseDate).getFullYear()}-${
-    ("0" + (new Date(metadata.releaseDate).getMonth() + 1)).slice(-2)
-  }-${("0" + new Date(metadata.releaseDate).getDate()).slice(-2)}`;
+  const year = new Date(metadata.releaseDate!).getFullYear();
+  const date = `${new Date(metadata.releaseDate!).getFullYear()}-${
+    ("0" + (new Date(metadata.releaseDate!).getMonth() + 1)).slice(-2)
+  }-${("0" + new Date(metadata.releaseDate!).getDate()).slice(-2)}`;
 
   return (
     <>
@@ -101,20 +101,20 @@ const RemoteAudioInfo = ({ onSelect }: RemoteAudioInfoProps) => {
 
   const onUse = (data: Record<string, string | number>) => () => {
     onSelect({
-      albumArtist: data.collectionArtistName ?? data.artistName,
+      albumArtist: data.collectionArtistName ?? data.artistName!,
       album: `${data.collectionName} // ${data.collectionCensoredName}`,
       title: `${data.trackName} // ${data.trackCensoredName}`,
-      year: new Date(data.releaseDate).getFullYear(),
-      date: `${new Date(data.releaseDate).getFullYear()}-${
-        ("0" + (new Date(data.releaseDate).getMonth() + 1)).slice(-2)
-      }-${("0" + new Date(data.releaseDate).getDate()).slice(-2)}`,
-      artist: data.artistName,
-      genre: data.primaryGenreName,
+      year: new Date(data.releaseDate!).getFullYear(),
+      date: `${new Date(data.releaseDate!).getFullYear()}-${
+        ("0" + (new Date(data.releaseDate!).getMonth() + 1)).slice(-2)
+      }-${("0" + new Date(data.releaseDate!).getDate()).slice(-2)}`,
+      artist: data.artistName!,
+      genre: data.primaryGenreName!,
       cover: (data.artworkUrl100 as string).replace("100x100bb", "1200x1200bb"),
-      track: data.trackNumber,
-      trackCount: data.trackCount,
-      disc: data.discNumber,
-      discCount: data.discCount,
+      track: data.trackNumber!,
+      trackCount: data.trackCount!,
+      disc: data.discNumber!,
+      discCount: data.discCount!,
     });
   };
 

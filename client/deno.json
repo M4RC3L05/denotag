@@ -26,7 +26,17 @@
     "lib": ["deno.ns", "dom", "dom.iterable"],
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "jsxImportSourceTypes": "@types/react"
+    "jsxImportSourceTypes": "@types/react",
+
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "fmt": {
     "exclude": ["node_modules"]
@@ -34,7 +44,8 @@
   "lint": {
     "exclude": ["node_modules"],
     "rules": {
-      "include": ["verbatim-module-syntax"]
+      "include": ["verbatim-module-syntax"],
+      "tags": ["recommended", "jsx", "jsr", "react"]
     }
   },
   "imports": {

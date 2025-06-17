@@ -1,17 +1,23 @@
 // deno-lint-ignore no-explicit-any
-const call = <R>(callName: string, ...args: any[]) =>
-  fetch(`/call/${callName}`, {
+const call = <R>(callName: string, ...args: any[]) => {
+  const init: RequestInit = {
     method: "POST",
     body: args.length > 0
       ? args[0] instanceof FormData ? args[0] : JSON.stringify(args)
-      : undefined,
-    headers: args.length > 0 && !(args[0] instanceof FormData)
-      ? { "content-type": "application/json" }
-      : undefined,
-  }).then((x) => x.json()).then(({ data, error }) => {
-    if (error) throw error;
-    return data;
-  }) as Promise<R>;
+      : null,
+  };
+
+  if (args.length > 0 && !(args[0] instanceof FormData)) {
+    init.headers = { "content-type": "application/json" };
+  }
+
+  return fetch(`/call/${callName}`, init).then((x) => x.json()).then(
+    ({ data, error }) => {
+      if (error) throw error;
+      return data;
+    },
+  ) as Promise<R>;
+};
 
 export const getFiles = () => call<string[]>("getFiles");
 

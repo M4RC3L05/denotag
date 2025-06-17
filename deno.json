@@ -31,11 +31,22 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "lib": ["dom", "dom.iterable", "deno.ns"]
+    "lib": ["dom", "dom.iterable", "deno.ns"],
+
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "lint": {
     "rules": {
-      "include": ["verbatim-module-syntax"]
+      "include": ["verbatim-module-syntax"],
+      "tags": ["recommended", "jsr"]
     },
     "exclude": ["client"]
   },

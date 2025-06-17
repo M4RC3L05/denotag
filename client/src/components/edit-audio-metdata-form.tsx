@@ -72,7 +72,7 @@ const EditAudioMetadataForm = (
     reader.onloadend = () => {
       imgRef.current!.src = reader.result as string;
     };
-    reader.readAsDataURL(e.target.files![0]);
+    reader.readAsDataURL(e.target.files![0]!);
   };
 
   return (
