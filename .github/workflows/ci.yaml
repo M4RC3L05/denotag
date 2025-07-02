@@ -20,4 +20,4 @@ jobs:
         run: deno install --frozen=true && cd client && deno install --frozen=true
 
       - name: run code checks
-        run: deno task checks && cd client && deno task checks
+        run: mkdir ./client/dist && touch ./client/dist/index.html && deno task checks && cd client && deno task checks
