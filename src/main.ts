@@ -6,9 +6,7 @@ import {
 } from "@mjackson/multipart-parser";
 import { bootActions } from "./actions.ts";
 import meta from "./../deno.json" with { type: "json" };
-
-const indexFile = new URL("./../client/dist/index.html", import.meta.url);
-const indexFileContents = Deno.readTextFileSync(indexFile);
+import index from "./../client/dist/index.html" with { type: "text" };
 
 const help = `
 Denotag
@@ -108,7 +106,7 @@ const onTagCmd = async ({ dir }: { dir: string }) => {
       return Response.json(await invokeAction(callName as any, ...args));
     }
 
-    return new Response(indexFileContents, {
+    return new Response(index, {
       headers: { "content-type": "text/html" },
       status: 200,
     });
