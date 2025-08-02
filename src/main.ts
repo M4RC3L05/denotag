@@ -6,7 +6,7 @@ import {
 } from "@mjackson/multipart-parser";
 import { bootActions } from "./actions.ts";
 import meta from "./../deno.json" with { type: "json" };
-import index from "./../client/dist/index.html" with { type: "text" };
+import index from "./../dist/index.html" with { type: "text" };
 
 const help = `
 Denotag

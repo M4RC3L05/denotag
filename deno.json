@@ -3,13 +3,23 @@
   "version": "4.6.16",
   "exports": "./src/main.ts",
   "tasks": {
+    "build": {
+      "description": "Build frontend",
+      "command": "vite build"
+    },
     "run": {
       "description": "Runs the program",
-      "command": "cd client && deno task build && cd .. && deno run --allow-read=./data --cached-only --allow-env=ENV --allow-net=127.0.0.1 src/main.ts"
+      "command": "deno run --allow-read=./data --cached-only --allow-env=ENV --allow-net=127.0.0.1 src/main.ts",
+      "dependencies": [
+        "build"
+      ]
     },
     "compile": {
       "description": "Compiles the program",
-      "command": "cd client && deno task build && cd .. && deno compile --cached-only --allow-env=ENV --allow-net=127.0.0.1 --env=.env -o ./.bin/denotag ./src/main.ts"
+      "command": "deno compile --cached-only --allow-env=ENV --allow-net=127.0.0.1 --env=.env -o ./.bin/denotag ./src/main.ts",
+      "dependencies": [
+        "build"
+      ]
     },
     "check:fmt": {
       "description": "Run formatting checks",
@@ -25,14 +35,22 @@
     },
     "checks": {
       "description": "Run code checks",
-      "dependencies": ["check:fmt", "check:lint", "check:check"]
+      "dependencies": [
+        "check:fmt",
+        "check:lint",
+        "check:check"
+      ]
     }
   },
   "compilerOptions": {
+    "lib": [
+      "deno.ns",
+      "dom",
+      "dom.iterable"
+    ],
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "lib": ["dom", "dom.iterable", "deno.ns"],
-
+    "jsxImportSource": "preact",
+    "jsxImportSourceTypes": "@types/react",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "exactOptionalPropertyTypes": true,
@@ -43,22 +61,43 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "unstable": ["raw-imports"],
+  "nodeModulesDir": "auto",
+  "unstable": [
+    "raw-imports"
+  ],
   "lint": {
     "rules": {
-      "include": ["verbatim-module-syntax"],
-      "tags": ["recommended", "jsr"]
+      "include": [
+        "verbatim-module-syntax"
+      ],
+      "tags": [
+        "recommended",
+        "jsr"
+      ]
     },
-    "exclude": ["client"]
+    "exclude": [
+      "client"
+    ]
   },
   "fmt": {
-    "exclude": ["data", "client"]
+    "exclude": [
+      "data",
+      "client"
+    ]
   },
   "imports": {
     "@david/dax": "jsr:@david/dax@0.43.2",
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.5",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.10.1",
+    "@preact/preset-vite": "npm:@preact/preset-vite@2.10.2",
     "@std/cli": "jsr:@std/cli@1.0.20",
     "@std/path": "jsr:@std/path@1.1.1",
-    "node-taglib-sharp": "npm:node-taglib-sharp@6.0.1"
+    "@types/react": "npm:@types/react@19.1.8",
+    "bootstrap": "npm:bootstrap@5.3.7",
+    "node-taglib-sharp": "npm:node-taglib-sharp@6.0.1",
+    "preact": "npm:preact@10.26.9",
+    "react-bootstrap": "npm:react-bootstrap@2.10.10",
+    "vite": "npm:vite@7.0.0",
+    "vite-plugin-singlefile": "npm:vite-plugin-singlefile@2.3.0"
   }
 }
