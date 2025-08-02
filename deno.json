@@ -90,14 +90,14 @@
     "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.5",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.10.1",
     "@preact/preset-vite": "npm:@preact/preset-vite@2.10.2",
-    "@std/cli": "jsr:@std/cli@1.0.20",
+    "@std/cli": "jsr:@std/cli@1.0.21",
     "@std/path": "jsr:@std/path@1.1.1",
-    "@types/react": "npm:@types/react@19.1.8",
+    "@types/react": "npm:@types/react@19.1.9",
     "bootstrap": "npm:bootstrap@5.3.7",
     "node-taglib-sharp": "npm:node-taglib-sharp@6.0.1",
-    "preact": "npm:preact@10.26.9",
+    "preact": "npm:preact@10.27.0",
     "react-bootstrap": "npm:react-bootstrap@2.10.10",
-    "vite": "npm:vite@7.0.0",
+    "vite": "npm:vite@7.0.6",
     "vite-plugin-singlefile": "npm:vite-plugin-singlefile@2.3.0"
   }
 }
