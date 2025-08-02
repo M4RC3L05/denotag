@@ -16,13 +16,11 @@ const targets = [
   "x86_64-unknown-linux-gnu",
   "aarch64-unknown-linux-gnu",
 ] as const;
-const compileDenoJson = `
-{
-  "lock": false,
-  "nodeModulesDir": "none",
-  "imports": ${JSON.stringify(meta.imports, null, 2)}
-}
-`.trim();
+const compileDenoJson = JSON.stringify(
+  { ...meta, lock: false, nodeModulesDir: "none" },
+  null,
+  2,
+);
 
 const buildFor = async (target: typeof targets[number]) => {
   const compileDirName = `${binName}-${target}`;
@@ -62,8 +60,6 @@ await binDir.emptyDir();
 await $`echo "ENV=production" > ${rootDir.resolve(".env")}`;
 await $`deno task build`;
 await $`echo ${compileDenoJson} > deno.json`;
-await $`rm -rf node_modules`;
 await $`rm -rf deno.lock`;
-await $`deno clean`;
-await $`deno install --unstable-npm-lazy-caching --unstable-raw-imports --entrypoint src/main.ts`;
 await Promise.all(targets.map(buildFor));
+await $`echo ${JSON.stringify(meta, null, 2)} > deno.json`;
