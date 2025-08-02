@@ -72,18 +72,11 @@
       ],
       "tags": [
         "recommended",
-        "jsr"
+        "jsx",
+        "jsr",
+        "react"
       ]
-    },
-    "exclude": [
-      "client"
-    ]
-  },
-  "fmt": {
-    "exclude": [
-      "data",
-      "client"
-    ]
+    }
   },
   "imports": {
     "@david/dax": "jsr:@david/dax@0.43.2",
