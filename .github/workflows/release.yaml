@@ -23,17 +23,6 @@ jobs:
           install: true
           cache: true
 
-      - name: install client deps
-        working-directory: ./client
-        run: deno install --frozen=true
-
-      - name: build client
-        working-directory: ./client
-        run: deno task build
-
-      - name: remove client deps
-        run: deno clean
-
       - name: install deps
         run: deno install --frozen=true
 
