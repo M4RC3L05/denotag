@@ -61,5 +61,6 @@ await $`echo "ENV=production" > ${rootDir.resolve(".env")}`;
 await $`deno task build`;
 await $`echo ${compileDenoJson} > deno.json`;
 await $`rm -rf deno.lock`;
+await $`deno install --unstable-npm-lazy-caching --unstable-raw-imports --entrypoint src/main.ts`;
 await Promise.all(targets.map(buildFor));
 await $`echo ${JSON.stringify(meta, null, 2)} > deno.json`;
