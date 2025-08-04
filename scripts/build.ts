@@ -16,8 +16,33 @@ const targets = [
   "x86_64-unknown-linux-gnu",
   "aarch64-unknown-linux-gnu",
 ] as const;
+
+const requiredDepsInfo = await $`deno info --json src/main.ts`.json();
+const requiredDeps = new Set(
+  (requiredDepsInfo.modules as {
+    specifier?: string;
+    kind?: string;
+    dependencies?: { specifier: string }[];
+  }[]).filter((item) =>
+    item.kind === "esm" && item.specifier && URL.canParse(item.specifier) &&
+    item.specifier.includes("denotag/src/") &&
+    Array.isArray(item.dependencies) && item.dependencies.length > 0
+  ).flatMap((item) =>
+    item.dependencies?.filter((dep) => (dep.specifier in meta.imports)).map(
+      (dep) => dep.specifier,
+    )
+  ),
+);
+
 const compileDenoJson = JSON.stringify(
-  { ...meta, lock: false, nodeModulesDir: "none" },
+  {
+    ...meta,
+    imports: Object.fromEntries(
+      requiredDeps.values().map((
+        v,
+      ) => [v, meta.imports[v as keyof typeof meta.imports]]),
+    ),
+  },
   null,
   2,
 );
@@ -60,7 +85,7 @@ await binDir.emptyDir();
 await $`echo "ENV=production" > ${rootDir.resolve(".env")}`;
 await $`deno task build`;
 await $`echo ${compileDenoJson} > deno.json`;
-await $`rm -rf deno.lock`;
-await $`deno install --unstable-npm-lazy-caching --unstable-raw-imports --entrypoint src/main.ts`;
+await $`rm -rf node_modules`;
+await $`deno install`;
 await Promise.all(targets.map(buildFor));
 await $`echo ${JSON.stringify(meta, null, 2)} > deno.json`;
