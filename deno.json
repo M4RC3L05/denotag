@@ -78,6 +78,7 @@
       ]
     }
   },
+  "minimumDependencyAge": "P7D",
   "imports": {
     "@david/dax": "jsr:@david/dax@0.44.2",
     "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.6",
