@@ -16,7 +16,7 @@
     },
     "compile": {
       "description": "Compiles the program",
-      "command": "deno compile --cached-only --allow-env=ENV --allow-net=127.0.0.1 --env=.env -o ./.bin/denotag ./src/main.ts",
+      "command": "deno compile --unstable-npm-lazy-caching --no-check --allow-env=ENV --allow-net=127.0.0.1 --env=.env -o ./.bin/denotag ./src/main.ts",
       "dependencies": [
         "build"
       ]
@@ -79,18 +79,18 @@
     }
   },
   "imports": {
-    "@david/dax": "jsr:@david/dax@0.43.2",
-    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.5",
+    "@david/dax": "jsr:@david/dax@0.44.2",
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.6",
     "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.10.1",
     "@preact/preset-vite": "npm:@preact/preset-vite@2.10.2",
-    "@std/cli": "jsr:@std/cli@1.0.22",
-    "@std/path": "jsr:@std/path@1.1.2",
-    "@types/react": "npm:@types/react@19.1.12",
+    "@std/cli": "jsr:@std/cli@1.0.25",
+    "@std/path": "jsr:@std/path@1.1.4",
+    "@types/react": "npm:@types/react@19.2.8",
     "bootstrap": "npm:bootstrap@5.3.8",
     "node-taglib-sharp": "npm:node-taglib-sharp@6.0.1",
-    "preact": "npm:preact@10.27.1",
+    "preact": "npm:preact@10.28.2",
     "react-bootstrap": "npm:react-bootstrap@2.10.10",
-    "vite": "npm:vite@7.1.5",
+    "vite": "npm:vite@7.3.1",
     "vite-plugin-singlefile": "npm:vite-plugin-singlefile@2.3.0"
   }
 }
