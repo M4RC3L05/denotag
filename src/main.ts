@@ -11,7 +11,7 @@ import index from "./../dist/index.html" with { type: "text" };
 const help = `
 Denotag
 
-Utility to that audio files.
+Utility to tag audio files.
 It spawns a local web server that can accessed via a web browser,
 to be able to show the audio files to be tagged.
 
