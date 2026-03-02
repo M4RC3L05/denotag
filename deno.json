@@ -1,6 +1,6 @@
 {
   "name": "@m4rc3l05/denotag",
-  "version": "4.6.20",
+  "version": "4.6.21",
   "exports": "./src/main.ts",
   "tasks": {
     "build": {
