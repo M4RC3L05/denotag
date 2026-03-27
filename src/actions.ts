@@ -1,65 +1,92 @@
-import { ByteVector, File, OggTag, PictureType } from "node-taglib-sharp";
-import { join } from "@std/path";
+import { ByteVector, File, PictureType } from "node-taglib-sharp";
+import { allExtensions } from "@std/media-types";
+import { walk } from "@std/fs";
 
-class ActionError extends Error {
-  toJSON() {
-    return {
-      message: this.message,
-      name: this.name,
-      stack: this.stack?.split("\n"),
-      cause: this.cause instanceof Error
-        ? {
-          message: this.cause.message,
-          name: this.cause.name,
-          stack: this.cause.stack?.split("\n"),
-        }
-        : this.cause,
-    };
+// deno-lint-ignore ban-ts-comment
+// @ts-expect-error
+const supportedMimeTypes = File._fileTypes as { [mimeType: string]: boolean };
+const supportedFileExtensions = Array.from(
+  new Set(
+    Object.keys(supportedMimeTypes)
+      .flatMap((x) => allExtensions(x))
+      .filter((x) => typeof x === "string"),
+  ),
+);
+
+async function* filesGen(
+  dir: string,
+  options?: { where?: { name?: string } },
+) {
+  for await (
+    const file of walk(dir, {
+      includeDirs: false,
+      includeFiles: true,
+      includeSymlinks: false,
+      followSymlinks: false,
+      exts: supportedFileExtensions,
+    })
+  ) {
+    if (!file.isFile) continue;
+
+    if (options?.where) {
+      if (options.where.name) {
+        const matchName = file.path.toLowerCase().includes(
+          options.where.name.toLowerCase(),
+        );
+
+        if (!matchName) continue;
+      }
+    }
+
+    yield file.path;
   }
 }
 
-const actionErrorMapper =
-  // deno-lint-ignore no-explicit-any
-  <F extends (...args: any[]) => any>(fn: F) =>
-  async (
-    ...args: Parameters<typeof fn>
-  ): Promise<{ data: ReturnType<typeof fn> } | { error: unknown }> => {
-    try {
-      return { data: await fn(...args) };
-    } catch (error) {
-      return {
-        error: new ActionError(`Error running action "${fn.name}"`, {
-          cause: error,
-        }),
-      };
+export const getFiles = async (
+  dir: string,
+  options?: { where?: { name?: string }; order?: { name?: "asc" | "desc" } },
+) => {
+  const files = await Array.fromAsync(filesGen(dir, options));
+
+  if (options?.order) {
+    if (options.order.name) {
+      const { name } = options.order;
+
+      return files.sort((a, b) =>
+        name === "asc" ? a.localeCompare(b) : b.localeCompare(a)
+      );
     }
-  };
-
-const getFiles = (dir: string) => () => {
-  const result = [];
-
-  for (const file of Deno.readDirSync(dir)) {
-    result.push(join(dir, file.name));
   }
 
-  return result.sort((a, b) => a.localeCompare(b));
+  return files;
 };
 
-const getMusicFileMetadata = ({ path }: { path: string }) => {
+export type AudioTags = {
+  albumArtist: string | undefined;
+  album: string | undefined;
+  title: string | undefined;
+  year: number | undefined;
+  artist: string | undefined;
+  genre: string | undefined;
+  cover: string | undefined;
+  track: number | undefined;
+  trackCount: number | undefined;
+  disc: number | undefined;
+  discCount: number | undefined;
+};
+
+export const getMusicFileMetadata = ({ path }: { path: string }) => {
   const file = File.createFromPath(path);
 
   const cover = file.tag.pictures.find((p) =>
     p.type === PictureType.FrontCover
   );
 
-  const data = {
+  const data: AudioTags = {
     albumArtist: file.tag.firstAlbumArtist,
     album: file.tag.album,
     title: file.tag.title,
     year: file.tag.year,
-    date: file.tag instanceof OggTag
-      ? file.tag.comments[0]?.getField?.("DATE")?.[0]
-      : undefined,
     artist: file.tag.firstPerformer,
     genre: file.tag.firstGenre,
     cover: cover && cover.data.length > 0
@@ -76,23 +103,20 @@ const getMusicFileMetadata = ({ path }: { path: string }) => {
   return data;
 };
 
-const setMusicFileMetadata = (
-  // deno-lint-ignore no-explicit-any
-  { path, ...metadata }: { path: string } & Record<string, any>,
+export type SetMusicFileMetadataPayload = Omit<Partial<AudioTags>, "cover"> & {
+  cover?: { data: Uint8Array; mimetype: string };
+};
+
+export const setMusicFileMetadata = (
+  { path, metadata }: {
+    path: string;
+    metadata: SetMusicFileMetadataPayload;
+  },
 ) => {
   const file = File.createFromPath(path);
 
   if (metadata.album) file.tag.album = metadata.album;
   if (metadata.year) file.tag.year = Number(metadata.year);
-
-  if (metadata.date) {
-    if (file.tag instanceof OggTag) {
-      file.tag.comments?.[0]?.setFieldAsStrings(
-        "DATE",
-        metadata.date,
-      );
-    }
-  }
 
   if (metadata.albumArtist) {
     file.tag.albumArtists = [metadata.albumArtist];
@@ -116,36 +140,5 @@ const setMusicFileMetadata = (
   }
 
   file.save();
-};
-
-export const bootActions = (data: { dir: string }) => {
-  const callMap = {
-    getFiles: actionErrorMapper(getFiles(data.dir)),
-    getMusicFileMetadata: actionErrorMapper(
-      getMusicFileMetadata,
-    ),
-    setMusicFileMetadata: actionErrorMapper(
-      setMusicFileMetadata,
-    ),
-  };
-
-  type CallMap = typeof callMap;
-
-  const invokeAction = async <K extends keyof CallMap>(
-    callName: K,
-    ...args: Parameters<CallMap[K]>
-  ): Promise<{ data: ReturnType<CallMap[K]> } | { error: ActionError }> => {
-    if (!(callName in callMap)) {
-      return { error: new ActionError(`Call "${callName}" does not exists`) };
-    }
-
-    // deno-lint-ignore ban-ts-comment
-    // @ts-ignore
-    // deno-lint-ignore no-explicit-any
-    return await callMap[callName](...args) as any as Promise<
-      { data: ReturnType<CallMap[K]> } | { error: ActionError }
-    >;
-  };
-
-  return { invokeAction };
+  file.dispose();
 };

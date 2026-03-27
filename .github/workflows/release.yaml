@@ -24,7 +24,7 @@ jobs:
           cache: true
 
       - name: install deps
-        run: deno install --frozen=true
+        run: deno install
 
       - name: build
         run: ./scripts/build.ts

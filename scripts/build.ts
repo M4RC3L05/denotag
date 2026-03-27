@@ -33,7 +33,7 @@ const buildFor = async (target: typeof targets[number]) => {
     `${compressedBinName}.sha256`,
   );
 
-  await $`deno compile --cached-only --unstable-npm-lazy-caching --no-check --allow-env=ENV --allow-net=127.0.0.1 --env=${
+  await $`deno compile --cached-only --no-check --allow-env=ENV,STATIC_CACHE_KEY --include=./static --allow-net=127.0.0.1 --env=${
     rootDir.resolve(".env")
   } --target=${target} --output=${compiledPath} ${
     rootDir.resolve("src", "main.ts")
@@ -52,8 +52,6 @@ const buildFor = async (target: typeof targets[number]) => {
 
 await binDir.emptyDir();
 await $`echo "ENV=production" > ${rootDir.resolve(".env")}`;
-await $`deno install --frozen=true`;
-await $`deno task build`;
-await $`deno clean && rm -rf node_modules`;
-await $`deno install --frozen=true --unstable-npm-lazy-caching --entrypoint src/main.ts`;
+await $`deno install`;
+await $`deno task bundle-islands`;
 await Promise.all(targets.map(buildFor));

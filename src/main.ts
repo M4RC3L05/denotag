@@ -1,12 +1,20 @@
 import { parseArgs } from "@std/cli";
 import { resolve } from "@std/path";
+import { Hono } from "@hono/hono";
+import { serveStatic } from "@hono/hono/deno";
 import {
-  isMultipartRequest,
-  parseMultipartRequest,
-} from "@mjackson/multipart-parser";
-import { bootActions } from "./actions.ts";
+  getFiles,
+  getMusicFileMetadata,
+  setMusicFileMetadata,
+  type SetMusicFileMetadataPayload,
+} from "./actions.ts";
 import meta from "./../deno.json" with { type: "json" };
-import index from "./../dist/index.html" with { type: "text" };
+import { Index } from "./pages/Index.tsx";
+import { layout } from "./pages/layout.ts";
+import { renderPage } from "./core/ssr.tsx";
+import { Audio } from "./pages/audio.tsx";
+import { AudioError } from "./pages/audio-error.tsx";
+import { TagAudio } from "./pages/tag-audio.tsx";
 
 const help = `
 Denotag
@@ -66,51 +74,147 @@ const onTagCmd = async ({ dir }: { dir: string }) => {
     throw new Error(`Dir "${dir}" it not a directory or is not a valid path`);
   }
 
-  const { invokeAction } = bootActions({ dir });
+  const app = new Hono();
+
+  app.get(
+    "/static/*",
+    serveStatic({
+      root: resolve(import.meta.dirname!, "..", "static"),
+      rewriteRequestPath: (path) => path.replace("/static/", "/"),
+      onFound: (p, ctx) => {
+        if (p.endsWith(".js")) {
+          ctx.header("Cache-Control", "public, max-age=31536000");
+        }
+      },
+    }),
+  );
+
+  app.get("/", async (ctx) => {
+    return ctx.html(
+      renderPage(Index, {
+        layout: layout(),
+        props: {
+          q: ctx.req.query("q") ?? "",
+          files: await getFiles(dir, {
+            where: { name: ctx.req.query("q") ?? "" },
+            order: { name: "asc" },
+          }),
+        },
+      }),
+    );
+  });
+
+  app.get("/tag", (ctx) => {
+    const path = decodeURIComponent(ctx.req.query("path")!);
+    const metadata = (() => {
+      try {
+        return getMusicFileMetadata({
+          path: path,
+        });
+      } catch (error) {
+        if (error instanceof Error) {
+          return error;
+        }
+
+        return new Error("Unknown error", { cause: error });
+      }
+    })();
+
+    if (metadata instanceof Error) {
+      return new Response(
+        renderPage(AudioError, {
+          layout: layout(),
+          props: { file: path, error: metadata },
+        }),
+        { headers: { "content-type": "text/html" }, status: 400 },
+      );
+    }
+
+    return new Response(
+      renderPage(TagAudio, {
+        layout: layout(),
+        props: { file: path, metadata: metadata },
+      }),
+      { headers: { "content-type": "text/html" }, status: 200 },
+    );
+  });
+
+  app.post("/tag", async (ctx) => {
+    const data = await ctx.req.parseBody();
+
+    const path = data["path"] as string;
+    const metadata: SetMusicFileMetadataPayload = { ...data };
+
+    if (data["cover"] && data["cover"] instanceof File) {
+      metadata.cover = {
+        data: await data["cover"].bytes(),
+        mimetype: data["cover"].type,
+      };
+    } else {
+      delete metadata.cover;
+    }
+
+    delete (metadata as { path?: string }).path;
+
+    try {
+      setMusicFileMetadata({ path, metadata });
+    } catch (error) {
+      return new Response(
+        renderPage(AudioError, {
+          layout: layout(),
+          props: {
+            file: path,
+            error: error instanceof Error
+              ? error
+              : new Error("Something broke", { cause: error }),
+          },
+        }),
+        { headers: { "content-type": "text/html" }, status: 400 },
+      );
+    }
+
+    return ctx.redirect(`/tag?path=${encodeURIComponent(path)}`);
+  });
+
+  app.get("/audio", (ctx) => {
+    const path = decodeURIComponent(ctx.req.query("path")!);
+    const metadata = (() => {
+      try {
+        return getMusicFileMetadata({
+          path: path,
+        });
+      } catch (error) {
+        if (error instanceof Error) {
+          return error;
+        }
+
+        return new Error("Unknown error", { cause: error });
+      }
+    })();
+
+    if (metadata instanceof Error) {
+      return new Response(
+        renderPage(AudioError, {
+          layout: layout(),
+          props: { file: path, error: metadata },
+        }),
+        { headers: { "content-type": "text/html" }, status: 200 },
+      );
+    }
+
+    return new Response(
+      renderPage(Audio, {
+        layout: layout(),
+        props: { file: path, metadata: metadata },
+      }),
+      { headers: { "content-type": "text/html" }, status: 200 },
+    );
+  });
 
   return Deno.serve({
     hostname: "127.0.0.1",
     port: Deno.env.get("ENV") === "production" ? 0 : 8000,
-  }, async (request) => {
-    const { pathname } = new URL(request.url);
-
-    if (request.method === "POST" && pathname.startsWith("/call")) {
-      const [_, callName] = pathname.slice(1).split("/");
-
-      const hasContent = (request.headers.has("content-length") &&
-        request.headers.get("content-length") !== "0") ||
-        (request.headers.has("content-type") &&
-          (request.headers.get("content-type")?.includes(
-            "application/json",
-          ) ||
-            isMultipartRequest(request)));
-
-      const args = hasContent
-        ? isMultipartRequest(request)
-          ? [
-            Object.fromEntries(
-              (await Array.fromAsync(parseMultipartRequest(request))).filter(
-                (item) => !!item.name,
-              ).map((item) => [
-                item.name,
-                item.isFile
-                  ? { mimetype: item.mediaType, data: item.bytes }
-                  : item.text,
-              ]),
-            ),
-          ]
-          : await request.json()
-        : [];
-
-      // deno-lint-ignore no-explicit-any
-      return Response.json(await invokeAction(callName as any, ...args));
-    }
-
-    return new Response(index, {
-      headers: { "content-type": "text/html" },
-      status: 200,
-    });
-  });
+  }, app.fetch);
 };
 
 if (import.meta.main) {

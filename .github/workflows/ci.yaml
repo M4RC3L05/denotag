@@ -17,7 +17,7 @@ jobs:
           cache: true
 
       - name: install deps
-        run: deno install --frozen=true
+        run: deno install
 
       - name: run code checks
-        run: mkdir ./dist && touch ./dist/index.html && deno task checks
+        run: deno task checks

@@ -3,24 +3,35 @@
   "version": "4.6.21",
   "exports": "./src/main.ts",
   "tasks": {
-    "build": {
-      "description": "Build frontend",
-      "command": "vite build"
+    "pre:bundle-islands": "rm -rf ./static/dist && cp deno.json deno.web.json && sed -i 's/\"jsx\": \"precompile\"/\"jsx\": \"react-jsx\"/' deno.web.json",
+    "main:bundle-islands": "deno bundle --platform browser --format esm --code-splitting --inline-imports --minify --outdir=./static/dist --config=deno.web.json ./src/islands/**/*.tsx",
+    "post:bundle-islands": "rm deno.web.json",
+    "bundle-islands": {
+      "description": "Bundles app's islands of interactivity",
+      "command": "deno task pre:bundle-islands && deno task main:bundle-islands && deno task post:bundle-islands"
     },
-    "run": {
-      "description": "Runs the program",
-      "command": "deno run --allow-read=./data --cached-only --allow-env=ENV --allow-net=127.0.0.1 src/main.ts",
-      "dependencies": [
-        "build"
-      ]
-    },
+
+    "pre:compile": "rm -rf ./app",
+    "main:compile": "deno compile --allow-env=ENV,STATIC_CACHE_KEY --allow-net=127.0.0.1 --cached-only --no-check --include=./static --output=./.bin/denotag src/main.ts",
     "compile": {
-      "description": "Compiles the program",
-      "command": "deno compile --unstable-npm-lazy-caching --no-check --allow-env=ENV --allow-net=127.0.0.1 --env=.env -o ./.bin/denotag ./src/main.ts",
-      "dependencies": [
-        "build"
-      ]
+      "description": "Compile app into a self containing executable",
+      "command": "deno task pre:compile && deno task main:compile",
+      "dependencies": ["bundle-islands"]
     },
+
+    "run": {
+      "description": "Runs the application",
+      "command": "deno run -A --cached-only src/main.ts",
+      "dependencies": ["bundle-islands"]
+    },
+
+    "pre:sync-myfresh": "mkdir -p src/core",
+    "main:sync-myfresh": "CORE_DIR=./src/core deno run --unstable-raw-imports -A --reload https://raw.githubusercontent.com/M4RC3L05/My-fresh/refs/heads/main/sync.ts",
+    "sync-myfresh": {
+      "description": "Sync core files from my-fresh",
+      "command": "deno task pre:sync-myfresh && deno task main:sync-myfresh"
+    },
+
     "check:fmt": {
       "description": "Run formatting checks",
       "command": "deno fmt --check ."
@@ -44,27 +55,36 @@
   },
   "compilerOptions": {
     "lib": [
-      "deno.ns",
-      "dom",
-      "dom.iterable"
+      "deno.window",
+      "deno.unstable",
+      "node",
+      "dom"
     ],
-    "jsx": "react-jsx",
+    "jsx": "precompile",
     "jsxImportSource": "preact",
-    "jsxImportSourceTypes": "@types/react",
-    "allowUnreachableCode": false,
+
+    "strict": true,
     "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "strictBindCallApply": true,
+    "strictBuiltinIteratorReturn": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true
   },
-  "nodeModulesDir": "auto",
-  "unstable": [
-    "raw-imports"
-  ],
+  "lock": { "frozen": true },
+  "unstable": ["raw-imports", "npm-lazy-caching"],
   "lint": {
     "rules": {
       "include": [
@@ -81,17 +101,14 @@
   "minimumDependencyAge": "P7D",
   "imports": {
     "@david/dax": "jsr:@david/dax@0.45.0",
-    "@deno/vite-plugin": "npm:@deno/vite-plugin@1.0.6",
-    "@mjackson/multipart-parser": "jsr:@mjackson/multipart-parser@0.10.1",
-    "@preact/preset-vite": "npm:@preact/preset-vite@2.10.3",
+    "@hono/hono": "jsr:@hono/hono@4.12.8",
     "@std/cli": "jsr:@std/cli@1.0.28",
+    "@std/fs": "jsr:@std/fs@1.0.23",
+    "@std/media-types": "jsr:@std/media-types@1.1.0",
     "@std/path": "jsr:@std/path@1.1.4",
-    "@types/react": "npm:@types/react@19.2.14",
-    "bootstrap": "npm:bootstrap@5.3.8",
     "node-taglib-sharp": "npm:node-taglib-sharp@6.0.1",
-    "preact": "npm:preact@10.28.4",
-    "react-bootstrap": "npm:react-bootstrap@2.10.10",
-    "vite": "npm:vite@7.3.1",
-    "vite-plugin-singlefile": "npm:vite-plugin-singlefile@2.3.0"
+    "preact": "npm:preact@10.29.0",
+    "preact-render-to-string": "npm:preact-render-to-string@6.6.6",
+    "simpledotcss": "npm:simpledotcss@2.3.7"
   }
 }
